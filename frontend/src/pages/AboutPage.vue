@@ -52,6 +52,7 @@ div {
 
 
 h1 {
+    font-family: 'Lato', sans-serif;
     font-size: 36px;
     color: #ffffff;
     margin-top: 15px;

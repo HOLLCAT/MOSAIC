@@ -35,6 +35,7 @@ div {
     margin-top: 30px;
 }
 .card {
+    font-family: 'Lato', sans-serif;
     justify-content: space-around;
     align-items: center; 
     width: 100%; 

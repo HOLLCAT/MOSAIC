@@ -32,9 +32,11 @@ nav {
 }
   
 h1 {
-    font: 900 36px;
+    font-size: 40px;
+    font-weight: 300;
     color: #ffffff;
     margin-right: 30px;
+    font-family: 'Rockwell', sans-serif;
 }
   
 .nav-left, .nav-right {
@@ -44,6 +46,7 @@ h1 {
 }
   
 .left {
+    font-size: 20px;
     height: 100%; 
     margin: 0;  
     text-decoration: none;
@@ -53,10 +56,11 @@ h1 {
     display: flex;
     align-items: center;
     border-radius: 15px;
+    font-family: 'Lato', sans-serif;
 }
   
 .left:hover {
-    background-color: rgb(21, 16, 41);
+    background-color: rgba(21, 16, 41, 0.5);
 }
   
 nav .search-box {
@@ -67,6 +71,10 @@ nav .search-box {
       border-radius: 15px; 
       margin: 0 20px;
   }
+
+.active-link {
+    background-color: rgba(21, 16, 41, 0.5);
+}
   
   </style>
   
