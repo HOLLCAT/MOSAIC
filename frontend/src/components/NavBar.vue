@@ -6,18 +6,17 @@
             <router-link to="/about" class="left">About</router-link>
             <router-link to="/help" class="left">Help</router-link>
         </div>
+        <SearchBar />
         <div class="nav-right">
-            <input class="search-box" type="text" placeholder="Search ...">
             <router-link to="/login" class="left">Login</router-link>
             <router-link to="/register" class="left">Register</router-link>
         </div>
     </nav>
 </template>
   
-<script lang="ts">
-export default {
-    name: "NavBar"
-}
+<script setup lang="ts">
+import SearchBar from "@/components/SearchBar.vue";
+
 </script>
   
 <style scoped>
@@ -26,7 +25,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 50px;
+    padding: 30px 50px;
     background-color: rgb(61, 96, 143);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -51,7 +50,7 @@ h1 {
     margin: 0;  
     text-decoration: none;
     color: #ffffff;
-    padding: 5px 15px;
+    padding: 16px 15px;
     transition: background-color 0.3s;
     display: flex;
     align-items: center;
