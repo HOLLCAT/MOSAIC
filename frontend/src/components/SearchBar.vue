@@ -2,7 +2,7 @@
     <input type="text" placeholder="Search ...">
 </template>
   
-<script>
+<script lang="ts">
 export default {
     name: "SearchBar"
 }
