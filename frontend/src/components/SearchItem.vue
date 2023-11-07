@@ -1,0 +1,35 @@
+<template>
+    <div class="px-4 p-4 bg-slate-200 rounded-md mb-2">
+        <div class="flex text-gray-400 bg-gray-2">
+            <span class="accession">{{ item.accession }}</span>
+            <span class="pl-2 release-date">{{ item.releaseDate }}</span>
+            <span v-if="item.releaseFiles" class="pl-2 release-files">{{ item.releaseFiles }}</span>
+            <span v-if="item.releaseViews" class="pl-2 release-size">{{ item.releaseViews }}</span>
+        </div>
+        <div class="font-bold text-base text-purple-700 underline underline-offset-[1px] hover:cursor-pointer">
+            {{ item.title }}
+        </div>
+        <div class="text-sm text-gray-700">
+            {{ item.content }}
+        </div>
+    </div>
+</template>
+<script lang="ts">
+import { defineComponent } from 'vue';
+import type { SearchItemType } from '@/utils/dummyData';
+
+export default defineComponent({
+    name: 'SearchItem',
+    props: {
+        item: {
+            type: Object as () => SearchItemType,
+            required: true
+        }
+    },
+    setup(props) {
+        const { item } = props;
+        return { item };
+    }
+});
+
+</script>

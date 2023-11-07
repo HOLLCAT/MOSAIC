@@ -1,5 +1,5 @@
 <template>
-    <footer>
+    <footer class="mt-auto">
         <div class="footer-content">
             <div class="footer-section about">
                 <h2>About us</h2>
@@ -24,7 +24,7 @@
     </footer>
 </template>
 
-<script>
+<script lang="ts">
 export default {
     name: "SiteFooter"
 }
