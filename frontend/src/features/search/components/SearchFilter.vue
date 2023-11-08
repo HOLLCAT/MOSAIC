@@ -11,7 +11,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import FilterComponent from '@/components/FilterComponent.vue';
+import FilterComponent from './FilterComponent.vue';
 
 export default defineComponent({
   name: 'SearchFilter',

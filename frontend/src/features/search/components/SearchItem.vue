@@ -32,7 +32,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import type { SearchItemType } from '@/utils/dummyData';
+import type { SearchItemType } from 'public/dummyData.js';
 
 export default defineComponent({
     name: 'SearchItem',
@@ -48,4 +48,4 @@ export default defineComponent({
     }
 });
 
-</script>
+</script>public/dummyData@/utils/dummyData.js
