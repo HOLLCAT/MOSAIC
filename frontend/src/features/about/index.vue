@@ -1,23 +1,19 @@
 <template>
-    <div>
-        <div class="card">
-            <div class="item">
-                <h1>About</h1>
-                <p>...</p>
-            </div>
+    <div class="card">
+        <div class="item">
+            <h1>About</h1>
+            <p>...</p>
         </div>
     </div>
-
 </template>
   
 <script lang="ts">
+import { defineComponent } from 'vue';
 
-  
-export default {
+export default defineComponent({
     components: {
-    
     }
-}
+});
 </script>
 
 <style scoped>
@@ -63,7 +59,4 @@ p{
     color: #ffffff;
     margin-top: 15px;
 }
-
-
-
 </style>

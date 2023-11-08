@@ -16,14 +16,11 @@
         </section>
     </div>  
 </template>
-
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
-import { useRoute } from 'vue-router';
-import { useStore } from 'vuex'
-import { type SearchItemType } from '@/utils/dummyData';
-import SearchItem from '@/components/SearchItem.vue';
-import SearchFilter from '@/components/SearchFilter.vue';
+import { defineComponent } from 'vue';
+import SearchItem from './components/SearchItem.vue';
+import SearchFilter from './components/SearchFilter.vue';
+import useSearchResults  from './composable/useSearchResults';
 
 export default defineComponent({
     name: 'SearchPage',
@@ -32,18 +29,7 @@ export default defineComponent({
         SearchFilter,
     },
     setup() {
-        const route = useRoute();
-        const search = route.params.query as string;
-        const store = useStore();
-        const data = computed(() => store.state.fileredData);
-        const searchResults = computed(() => getResults(data.value));
-
-        const getResults = (data: SearchItemType[]) => {
-            return data.filter((item: SearchItemType) => {
-                return item.title.toLowerCase().includes(search.toLowerCase());
-            });
-        };
-        
+        const { search, searchResults } = useSearchResults();
         return { search, searchResults };
     },
 });
