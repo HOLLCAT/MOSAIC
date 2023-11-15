@@ -16,13 +16,39 @@
                 </tr>
             </table>
         </div>
+        <div class="item">
+            <h1>Most viewed studies</h1>
+            <div class="studies-container">
+                <div class="study" v-for="(study, index) in studies" :key="index">
+                    <h2 class="study-title">{{ study.title }}</h2>
+                    <p class="study-views">Views: {{ study.releaseViews }}</p>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { data } from '../../../utils/DummyData';
 
 export default defineComponent({
     name: 'DataBankCard',
+    data() {
+        return {
+            studies: []
+        };
+    },
+    mounted() {
+        this.getMostViewedStudies();
+    },
+    methods: {
+        getMostViewedStudies() {
+            const sortedData = [...data].sort((a, b) => 
+                (b.releaseViews ? parseInt(b.releaseViews) : 0) - (a.releaseViews ? parseInt(a.releaseViews) : 0)
+            );
+            this.studies = sortedData.slice(0, 3);
+        }
+    }
 });
 
 </script>
@@ -32,32 +58,30 @@ div {
     margin-top: 30px;
 }
 .card {
-    font-family: 'Lato', sans-serif;
-    justify-content: space-around;
+    justify-content: center; 
     align-items: center; 
     width: 100%; 
-    height: 100vh; 
     margin-top: 20px;
     background-color: #f1f1f1;
     padding: 50px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column; 
+    min-height: 100vh;
 }
 
 .item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    height: 70%;
-    margin-inline: 20px;
+    width: 60%;
+    min-height: 50%;
+    margin: 20px 0; 
     border-radius: 25px;
     background-color: rgb(61, 96, 143);
     justify-content: center;
-    max-width: 100%; 
     box-sizing: border-box;
 }
-
-
 
 h1 {
     font-size: 36px;
@@ -79,6 +103,30 @@ td {
     text-align: center;
     vertical-align: middle; 
     padding: 10px; 
+}
+
+.studies-container {
+    width: 100%; 
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.study {
+    background-color: #7e98ba; 
+    border-radius: 10px; 
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.study-title {
+    font-size: 24px; 
+    margin: 0 0 10px 0;
+    color: #333333; 
+}
+
+.study-views {
+    font-size: 16px;
+    color: #666666; 
 }
 
 </style>
