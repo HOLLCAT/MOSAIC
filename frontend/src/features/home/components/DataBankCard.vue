@@ -40,7 +40,7 @@
             </div>
         </div>
         <div class="flex flex-col items-center w-3/5 mt-10 rounded-3xl bg-[#3d608f] justify-center box-border">
-            <h1 class="text-4xl text-white mt-6 font-semibold">Most viewed studies</h1>
+            <h1 class="text-4xl text-white mt-6 font-semibold">Most Viewed Studies</h1>
             <div class="w-full p-4">
                 <div class="bg-white rounded-lg p-4 mb-3" v-for="(study, index) in studies" :key="index">
                     <h2 class="text-xl text-black">{{ study.title }}</h2>
