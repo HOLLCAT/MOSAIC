@@ -8,8 +8,8 @@
         </div>
         <SearchBar />
         <div class="nav-right">
-            <router-link to="/login" class="left">Login</router-link>
-            <router-link to="/register" class="left">Register</router-link>
+            <router-link to="/auth/login" class="left">Login</router-link>
+            <router-link to="/auth/register" class="left">Register</router-link>
         </div>
     </nav>
 </template>
