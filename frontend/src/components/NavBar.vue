@@ -1,79 +1,39 @@
 <template>
-    <nav>
-        <div class="nav-left">
-            <h1>MOSAIC</h1>
-            <router-link to="/" class="left">Home</router-link>
-            <router-link to="/about" class="left">About</router-link>
-            <router-link to="/help" class="left">Help</router-link>
-        </div>
-        <SearchBar />
-        <div class="nav-right">
-            <router-link to="/auth/login" class="left">Login</router-link>
-            <router-link to="/auth/register" class="left">Register</router-link>
+    <nav class="border-gray-200 bg-gray-50 dark:bg-purple dark:border-gray-700 h-[80px]">
+        <div class="max-w-[1800px] mx-auto flex items-center justify-center px-6">
+            <router-link to="/" class="hidden md:block text-3xl font-semibold whitespace-nowrap dark:text-white mr-[20px]">MOSAIC</router-link>
+            <div class="hidden md:flex">
+                <router-link to="/" :class="activeClass('/')">
+                    <span :class="navBarComponents">Home</span>
+                </router-link>
+                <router-link to="/about" :class="activeClass('/about')">
+                    <span :class="navBarComponents">About</span>
+                </router-link>
+                <router-link to="/help" :class="activeClass('/help')">
+                    <span :class="navBarComponents">Help</span>
+                </router-link>
+            </div>
+            <SearchBar />
+            <div class="hidden md:flex">
+                <router-link to="/auth/login" :class="activeClass('/auth/login')">
+                    <span :class="navBarComponents">Login</span>
+                </router-link>
+                <router-link to="/auth/register" :class="activeClass('/auth/register')">
+                    <span :class="navBarComponents">Register</span>
+                </router-link>
+            </div>
         </div>
     </nav>
 </template>
-  
+
 <script setup lang="ts">
-import SearchBar from "@/components/SearchBar.vue";
+import { useRoute } from 'vue-router';
+import SearchBar from './SearchBar.vue';
 
+const route = useRoute();
+
+const activeClass = (path: string) => {
+    return route.path === path ? 'bg-slate-600 p-6 border-t-4 cursor-pointer' : 'p-6 border-t-4 border-transparent hover:bg-slate-600 cursor-pointer';
+};
+const navBarComponents = 'text-white text-xl font-medium'
 </script>
-  
-<style scoped>
-nav {
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 30px 50px;
-    background-color: rgb(61, 96, 143);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-  
-h1 {
-    font-size: 40px;
-    font-weight: 300;
-    color: #ffffff;
-    margin-right: 30px;
-    font-family: 'Rockwell', sans-serif;
-}
-  
-.nav-left, .nav-right {
-    display: flex;
-    align-items: center;
-    height: 100%;
-}
-  
-.left {
-    font-size: 20px;
-    height: 100%; 
-    margin: 0;  
-    text-decoration: none;
-    color: #ffffff;
-    padding: 16px 15px;
-    transition: background-color 0.3s;
-    display: flex;
-    align-items: center;
-    border-radius: 15px;
-    font-family: 'Lato', sans-serif;
-}
-  
-.left:hover {
-    background-color: rgba(21, 16, 41, 0.5);
-}
-  
-nav .search-box {
-      width: 300px;
-      height: 20px;
-      padding: 10px 15px;
-      border: 1px solid #000;  
-      border-radius: 15px; 
-      margin: 0 20px;
-  }
-
-.active-link {
-    background-color: rgba(21, 16, 41, 0.5);
-}
-  
-  </style>
-  

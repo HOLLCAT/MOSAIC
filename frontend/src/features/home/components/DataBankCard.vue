@@ -1,7 +1,7 @@
 
 <template>
     <div class="justify-center items-center w-full mt-[-40px] p-12.5 flex flex-col min-h-screen">
-        <div class="flex flex-col items-center w-3/5 min-h-1/2 my-5 rounded-3xl bg-[#3d608f] justify-center">
+        <div class="flex flex-col items-center w-3/5 min-h-1/2 my-5 rounded-3xl bg-purple justify-center">
             <h1 class="text-4xl text-white mt-10 font-semibold">Databank</h1>
             <div class="flex justify-between text-white text-xl mt-10 px-10 w-full mb-10 font-medium">
                 <div class="flex flex-col items-center justify-center w-1/3">
@@ -39,7 +39,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col items-center w-3/5 mt-10 rounded-3xl bg-[#3d608f] justify-center box-border">
+        <div class="flex flex-col items-center w-3/5 mt-10 rounded-3xl bg-purple justify-center box-border">
             <h1 class="text-4xl text-white mt-6 font-semibold">Most Viewed Studies</h1>
             <div class="w-full p-4">
                 <div class="bg-white rounded-lg p-4 mb-3" v-for="(study, index) in studies" :key="index">
