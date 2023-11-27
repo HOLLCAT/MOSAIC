@@ -33,4 +33,4 @@ export default defineComponent({
         return { search, searchResults };
     },
 });
-</script>
+</script>./composables/useSearchResults

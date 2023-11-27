@@ -1,4 +1,4 @@
-import type { SearchItemType } from "./dummyData";
+import type { SearchItemType } from "./dummyDataNew";
 
 export const sortYears = (results: SearchItemType[]) => {
     const years: number[] = [];

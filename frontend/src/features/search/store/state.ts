@@ -1,4 +1,4 @@
-import { data } from '@/utils/dummyData';
+import { data } from '@/utils/dummyDataNew';
 import { sortYears } from '@/utils/sortYesrs';
 const state = () => ({
     fileredData: data,
