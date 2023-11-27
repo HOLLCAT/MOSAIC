@@ -1,8 +1,15 @@
 <template>
-    <div class="card">
-        <div class="item">
-            <h1>About</h1>
-            <p>...</p>
+    <div class="justify-center items-center w-full mt-[-60px] p-12.5 flex flex-col min-h-screen">
+        <div class="flex flex-col items-center w-4/5 h-auto rounded-3xl bg-purple justify-center">
+            <h1 class="text-4xl text-white mt-10 font-semibold pt-10">About</h1>
+            <p class="text-2xl text-white mt-10 text-center px-40 py-20 text-justify">
+                MOSAIC (Mouse Model Open-Source Information and Archive Center) 
+                is a repository designed to streamline data sharing and integration within the National Mouse Genetics Network. 
+                This network collaborates across various labs and research institutes, employing mouse models to study diseases like cancer and diabetes.
+                MOSAIC addresses the challenge of diverse data formats and distinct lab procedures by offering a unified data portal. 
+                This platform enables scientists to submit their research data, which undergoes a quality control process before being shared. 
+                The portal caters to a variety different types of data, including sequence, image, and behavioural data. 
+            </p>
         </div>
     </div>
 </template>
@@ -15,48 +22,3 @@ export default defineComponent({
     }
 });
 </script>
-
-<style scoped>
-div {
-    margin-top: 30px;
-}
-.card {
-    justify-content: space-around;
-    align-items: center; 
-    width: 100%; 
-    height: 100vh; 
-    margin-top: 20px;
-    background-color: #f1f1f1;
-    padding: 50px;
-    box-sizing: border-box;
-}
-
-.item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 70%;
-    margin-inline: 20px;
-    border-radius: 25px;
-    background-color: rgb(61, 96, 143);
-    justify-content: center;
-    max-width: 100%; 
-    box-sizing: border-box;
-}
-
-
-
-h1 {
-    font-family: 'Lato', sans-serif;
-    font-size: 36px;
-    color: #ffffff;
-    margin-top: 15px;
-}
-
-p{
-    font-size: 24px;
-    color: #ffffff;
-    margin-top: 15px;
-}
-</style>
