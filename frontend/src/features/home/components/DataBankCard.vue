@@ -43,7 +43,9 @@
             <h1 class="text-4xl text-white mt-6 font-semibold">Most Viewed Studies</h1>
             <div class="w-full p-4">
                 <div class="bg-white rounded-lg p-4 mb-3" v-for="(study, index) in studies" :key="index">
-                    <h2 class="text-xl text-black">{{ study.title }}</h2>
+                    <RouterLink :to="`/study/${study.accession}`" class="text-xl text-black">
+                        {{ study.title }}
+                    </RouterLink>
                     <p class="text-lg text-gray-700">Views: {{ study.releaseViews }}</p>
                 </div>
             </div>
@@ -52,12 +54,12 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
-import { data } from '../../../utils/DummyData';
+import { data } from '@/utils/dummyDataNew';
 
 export default defineComponent({
     name: 'DataBankCard',
     setup() {
-        const studies = ref([]);
+        const studies = ref(data);
 
         const getMostViewedStudies = () => {
             const sortedData = [...data].sort((a, b) => 
