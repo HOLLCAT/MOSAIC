@@ -7,10 +7,14 @@
                 </a>
                 <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
                     <li>
-                        <a href="#" class="hover:underline me-4 md:me-6">About</a>
+                        <router-link to="/about">
+                            <span class="hover:underline me-4 md:me-6">About</span>
+                        </router-link>
                     </li>
                     <li>
-                        <a href="#" class="hover:underline me-4 md:me-6">Help</a>
+                        <router-link to="/help">
+                            <span class="hover:underline me-4 md:me-6">Help</span>
+                        </router-link>
                     </li>
                     <li>
                         <a href="#" class="hover:underline me-4 md:me-6">Docs</a>
