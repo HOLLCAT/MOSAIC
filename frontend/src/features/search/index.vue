@@ -1,36 +1,46 @@
 <template>
-    <div class="mx-auto max-w-7xl mt-5 min-h-[66vh] flex">
-        <SearchFilter v-if="searchResults.length" />
-        <section class=" grow mt-4 pb-7 rounded-lg border rounded-s-none p-2">
-            <div class="relative">
-                <div class="relative flex justify-start">
-                    <span class="pl-3 text-lg font-medium text-neutral-600"> Results for "{{ search }}"</span>
-                </div>
-            </div>
-            <div v-if="searchResults.length > 0" class=" bg-white p-6 items-center justify-center overflow-hidden">
-                <div class="space-y-8 lg:divide-y xl:divide-gray-300">
-                    <SearchItem v-for="result in searchResults" :key="result.accession" :item="result" />
-                </div>
-            </div>
-            <div v-else class="text-center text-gray-700">No results found</div>
-        </section>
-    </div>  
-</template>
-<script lang="ts">
-import { defineComponent } from 'vue';
-import SearchItem from './components/SearchItem.vue';
-import SearchFilter from './components/SearchFilter.vue';
-import useSearchResults  from './composable/useSearchResults';
+  <div class="bg-white">
+    <MobileFilter v-if="hasResults" @filter-close="handleFilterClose" :isOpen="mobileFiltersOpen" :filters="filters" />
+    <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-6 md:pt-24">
+        <h1 class="text-xl md:text-4xl font-bold tracking-tight text-gray-900 break-all">
+          Search Results for <span class="text-purpleHover">"{{ search }}"</span>
+        </h1>
+        <div v-if="hasResults" class="flex items-center">
+          <button
+            type="button"
+            class="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
+            @click="mobileFiltersOpen = true">
+            <span class="sr-only">Filters</span>
+            <FunnelIcon class="h-5 w-5" aria-hidden="true" />
+          </button>
+        </div>
+      </div>
 
-export default defineComponent({
-    name: 'SearchPage',
-    components: {
-        SearchItem,
-        SearchFilter,
-    },
-    setup() {
-        const { search, searchResults } = useSearchResults();
-        return { search, searchResults };
-    },
-});
-</script>./composables/useSearchResults
+      <section aria-labelledby="products-heading" class="pb-24 pt-6">
+        <div v-if="searchResults.length > 0" class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+          <!-- Filters -->
+          <SearchFilterTest :filters="filters" />
+          <div class="lg:col-span-3 bg-[#FAF9F6] border rounded-xl p-3">
+            <SearchResultsItem :searchResults="searchResults" />
+          </div>
+        </div>
+        <ResultNotFound v-else />
+      </section>
+    </main>
+  </div>
+</template>
+
+<script setup lang="ts">
+  import { ref } from "vue";
+  import { FunnelIcon } from "@heroicons/vue/20/solid";
+  import MobileFilter from "./components/MobileSearchFilter.vue";
+  import SearchFilterTest from "./components/SearchFilter.vue";
+  import SearchResultsItem from "./components/SearchResultsItem.vue";
+  import useSearchResults from "./composable/useSearchResults";
+  import ResultNotFound from "./components/ResultNotFound.vue";
+
+  const { search, searchResults, hasResults, filters } = useSearchResults();
+  const mobileFiltersOpen = ref(false);
+  const handleFilterClose = () => (mobileFiltersOpen.value = false);
+</script>
