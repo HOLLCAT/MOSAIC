@@ -1,9 +1,14 @@
-import type { stateType } from "../utils/storeTypes";
+import type { StateType } from "../utils/types";
 
-const getMatchedSearch = (state: stateType) => (search: string) => {
-    return state.fileredData.filter(result => {
-        return result.title.toLowerCase().includes(search.toLowerCase());
-    });
+const getResults = (state: StateType) => {
+  return state.fileredResults;
 };
 
-export default { getMatchedSearch };
+const hasResults = (state: StateType) => {
+  return state.OriginalResults.length > 0;
+};
+
+const getFilters = (state: StateType) => {
+  return state.filters;
+};
+export default { getResults, getFilters, hasResults };

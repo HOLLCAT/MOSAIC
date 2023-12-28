@@ -14,7 +14,7 @@ export const setupStudy = () => {
         store.dispatch('study/fetchStudy', studyId.value );
     });
 
-    const { study } = useStudy();
+    const study  = useStudy();
 
     watch(study, () => {
         if (!study.value) {

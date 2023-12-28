@@ -1,10 +1,11 @@
-import { data } from '@/utils/dummyDataNew';
-import { sortYears } from '@/utils/sortYesrs';
-const state = () => ({
-    fileredData: data,
-    data: {
-        results: data,
-        years: sortYears(data),
-    } 
-})
+import { data, type SearchItemType } from "@/utils/dummyDataNew";
+import { sortYears } from "@/utils/sortYesrs";
+import { filterFormat } from "../utils/filterFormat";
+import type { StateType } from "../utils/types";
+
+const state = (): StateType => ({
+  fileredResults: data as SearchItemType[],
+  OriginalResults: data as SearchItemType[],
+  filters: [filterFormat("Year", sortYears(data))],
+});
 export default state;
