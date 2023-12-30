@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        purple: '#4A5783',
+        purple: '#312450',
         purpleHover: '#6B81A3',
       },
       screens: {
