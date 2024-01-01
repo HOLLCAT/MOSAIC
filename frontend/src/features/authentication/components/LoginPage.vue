@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center justify-center min-h-screen bg-navy-800">
-    <div class="flex w-full max-w-md mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-sky-700 lg:max-w-4xl">
-      <div class="hidden bg-cover lg:block lg:w-1/2" style="background-image: url('https://www.cancerresearchuk.org/sites/default/files/styles/cruk_no_style/public/large-18.-cruk-beatson-institute.jpg?itok=ksPme3eA');"></div>
+    <div class="flex w-full max-w-md mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-sky-700 lg:max-w-6xl my-5">
+      <div class="hidden bg-cover bg-right lg:block lg:w-1/2" style="background-image: url('https://www.cancerresearchuk.org/sites/default/files/styles/cruk_no_style/public/large-18.-cruk-beatson-institute.jpg?itok=ksPme3eA');"></div>
 
       <div class="w-full px-6 py-8 md:px-8 lg:w-1/2 bg-purple h-auto">
         <div class="flex justify-center mx-auto">
@@ -16,7 +16,7 @@
           <div class="px-4 py-2">
             <img class="w-auto h-10 sm:h-20" src="@/features/authentication/images/UofG.png" alt="UofG Logo">
           </div>
-          <span class="w-5/6 px-4 py-3 font-bold text-center">Sign in with UofG SSO</span>
+          <h1 class="w-5/6 py-3 font-bold pl-[18%]">Sign in with UofG SSO</h1>
         </a>
 
         <div class="flex items-center justify-between mt-4">
@@ -27,15 +27,15 @@
 
         <form @submit.prevent="submitForm" novalidate>
          
-          <div class="mt-4">
-            <inputfeild label="Email Address" inputId="LoggingEmailAddress" type="email" placeholder="Enter your email" :value="email" @update:value="email = $event" :error="emailError" />
+          <div class="h-28 mt-4">
+            <Inputfield label="Email Address" inputId="LoggingEmailAddress" type="email" placeholder="Enter your email" :value="email" @update:value="email = $event" :error="emailError" />
           </div>
 
-          <div class="mt-4">
-            <inputfeild label="Password" inputId="loggingPassword" type="password" placeholder="Enter your password" :value="password" @update:value="password = $event" :error="passwordError" />    
+          <div class="h-28">
+            <Inputfield label="Password" inputId="loggingPassword" type="password" placeholder="Enter your password" :value="password" @update:value="password = $event" :error="passwordError" />    
           </div>
 
-          <div class="mt-6">
+          <div class="mt-3">
             <button
               class="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
               Sign In
@@ -54,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import Inputfeild from './Inputfeild.vue';
+import Inputfield from './Inputfield.vue';
 import { useLogin } from '../composables/useLogin';
 
 const {
