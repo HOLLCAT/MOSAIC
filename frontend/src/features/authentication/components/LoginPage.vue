@@ -1,11 +1,11 @@
 <template>
-  <div class="flex items-center justify-center min-h-screen bg-navy-800">
-    <div class="flex w-full max-w-md mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-sky-700 lg:max-w-6xl my-5">
+  <div class="flex items-center justify-center bg-navy-800 flex-grow">
+    <div class="flex w-full max-w-md lg:mx-auto overflow-hidden m-4 rounded-lg shadow-lg lg:max-w-5xl">
       <div class="hidden bg-cover bg-right lg:block lg:w-1/2" style="background-image: url('https://www.cancerresearchuk.org/sites/default/files/styles/cruk_no_style/public/large-18.-cruk-beatson-institute.jpg?itok=ksPme3eA');"></div>
 
-      <div class="w-full px-6 py-8 md:px-8 lg:w-1/2 bg-purple h-auto">
+      <div class="w-full px-6 py-8 md:px-8 lg:w-1/2 bg-white dark:bg-purple h-auto">
         <div class="flex justify-center mx-auto">
-          <img class="w-auto h-30 sm:h-32" src="@/features/authentication/images/MOSAIC.png" alt="">
+          <h1 class="text-gray-700 dark:text-white font-semibold text-5xl"> MOSAIC </h1>
         </div>
 
         <p class="mt-3 text-xl text-center text-gray-600 dark:text-gray-200">
@@ -14,7 +14,7 @@
 
         <a href="#" class="flex items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-purpleHover">
           <div class="px-4 py-2">
-            <img class="w-auto h-10 sm:h-20" src="@/features/authentication/images/UofG.png" alt="UofG Logo">
+            <img class="w-auto h-10 xs:h-20" src="@/features/authentication/images/UofG.png" alt="UofG Logo">
           </div>
           <h1 class="w-5/6 py-3 font-bold pl-[18%]">Sign in with UofG SSO</h1>
         </a>
@@ -37,10 +37,11 @@
 
           <div class="mt-3">
             <button
-              class="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
+              class="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-purpleHover focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
               Sign In
             </button>
           </div>
+
         </form>
 
         <div class="flex items-center justify-between mt-4">

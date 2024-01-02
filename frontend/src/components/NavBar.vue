@@ -17,7 +17,7 @@
         </router-link>
       </div>
       <SearchBar />
-      <div class="hidden lg:flex">
+      <div class="hidden lg:flex ml-2">
         <router-link to="/auth/login" :class="activeClass('/auth/login')">
           <span :class="navBarComponents">Login</span>
         </router-link>
