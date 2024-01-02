@@ -1,6 +1,6 @@
 <template>
-  <div class="flex items-center justify-center min-h-screen bg-navy-800">
-    <div class="flex w-full max-w-md mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-purple lg:max-w-6xl my-5">
+  <div class="flex items-center justify-center bg-navy-800 flex-grow">
+    <div class="flex w-full max-w-md m-4 lg:mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-purple lg:max-w-5xl">
       <div class="hidden bg-cover bg-right lg:block lg:w-1/2" style="background-image: url('https://www.cancerresearchuk.org/sites/default/files/styles/cruk_no_style/public/large-18.-cruk-beatson-institute.jpg?itok=ksPme3eA');"></div>
       
       <div class="w-full px-6 py-8 md:px-8 lg:w-1/2">
@@ -24,11 +24,11 @@
             <Inputfield label="Confirm Password" inputId="confirmPassword" type="password" placeholder="********" :value="confirmPassword" @update:value="confirmPassword = $event" :error="confirmPasswordError" />
           </div>
 
-          <button
-            class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-purpleHover focus:outline-none focus:bg-gray-600"
-            type="submit">
-            Register
-          </button>
+            <button
+              class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-purpleHover focus:outline-none focus:bg-gray-600"
+              type="submit">
+              Register
+            </button>
         </form>
       </div>
     </div>

@@ -7,13 +7,13 @@ import Authentication from '@/features/authentication/index.vue';
 import StudyPage from '@/features/study/index.vue';
 
 const routes = [
-  { path: '/', component: HomePage },
-  { path: '/about', component: AboutPage },
-  { path: '/help', component: HelpPage },
-  { path: '/search/:query', component: SearchPage },
-  { path: '/auth/:mode', component:  Authentication},
-  { path: '/study/:id', component: StudyPage },
-  { path: '/:pathMatch(.*)*', redirect: '/' }
+  { path: '/', component: HomePage, name: 'home' },
+  { path: '/about', component: AboutPage, name: 'about' },
+  { path: '/help', component: HelpPage, name: 'help' },
+  { path: '/search/:query', component: SearchPage, name: 'search' },
+  { path: '/auth/:mode', component:  Authentication, name: 'auth'},
+  { path: '/study/:id', component: StudyPage, name: 'study' },
+  { path: '/:pathMatch(.*)*', redirect: '/', name: 'default' }
 ];
 
 const router = createRouter({

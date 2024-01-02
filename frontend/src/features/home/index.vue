@@ -1,5 +1,5 @@
 <template>
-    <div class="items-center w-full p-4 sm:p-12.5 flex flex-col flex-shrink h-auto min-h-screen justify-center items-center">
+    <div class="items-center w-full p-4 flex flex-col flex-grow h-auto justify-center">
         <DatabankCard />     
         <MostViewedStudiesCard />    
     </div> 
