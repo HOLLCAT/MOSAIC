@@ -42,11 +42,11 @@ class StudyUpdate(BaseModel):
     class Config:
         json_schema_extra = {
             "example": {
-                "study_title": "Updated Example Study",
-                "study_type": "Updated Example Type",
-                "organism": "Updated Example Organism",
-                "study_description": "Updated Example Description",
-                "extra_fields": {"additional_info": "example"}
+                "study_title": "",
+                "study_type": "",
+                "organism": "",
+                "study_description": "",
+                "extra_fields": {"additional_info": ""}
             }
         }
 
