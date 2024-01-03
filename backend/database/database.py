@@ -70,7 +70,8 @@ async def update_study_by_id(accession_id: str, study_update: StudyUpdate) -> di
             t = value
             for a,b in t.items():
                 if b!="":
-                    setattr(study.extra_fields,a,b)
+                    temp[a]=b
+            study.extra_fields = temp
         else:
             if value!="":
                 setattr(study, field, value)
