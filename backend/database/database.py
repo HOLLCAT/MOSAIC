@@ -65,6 +65,7 @@ async def update_study_by_id(accession_id: str, study_update: StudyUpdate) -> di
         raise HTTPException(status_code=404, detail="Study not found")
 
     # Only include fields in the update that were explicitly set
+    update_data = study_update.dict(exclude_unset=True)
     for field, value in update_data.items():
         if field=="extra_fields":
             t = value
