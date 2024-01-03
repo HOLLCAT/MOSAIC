@@ -1,13 +1,4 @@
-from fastapi import FastAPI
-from article import article
-from user import user
+import uvicorn
 
-app = FastAPI()
-
-app.include_router(article)
-
-app.include_router(user)
-
-if __name__ == '__main__':
-    from uvicorn import run
-    run('main:app', reload=True)
+if __name__ == "__main__":
+    uvicorn.run("app:app", host="0.0.0.0", port=8080, reload=True)
