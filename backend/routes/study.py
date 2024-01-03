@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Body, Depends, FastAPI
+from fastapi import APIRouter, Body, Depends, FastAPI, UploadFile
 from database.database import *
 from models.counter import *
 from models.study import *
@@ -81,3 +81,28 @@ async def clear_studies():
         return {"message": "All studies have been deleted"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/uploadfile/")
+async def create_upload_file(file: UploadFile, app: FastAPI = Depends(get_app)):
+    db = await get_database(app)
+    sabc: Study
+    cate_list: List[str] = ["organism","study_description","study_title","study_type"]
+    get_list: List[str] = []
+    content = await file.read()
+    content = str(content)
+    test = content.split("\\r\\n")
+    test[0] = test[0][2:]
+    test[-1] = test[-1][:-1]
+    for s in test:
+        t = s.split(":")
+        if len(t)>1:
+            title = t[0]
+            body = t[1]
+            print()
+            if title in cate_list:
+                k = title+":"+body
+                get_list.append(k)
+        else:
+            continue
+    print(get_list)
+    return {"filename": file.filename}
