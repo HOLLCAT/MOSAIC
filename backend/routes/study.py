@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Body, Depends, FastAPI
+from fastapi import APIRouter, Body, Depends, FastAPI, UploadFile
 from database.database import *
 from models.counter import *
 from models.study import *
@@ -59,7 +59,7 @@ async def delete_study(accession_id: str):
     
 
 @router.put("/{accession_id}", response_description="Study updated in the database")
-async def update_study(accession_id: str, study: Study = Body(...)):
+async def update_study(accession_id: str, study: StudyUpdate):
     updated_study = await update_study_by_id(accession_id, study)
     if updated_study:
         return {
