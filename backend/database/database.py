@@ -1,8 +1,6 @@
 from models.study import Study, StudyUpdate
 from models.counter import Counter
-from typing import List
-from beanie import init_beanie
-from motor.motor_asyncio import AsyncIOMotorClient
+from typing import Any, Dict, List
 from fastapi import HTTPException, FastAPI
 from config.config import Settings
 from bson import ObjectId
