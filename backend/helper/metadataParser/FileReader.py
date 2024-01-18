@@ -18,10 +18,9 @@ class FileReader:
             "Sex",
             "Cell_Line",
             "Mouse_Model",
-            "Biomaterial Provider",
+            "Biomaterial_Provider",
             "Date_Sample_Prep",
-            "Biological Repeat",
-            "fastq",
+            "Biological_Repeat",
         ]
 
     def __read_file(self):
@@ -58,6 +57,10 @@ class FileReader:
     def __extract_fields(self, data, required_fields):
         extracted_data = []
         for entry in data:
+            if "fastq" in entry:
+                del entry["fastq"]
+            entry = {key.replace(" ", "_"): value for key, value in entry.items()}
+
             extracted_entry = {field: entry.get(field, "") for field in required_fields}
 
             for key, value in entry.items():

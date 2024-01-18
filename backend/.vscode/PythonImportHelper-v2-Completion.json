@@ -1,0 +1,1082 @@
+[
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "Annotated",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Annotated",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "UploadFile",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "File",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Form",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Request",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "status",
+        "importPath": "starlette",
+        "description": "starlette",
+        "isExtraImport": true,
+        "detail": "starlette",
+        "documentation": {}
+    },
+    {
+        "label": "status",
+        "importPath": "starlette",
+        "description": "starlette",
+        "isExtraImport": true,
+        "detail": "starlette",
+        "documentation": {}
+    },
+    {
+        "label": "CreateUserRequest",
+        "importPath": "models.user",
+        "description": "models.user",
+        "isExtraImport": true,
+        "detail": "models.user",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "models.user",
+        "description": "models.user",
+        "isExtraImport": true,
+        "detail": "models.user",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "models.user",
+        "description": "models.user",
+        "isExtraImport": true,
+        "detail": "models.user",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "models.user",
+        "description": "models.user",
+        "isExtraImport": true,
+        "detail": "models.user",
+        "documentation": {}
+    },
+    {
+        "label": "CreateUserRequest",
+        "importPath": "models.user",
+        "description": "models.user",
+        "isExtraImport": true,
+        "detail": "models.user",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "models.user",
+        "description": "models.user",
+        "isExtraImport": true,
+        "detail": "models.user",
+        "documentation": {}
+    },
+    {
+        "label": "Token",
+        "importPath": "models.user",
+        "description": "models.user",
+        "isExtraImport": true,
+        "detail": "models.user",
+        "documentation": {}
+    },
+    {
+        "label": "CryptContext",
+        "importPath": "passlib.context",
+        "description": "passlib.context",
+        "isExtraImport": true,
+        "detail": "passlib.context",
+        "documentation": {}
+    },
+    {
+        "label": "OAuth2PasswordBearer",
+        "importPath": "fastapi.security",
+        "description": "fastapi.security",
+        "isExtraImport": true,
+        "detail": "fastapi.security",
+        "documentation": {}
+    },
+    {
+        "label": "OAuth2PasswordRequestForm",
+        "importPath": "fastapi.security",
+        "description": "fastapi.security",
+        "isExtraImport": true,
+        "detail": "fastapi.security",
+        "documentation": {}
+    },
+    {
+        "label": "jwt",
+        "importPath": "jose",
+        "description": "jose",
+        "isExtraImport": true,
+        "detail": "jose",
+        "documentation": {}
+    },
+    {
+        "label": "JWTError",
+        "importPath": "jose",
+        "description": "jose",
+        "isExtraImport": true,
+        "detail": "jose",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
+        "label": "init_beanie",
+        "importPath": "beanie",
+        "description": "beanie",
+        "isExtraImport": true,
+        "detail": "beanie",
+        "documentation": {}
+    },
+    {
+        "label": "Document",
+        "importPath": "beanie",
+        "description": "beanie",
+        "isExtraImport": true,
+        "detail": "beanie",
+        "documentation": {}
+    },
+    {
+        "label": "Document",
+        "importPath": "beanie",
+        "description": "beanie",
+        "isExtraImport": true,
+        "detail": "beanie",
+        "documentation": {}
+    },
+    {
+        "label": "Link",
+        "importPath": "beanie",
+        "description": "beanie",
+        "isExtraImport": true,
+        "detail": "beanie",
+        "documentation": {}
+    },
+    {
+        "label": "Document",
+        "importPath": "beanie",
+        "description": "beanie",
+        "isExtraImport": true,
+        "detail": "beanie",
+        "documentation": {}
+    },
+    {
+        "label": "AsyncIOMotorClient",
+        "importPath": "motor.motor_asyncio",
+        "description": "motor.motor_asyncio",
+        "isExtraImport": true,
+        "detail": "motor.motor_asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "BaseSettings",
+        "importPath": "pydantic_settings",
+        "description": "pydantic_settings",
+        "isExtraImport": true,
+        "detail": "pydantic_settings",
+        "documentation": {}
+    },
+    {
+        "label": "Study",
+        "importPath": "models.study",
+        "description": "models.study",
+        "isExtraImport": true,
+        "detail": "models.study",
+        "documentation": {}
+    },
+    {
+        "label": "Study",
+        "importPath": "models.study",
+        "description": "models.study",
+        "isExtraImport": true,
+        "detail": "models.study",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "models.study",
+        "description": "models.study",
+        "isExtraImport": true,
+        "detail": "models.study",
+        "documentation": {}
+    },
+    {
+        "label": "Study",
+        "importPath": "models.study",
+        "description": "models.study",
+        "isExtraImport": true,
+        "detail": "models.study",
+        "documentation": {}
+    },
+    {
+        "label": "StudyUpdate",
+        "importPath": "models.study",
+        "description": "models.study",
+        "isExtraImport": true,
+        "detail": "models.study",
+        "documentation": {}
+    },
+    {
+        "label": "StudyUpdate",
+        "importPath": "models.study",
+        "description": "models.study",
+        "isExtraImport": true,
+        "detail": "models.study",
+        "documentation": {}
+    },
+    {
+        "label": "Study",
+        "importPath": "models.study",
+        "description": "models.study",
+        "isExtraImport": true,
+        "detail": "models.study",
+        "documentation": {}
+    },
+    {
+        "label": "StudyUpdate",
+        "importPath": "models.study",
+        "description": "models.study",
+        "isExtraImport": true,
+        "detail": "models.study",
+        "documentation": {}
+    },
+    {
+        "label": "Sample",
+        "importPath": "models.study",
+        "description": "models.study",
+        "isExtraImport": true,
+        "detail": "models.study",
+        "documentation": {}
+    },
+    {
+        "label": "Counter",
+        "importPath": "models.counter",
+        "description": "models.counter",
+        "isExtraImport": true,
+        "detail": "models.counter",
+        "documentation": {}
+    },
+    {
+        "label": "Counter",
+        "importPath": "models.counter",
+        "description": "models.counter",
+        "isExtraImport": true,
+        "detail": "models.counter",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "database.database",
+        "description": "database.database",
+        "isExtraImport": true,
+        "detail": "database.database",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "database.database",
+        "description": "database.database",
+        "isExtraImport": true,
+        "detail": "database.database",
+        "documentation": {}
+    },
+    {
+        "label": "get_database",
+        "importPath": "database.database",
+        "description": "database.database",
+        "isExtraImport": true,
+        "detail": "database.database",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "database.database",
+        "description": "database.database",
+        "isExtraImport": true,
+        "detail": "database.database",
+        "documentation": {}
+    },
+    {
+        "label": "ObjectId",
+        "importPath": "bson",
+        "description": "bson",
+        "isExtraImport": true,
+        "detail": "bson",
+        "documentation": {}
+    },
+    {
+        "label": "ObjectId",
+        "importPath": "bson",
+        "description": "bson",
+        "isExtraImport": true,
+        "detail": "bson",
+        "documentation": {}
+    },
+    {
+        "label": "csv",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "csv",
+        "description": "csv",
+        "detail": "csv",
+        "documentation": {}
+    },
+    {
+        "label": "io",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "io",
+        "description": "io",
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Extra",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "EmailStr",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "validator",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "database.admin",
+        "description": "database.admin",
+        "isExtraImport": true,
+        "detail": "database.admin",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "database.study",
+        "description": "database.study",
+        "isExtraImport": true,
+        "detail": "database.study",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "database.study",
+        "description": "database.study",
+        "isExtraImport": true,
+        "detail": "database.study",
+        "documentation": {}
+    },
+    {
+        "label": "get_current_user",
+        "importPath": "routes.user",
+        "description": "routes.user",
+        "isExtraImport": true,
+        "detail": "routes.user",
+        "documentation": {}
+    },
+    {
+        "label": "get_current_user",
+        "importPath": "routes.user",
+        "description": "routes.user",
+        "isExtraImport": true,
+        "detail": "routes.user",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "importPath": "routes.user",
+        "description": "routes.user",
+        "isExtraImport": true,
+        "detail": "routes.user",
+        "documentation": {}
+    },
+    {
+        "label": "dependencies",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "dependencies",
+        "description": "dependencies",
+        "detail": "dependencies",
+        "documentation": {}
+    },
+    {
+        "label": "get_app",
+        "importPath": "dependencies",
+        "description": "dependencies",
+        "isExtraImport": true,
+        "detail": "dependencies",
+        "documentation": {}
+    },
+    {
+        "label": "get_app",
+        "importPath": "dependencies",
+        "description": "dependencies",
+        "isExtraImport": true,
+        "detail": "dependencies",
+        "documentation": {}
+    },
+    {
+        "label": "FileReader",
+        "importPath": "helper.metadataParser.FileReader",
+        "description": "helper.metadataParser.FileReader",
+        "isExtraImport": true,
+        "detail": "helper.metadataParser.FileReader",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "auth.auth",
+        "description": "auth.auth",
+        "isExtraImport": true,
+        "detail": "auth.auth",
+        "documentation": {}
+    },
+    {
+        "label": "asynccontextmanager",
+        "importPath": "contextlib",
+        "description": "contextlib",
+        "isExtraImport": true,
+        "detail": "contextlib",
+        "documentation": {}
+    },
+    {
+        "label": "initiate_database",
+        "importPath": "config.config",
+        "description": "config.config",
+        "isExtraImport": true,
+        "detail": "config.config",
+        "documentation": {}
+    },
+    {
+        "label": "shutdown_database",
+        "importPath": "config.config",
+        "description": "config.config",
+        "isExtraImport": true,
+        "detail": "config.config",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "importPath": "routes.study",
+        "description": "routes.study",
+        "isExtraImport": true,
+        "detail": "routes.study",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "importPath": "routes.admin",
+        "description": "routes.admin",
+        "isExtraImport": true,
+        "detail": "routes.admin",
+        "documentation": {}
+    },
+    {
+        "label": "uvicorn",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uvicorn",
+        "description": "uvicorn",
+        "detail": "uvicorn",
+        "documentation": {}
+    },
+    {
+        "label": "create_access_token",
+        "kind": 2,
+        "importPath": "auth.auth",
+        "description": "auth.auth",
+        "peekOfCode": "def create_access_token(email: str, user_id: str, role: str, expires_delta: timedelta):\n    # Create the JWT token\n    # Add the email and user_id to the payload\n    encode = {\"sub\": email, \"id\": str(user_id), \"role\": role}\n    # Add the expiration time to the payload\n    expires = datetime.utcnow() + expires_delta\n    # Encodes the payload\n    encode.update({\"exp\": expires})\n    # Return the encoded token using the secret key & algorithm\n    return jwt.encode(encode, SECRET_KEY, algorithm=ALGORITHM)",
+        "detail": "auth.auth",
+        "documentation": {}
+    },
+    {
+        "label": "SECRET_KEY",
+        "kind": 5,
+        "importPath": "auth.auth",
+        "description": "auth.auth",
+        "peekOfCode": "SECRET_KEY = os.getenv(\"SECRET_KEY\")\nALGORITHM = os.getenv(\"ALGORITHM\")\n# used to hash/unhash passwords\nbcrypt_context = CryptContext(schemes=[\"bcrypt\"], deprecated=\"auto\")\noauth2_bearer = OAuth2PasswordBearer(tokenUrl=\"/auth/token\")\nasync def create_user(db, new_user: CreateUserRequest) -> User:\n    # Check if the email already exists\n    existing_user = await User.find_one({\"email\": new_user.email})\n    if existing_user:\n        raise HTTPException(",
+        "detail": "auth.auth",
+        "documentation": {}
+    },
+    {
+        "label": "ALGORITHM",
+        "kind": 5,
+        "importPath": "auth.auth",
+        "description": "auth.auth",
+        "peekOfCode": "ALGORITHM = os.getenv(\"ALGORITHM\")\n# used to hash/unhash passwords\nbcrypt_context = CryptContext(schemes=[\"bcrypt\"], deprecated=\"auto\")\noauth2_bearer = OAuth2PasswordBearer(tokenUrl=\"/auth/token\")\nasync def create_user(db, new_user: CreateUserRequest) -> User:\n    # Check if the email already exists\n    existing_user = await User.find_one({\"email\": new_user.email})\n    if existing_user:\n        raise HTTPException(\n            status_code=status.HTTP_400_BAD_REQUEST, detail=\"Email already registered.\"",
+        "detail": "auth.auth",
+        "documentation": {}
+    },
+    {
+        "label": "bcrypt_context",
+        "kind": 5,
+        "importPath": "auth.auth",
+        "description": "auth.auth",
+        "peekOfCode": "bcrypt_context = CryptContext(schemes=[\"bcrypt\"], deprecated=\"auto\")\noauth2_bearer = OAuth2PasswordBearer(tokenUrl=\"/auth/token\")\nasync def create_user(db, new_user: CreateUserRequest) -> User:\n    # Check if the email already exists\n    existing_user = await User.find_one({\"email\": new_user.email})\n    if existing_user:\n        raise HTTPException(\n            status_code=status.HTTP_400_BAD_REQUEST, detail=\"Email already registered.\"\n        )\n    # Hash the password",
+        "detail": "auth.auth",
+        "documentation": {}
+    },
+    {
+        "label": "oauth2_bearer",
+        "kind": 5,
+        "importPath": "auth.auth",
+        "description": "auth.auth",
+        "peekOfCode": "oauth2_bearer = OAuth2PasswordBearer(tokenUrl=\"/auth/token\")\nasync def create_user(db, new_user: CreateUserRequest) -> User:\n    # Check if the email already exists\n    existing_user = await User.find_one({\"email\": new_user.email})\n    if existing_user:\n        raise HTTPException(\n            status_code=status.HTTP_400_BAD_REQUEST, detail=\"Email already registered.\"\n        )\n    # Hash the password\n    hashed_password = bcrypt_context.hash(new_user.password)",
+        "detail": "auth.auth",
+        "documentation": {}
+    },
+    {
+        "label": "Settings",
+        "kind": 6,
+        "importPath": "config.config",
+        "description": "config.config",
+        "peekOfCode": "class Settings(BaseSettings):\n    # database configurations\n    DATABASE_URL: Optional[str] = None\n    class Config:\n        env_file = \".env.dev\"\n        from_attributes = True\n        extra = \"allow\"\nasync def initiate_database(app: FastAPI):\n    client = AsyncIOMotorClient(Settings().DATABASE_URL)\n    app.state.mongodb_client = client",
+        "detail": "config.config",
+        "documentation": {}
+    },
+    {
+        "label": "convert_objectid_to_str",
+        "kind": 2,
+        "importPath": "database.database",
+        "description": "database.database",
+        "peekOfCode": "def convert_objectid_to_str(item):\n    if isinstance(item, dict):\n        for key, value in item.items():\n            if isinstance(value, ObjectId):\n                item[key] = str(value)\n            elif isinstance(value, dict):\n                convert_objectid_to_str(value)\n    return item",
+        "detail": "database.database",
+        "documentation": {}
+    },
+    {
+        "label": "study_collection",
+        "kind": 5,
+        "importPath": "database.database",
+        "description": "database.database",
+        "peekOfCode": "study_collection = Study\ncounter_collection = Counter\nusers_collection = User\nasync def get_database(app: FastAPI):\n    return app.state.mongodb_client.get_default_database()\nasync def get_next_mosaic_id(db):\n    counter_doc = await db.counters.find_one_and_update(\n        {\"name\": \"student_id\"},\n        {\"$inc\": {\"counter\": 1}},\n        upsert=True,",
+        "detail": "database.database",
+        "documentation": {}
+    },
+    {
+        "label": "counter_collection",
+        "kind": 5,
+        "importPath": "database.database",
+        "description": "database.database",
+        "peekOfCode": "counter_collection = Counter\nusers_collection = User\nasync def get_database(app: FastAPI):\n    return app.state.mongodb_client.get_default_database()\nasync def get_next_mosaic_id(db):\n    counter_doc = await db.counters.find_one_and_update(\n        {\"name\": \"student_id\"},\n        {\"$inc\": {\"counter\": 1}},\n        upsert=True,\n        return_document=True",
+        "detail": "database.database",
+        "documentation": {}
+    },
+    {
+        "label": "users_collection",
+        "kind": 5,
+        "importPath": "database.database",
+        "description": "database.database",
+        "peekOfCode": "users_collection = User\nasync def get_database(app: FastAPI):\n    return app.state.mongodb_client.get_default_database()\nasync def get_next_mosaic_id(db):\n    counter_doc = await db.counters.find_one_and_update(\n        {\"name\": \"student_id\"},\n        {\"$inc\": {\"counter\": 1}},\n        upsert=True,\n        return_document=True\n    )",
+        "detail": "database.database",
+        "documentation": {}
+    },
+    {
+        "label": "FileReader",
+        "kind": 6,
+        "importPath": "helper.metadataParser.FileReader",
+        "description": "helper.metadataParser.FileReader",
+        "peekOfCode": "class FileReader:\n    def __init__(self, file, file_type):\n        self.file = file\n        self.file_type = file_type\n        self.fields = [\n            \"Sample_ID\",\n            \"SampleGroup\",\n            \"Description\",\n            \"Organism\",\n            \"Tissue\",",
+        "detail": "helper.metadataParser.FileReader",
+        "documentation": {}
+    },
+    {
+        "label": "TextParser",
+        "kind": 6,
+        "importPath": "helper.metadataParser.TextParser",
+        "description": "helper.metadataParser.TextParser",
+        "peekOfCode": "class TextParser:\n    def __init__(self, file):\n        self.file = file\n        self.__data = []\n        self.__headers_detected = None\n        self.__headers = []\n    def read(self):\n        self.file.seek(0)\n        for line in self.file:\n            self.__process_line(line.decode(\"utf-8\"))",
+        "detail": "helper.metadataParser.TextParser",
+        "documentation": {}
+    },
+    {
+        "label": "Counter",
+        "kind": 6,
+        "importPath": "models.counter",
+        "description": "models.counter",
+        "peekOfCode": "class Counter(Document):\n    _id: int\n    assertion: str = None",
+        "detail": "models.counter",
+        "documentation": {}
+    },
+    {
+        "label": "Sample",
+        "kind": 6,
+        "importPath": "models.study",
+        "description": "models.study",
+        "peekOfCode": "class Sample(BaseModel):\n    # Sample: str\n    Sample_ID: str\n    SampleGroup: str\n    Sample_Project: str\n    Description: str\n    Organism: str\n    Tissue: str\n    Sex: str\n    Cell_Line: str",
+        "detail": "models.study",
+        "documentation": {}
+    },
+    {
+        "label": "Study",
+        "kind": 6,
+        "importPath": "models.study",
+        "description": "models.study",
+        "peekOfCode": "class Study(Document):\n    accession_id: Optional[str] = None\n    created_date: str = Field(\n        default_factory=lambda: datetime.now().strftime(\"%d %B %Y\")\n    )   \n    owner_id: Optional[str] = None\n    study_title: Optional[str] = None\n    study_type: Optional[str] = None\n    study_description: Optional[str] = None\n    authors: List[str] = Field(default_factory=list)",
+        "detail": "models.study",
+        "documentation": {}
+    },
+    {
+        "label": "StudyUpdate",
+        "kind": 6,
+        "importPath": "models.study",
+        "description": "models.study",
+        "peekOfCode": "class StudyUpdate(BaseModel):\n    study_title: Optional[str] = None\n    study_type: Optional[str] = None\n    study_description: Optional[str] = None\n    authors: Optional[List[str]] = None\n    samples: Optional[List[Sample]] = None\n    # extra_fields: Dict[str, Any] = Field(default_factory=dict)\n    class Config:\n        json_schema_extra = {\n            \"example\": {",
+        "detail": "models.study",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "kind": 6,
+        "importPath": "models.user",
+        "description": "models.user",
+        "peekOfCode": "class User(Document):\n    email: EmailStr\n    hashed_password: str\n    role: Optional[str] = None\nclass CreateUserRequest(BaseModel):\n    email: EmailStr\n    password: str\n    role: Optional[str] = None\n    @validator('password')\n    def password_complexity(cls, value):",
+        "detail": "models.user",
+        "documentation": {}
+    },
+    {
+        "label": "CreateUserRequest",
+        "kind": 6,
+        "importPath": "models.user",
+        "description": "models.user",
+        "peekOfCode": "class CreateUserRequest(BaseModel):\n    email: EmailStr\n    password: str\n    role: Optional[str] = None\n    @validator('password')\n    def password_complexity(cls, value):\n        if len(value) < 8:\n            raise ValueError('Password should be at least 8 characters long')\n        return value\nclass Token(BaseModel):",
+        "detail": "models.user",
+        "documentation": {}
+    },
+    {
+        "label": "Token",
+        "kind": 6,
+        "importPath": "models.user",
+        "description": "models.user",
+        "peekOfCode": "class Token(BaseModel):\n    access_token: str\n    token_type: str",
+        "detail": "models.user",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "routes.admin",
+        "description": "routes.admin",
+        "peekOfCode": "router = APIRouter()\nlogging.basicConfig(level=logging.INFO)\n@router.get(\"/\", response_description=\"Welcome to the admin API\")\nasync def admin_root():\n    return {\"message\": \"Welcome to the admin API\"}\n@router.get(\"/all-studies\", response_description=\"Studies retrieved\")\nasync def get_studies():\n    try:\n        studies = await get_all_studies()\n        if not studies:",
+        "detail": "routes.admin",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "routes.study",
+        "description": "routes.study",
+        "peekOfCode": "router = APIRouter()\nlogging.basicConfig(level=logging.INFO)\n@router.get(\"/\", response_description=\"Studies retrieved\")\nasync def get_studies():\n    try:\n        studies = await get_all_studies()\n        if not studies:\n            raise HTTPException(status_code=404, detail=\"No studies found\")\n        logging.info(f\"{len(studies)} studies retrieved\")\n        return studies",
+        "detail": "routes.study",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "routes.user",
+        "description": "routes.user",
+        "peekOfCode": "router = APIRouter()\nusers_collection = User\n@router.post(\"/login\", response_model=Token)\nasync def login_for_access_token(\n    form_data: Annotated[OAuth2PasswordRequestForm, Depends()],\n    app: FastAPI = Depends(get_app),\n):\n    db = await get_database(app)\n    # Authenticate the user\n    user = await authenticate_user(db, form_data.username, form_data.password)",
+        "detail": "routes.user",
+        "documentation": {}
+    },
+    {
+        "label": "users_collection",
+        "kind": 5,
+        "importPath": "routes.user",
+        "description": "routes.user",
+        "peekOfCode": "users_collection = User\n@router.post(\"/login\", response_model=Token)\nasync def login_for_access_token(\n    form_data: Annotated[OAuth2PasswordRequestForm, Depends()],\n    app: FastAPI = Depends(get_app),\n):\n    db = await get_database(app)\n    # Authenticate the user\n    user = await authenticate_user(db, form_data.username, form_data.password)\n    # Raise an exception if the user doesn't exist",
+        "detail": "routes.user",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app = FastAPI(lifespan=db_lifespan)\n@app.get(\"/\", tags=[\"Root\"])\nasync def read_root():\n    return {\"message\": \"Welcome to this fantastic app.\"}\napp.include_router(StudyRouter, tags=[\"Study\"], prefix=\"/study\")\napp.include_router(UserRouter, tags=[\"auth\"], prefix=\"/auth\")\napp.include_router(AdminRouter, tags=[\"Admin\"], prefix=\"/admin\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_app",
+        "kind": 2,
+        "importPath": "dependencies",
+        "description": "dependencies",
+        "peekOfCode": "def get_app(request: Request):\n    return request.app",
+        "detail": "dependencies",
+        "documentation": {}
+    }
+]

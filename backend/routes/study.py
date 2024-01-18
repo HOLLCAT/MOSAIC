@@ -1,17 +1,11 @@
 from fastapi import APIRouter, Depends, FastAPI, UploadFile, File, Form, HTTPException
-from database.database import (
-    get_database,
-    get_all_studies,
-    get_study_by_id,
-    add_study,
-    delete_study_by_id,
-    update_study_by_id,
-)
+from database.study import *
 from models.study import Study, StudyUpdate, Sample
 from dependencies import get_app
-from typing import List
 from helper.metadataParser.FileReader import FileReader
 import logging
+from routes.user import get_current_user
+from typing import List
 
 router = APIRouter()
 logging.basicConfig(level=logging.INFO)
@@ -34,10 +28,33 @@ async def get_studies():
             raise HTTPException(status_code=500, detail=str(e))
 
 
+@router.get(
+    "/my-studies", response_description="Studies retrieved for the authenticated user"
+)
+async def get_studies_by_authenticated_user(user: dict = Depends(get_current_user)):
+    if user is None:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    user_id = user["id"]
+    try:
+        studies = await get_all_studies_by_user_id(user_id)
+        if not studies:
+            raise HTTPException(status_code=404, detail="No studies found for the user")
+
+        logging.info(f"{len(studies)} studies retrieved for the authenticated user")
+        return studies
+    except Exception as e:
+        logging.error(f"Error retrieving studies for the authenticated user: {e}")
+        if isinstance(e, HTTPException):
+            raise e
+        else:
+            raise HTTPException(status_code=500, detail=str(e))
+
+
 @router.get("/{accession_id}", response_description="Study retrieved")
 async def get_study(accession_id: str):
     try:
-        study = await get_study_by_id(accession_id)
+        study = await get_study_by_accession_id(accession_id)
         if not study:
             raise HTTPException(status_code=404, detail="Study not found")
 
@@ -51,38 +68,43 @@ async def get_study(accession_id: str):
             raise HTTPException(status_code=500, detail=str(e))
 
 
+@router.get("/search/{title}", response_description="Search studies by title")
+async def search_studies(title: str = None):
+    logging.info("search_studies endpoint called")
+    if title is None:
+        raise HTTPException(status_code=400, detail="Title parameter is required")
+
+    try:
+        studies = await get_studies_by_title(title)
+        logging.info(f"{len(studies)} studies found for study title: '{title}'")
+        return studies
+    except Exception as e:
+        logging.error(f"No matching studies found: {e}")
+        raise HTTPException(status_code=404, detail="No matching studies found")
+
+
 @router.post("/", status_code=201)
 async def add_study_route(
-    title: str = Form(...),
-    authors: List[str] = Form(...),
-    description: str = Form(...),
-    study_type: str = Form(...),
-    metadata_file_type: str = Form(...),
-    metadata: UploadFile = File(...),
+    study: Study,
     app: FastAPI = Depends(get_app),
+    user: dict = Depends(get_current_user),
 ):
+    if user is None:
+        raise HTTPException(status_code=401, detail="Authentication failed")
+
     db = await get_database(app)
 
-    study = Study(
-        study_title=title,
-        authors=authors,
-        study_description=description,
-        study_type=study_type,
-        samples=[],
-    )
-
+    
+    new_study = study.owner_id = user["id"]
     new_study = await add_study(db, study)
-    samples_list = FileReader(metadata.file, metadata_file_type).process_file()
-
     try:
         samples = [
             Sample(
-                **data,
+                **{k: v for k, v in data.dict().items() if k != "Sample_Project"},
                 Sample_Project=new_study.accession_id,
-                Biological_Repeat=data["Biological Repeat"],
-                Biomaterial_provider=data["Biomaterial Provider"],
+                fastq="",
             )
-            for data in samples_list
+            for data in study.samples
         ]
     except Exception as e:
         logging.error(f"Error parsing samples: {e}")
@@ -98,17 +120,17 @@ async def add_study_route(
 @router.delete(
     "/{accession_id}", response_description="Study deleted from the database"
 )
-async def delete_study(accession_id: str):
-    try:
-        deleted_study = await delete_study_by_id(accession_id)
-        if not deleted_study:
-            raise HTTPException(status_code=404, detail="Study not found")
+async def delete_study(accession_id: str, user: dict = Depends(get_current_user)):
+    if user is None:
+        raise HTTPException(status_code=401, detail="Authentication failed")
 
+    try:
+        # Pass the authenticated user's ID to the delete function
+        deleted_study = await delete_study_by_id(accession_id, user["id"], user["role"])
         logging.info(f"Study {accession_id} deleted")
         return deleted_study
-
     except Exception as e:
-        logging.error(f"Error retrieving studies: {e}")
+        logging.error(f"Error deleting study: {e}")
         if isinstance(e, HTTPException):
             raise e
         else:
@@ -116,28 +138,51 @@ async def delete_study(accession_id: str):
 
 
 @router.put("/{accession_id}", response_description="Study updated in the database")
-async def update_study(accession_id: str, study: StudyUpdate):
+async def update_study(
+    accession_id: str, study: StudyUpdate, user: dict = Depends(get_current_user)
+):
+    if user is None:
+        raise HTTPException(status_code=401, detail="Authentication failed")
+
     try:
-        updated_study = await update_study_by_id(accession_id, study)
-        if not updated_study:
-            raise HTTPException(status_code=404, detail="Study not found")
-        
+        # Pass the authenticated user's ID to the update function
+        updated_study = await update_study_by_id(
+            accession_id, study, user["id"], user["role"]
+        )
         logging.info(f"Study {accession_id} updated")
         return updated_study
     except Exception as e:
-        logging.error(f"Error retrieving studies: {e}")
+        logging.error(f"Error updating study: {e}")
         if isinstance(e, HTTPException):
             raise e
         else:
             raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.delete("/clear-studies")
-async def clear_studies():
+@router.post(
+    "/upload-metadata", status_code=201, response_description="Metadata file uploaded"
+)
+async def upload_metadata(
+    metadata: UploadFile = File(...),
+    metadata_file_type: str = Form(...),
+    user: dict = Depends(get_current_user),
+):
+    if user is None:
+        raise HTTPException(status_code=401, detail="Authentication failed")
+
+    samples_list = FileReader(metadata.file, metadata_file_type).process_file()
+
     try:
-        # This will delete all documents in the Study collection
-        await Study.delete_all()
-        return {"message": "All studies have been deleted"}
+        samples = [
+            Sample(
+                **data,
+                Sample="",
+                Sample_Project="",
+            )
+            for data in samples_list
+        ]
     except Exception as e:
-        logging.error(f"Error clearing studies: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        logging.error(f"Error parsing samples: {e}")
+        raise HTTPException(status_code=400, detail=f"Error in sample data: {e}")
+
+    return samples
