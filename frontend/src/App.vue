@@ -8,11 +8,11 @@
 <script setup lang="ts">
   import { computed } from "vue";
   import { useRoute } from "vue-router";
-  import NavBar from "@/components/NavBar.vue";
+  import NavBar from "@/components/Navbar/NavBar.vue";
   import SiteFooter from "./components/SiteFooter.vue";
 
   const route = useRoute();
-  const pagesWithoutFooter = ["auth"];
+  const pagesWithoutFooter = ["auth", "upload"];
 
   const shouldRenderFooter = computed(() => {
     return !pagesWithoutFooter.includes((route.name as string) || "");

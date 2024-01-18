@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import Inputfield from './Inputfield.vue';
+import Inputfield from '@/components/InputFields/Inputfield.vue';
 import { useRegister } from '../composables/useRegister';
 
 const {

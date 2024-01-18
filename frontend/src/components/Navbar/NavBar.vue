@@ -3,11 +3,13 @@
   <nav class="flex bg-purple border-gray-700 h-[80px]">
     <div class="max-w-[1800px] mx-auto flex items-center px-1 md:px-6 w-full">
       <router-link to="/" class="text-xl lg:text-3xl font-semibold whitespace-nowrap text-white mr-[20px]"
-        >MOSAIC</router-link
-      >
+        >MOSAIC</router-link>
       <div class="hidden lg:flex lg:mr-4">
         <router-link to="/" :class="activeClass('/')">
           <span :class="navBarComponents">Home</span>
+        </router-link>
+        <router-link to="/upload" :class="activeClass('/upload')">
+          <span :class="navBarComponents">Upload</span>
         </router-link>
         <router-link to="/about" :class="activeClass('/about')">
           <span :class="navBarComponents">About</span>

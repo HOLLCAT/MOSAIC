@@ -57,6 +57,12 @@
               class="pt-4 mt-4 space-y-2 px-3 py-4 text-lg font-medium border-t border-gray-700"
               @click="emit('menu-close')">
               <li>
+                <router-link to="/upload" :class="isActiveLink('/upload')">
+                  <ArrowDownTrayIcon :class="isActiveIcon('/upload')" aria-hidden="true" />
+                  <span class="flex-1 ms-3 whitespace-nowrap">Upload</span>
+                </router-link>
+              </li>
+              <li>
                 <router-link to="/about" :class="isActiveLink('/about')">
                   <InformationCircleIcon :class="isActiveIcon('/about')" aria-hidden="true" />
                   <span class="flex-1 ms-3 whitespace-nowrap">About</span>
@@ -84,6 +90,7 @@
     HomeIcon,
     QuestionMarkCircleIcon,
     InformationCircleIcon,
+    ArrowDownTrayIcon,
   } from "@heroicons/vue/24/outline";
   import { ref, watchEffect } from "vue";
   import { useRoute } from "vue-router";

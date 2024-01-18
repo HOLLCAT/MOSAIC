@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import Inputfield from './Inputfield.vue';
+import Inputfield from '@/components/InputFields/Inputfield.vue';;
 import { useLogin } from '../composables/useLogin';
 
 const {
