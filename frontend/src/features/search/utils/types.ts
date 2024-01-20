@@ -1,4 +1,3 @@
-import type { SearchItemType } from "@/utils/dummyDataNew";
 
 export type FilterType = {
   id: string;
@@ -11,7 +10,15 @@ type FilterOptionType = {
   checked: boolean;
 };
 export type StateType = {
-  fileredResults: SearchItemType[];
-  OriginalResults: SearchItemType[];
-  filters: FilterType[];
+  fileredResults: SearchResultType[] | null;
+  OriginalResults: SearchResultType[] | null;
+  filters: FilterType[] | null;
 };
+
+export type SearchResultType = {
+  "accession_id": string;
+  "created_date": string;
+  "title": string;
+  "description": string;
+  "authors": string[];
+}

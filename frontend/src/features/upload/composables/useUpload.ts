@@ -1,6 +1,7 @@
 import { ref } from 'vue';
 import { validateStudyTitle, validateStudyDesc, validateAuthors, validateStudyMetadata } from '../utils/Validation';
 import { useUploadStore } from './useUploadStore';
+import { useCurrentUser } from '@/composables/useCurrentUser';
 
 export const useUpload = () => {
   const store = useUploadStore();
@@ -35,7 +36,6 @@ export const useUpload = () => {
     metadataError.value = validateStudyMetadata(metadata.value);
 
     if (!studyTitleError.value && !studyDescError.value && authorsError.value.filter((author) => author !== '').length === 0) {
-      console.log('Form Submitted');
       store.commit('upload/setStudyDetails', {
         title: studyTitle.value,
         description: studyDesc.value,

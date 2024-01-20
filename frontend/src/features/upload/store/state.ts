@@ -1,5 +1,4 @@
 import type { UploadStateType } from "../utils/types";
-import { mockSample } from "../utils/mockSamples"
 
 const state = (): UploadStateType => ({
   studyDetails: {
@@ -7,8 +6,8 @@ const state = (): UploadStateType => ({
     error: '',
   },
   samples: {
-    content: mockSample,
-    loading: false,
+    content: null,
+    loading: true,
     error: '',
   },
 });

@@ -1,7 +1,7 @@
 from models.study import Study, StudyUpdate
 from typing import List
 from fastapi import HTTPException
-from database.database import *
+from database.database import study_collection, get_next_mosaic_id, convert_objectid_to_str, get_database
 
 
 async def add_study(db, new_study: Study) -> Study:
@@ -17,7 +17,7 @@ async def get_studies_by_title(title: str) -> List[dict]:
         return []
 
     # case insensitive search for study title
-    query = {"study_title": {"$regex": title, "$options": "i"}}
+    query = {"title": {"$regex": title, "$options": "i"}}
     # searches for studies with matching title
     studies = await study_collection.find(query).to_list(length=100)
     return [convert_objectid_to_str(study.dict()) for study in studies]

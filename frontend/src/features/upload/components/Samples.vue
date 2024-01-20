@@ -1,7 +1,10 @@
 <template>
-    <TransitionRoot :show="true" appear enter="transition ease-in-out duration-200 transform" enter-from="translate-x-full"
-        enter-to="translate-x-0" leave="transition ease-in-out duration-300 transform" leave-from="translate-x-0"
-        leave-to="translate-x-full">
+    <div v-if="result.loading || !result.content">
+        loading ...
+    </div>
+    <TransitionRoot v-else :show="true" appear enter="transition ease-in-out duration-200 transform"
+        enter-from="translate-x-full" enter-to="translate-x-0" leave="transition ease-in-out duration-300 transform"
+        leave-from="translate-x-0" leave-to="translate-x-full">
         <div class="relative overflow-x-auto mt-4">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -32,17 +35,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import { useUploadStore } from '../composables/useUploadStore';
 import UploadButton from '@/components/Buttons/UploadButton.vue';
+import { computed, onBeforeMount } from 'vue';
+import { useStore } from 'vuex';
 import { TransitionRoot } from '@headlessui/vue';
-import type { Samples } from '../utils/types';
+import { useCurrentUser } from '@/composables/useCurrentUser';
+import type { UploadStateType } from '../utils/types';
+import { useRouter } from 'vue-router';
+
 
 const emits = defineEmits<{ showToast: [payload: string] }>()
+const store = useStore();
+const router = useRouter();
+const result = computed<UploadStateType["samples"]>(() => store.getters["upload/getStudySamples"]);
+const samples = computed(() => result.value?.content);
+const { user } = useCurrentUser();
 
-const store = useUploadStore();
-const result = computed(() => store.getters["upload/getStudySamples"]);
-const samples = ref(result.value.content as Samples[]);
+onBeforeMount(() => {
+    const { user, store } = useCurrentUser();
+    const data = computed(() => store.getters["upload/getStudyMetadata"]);
+    store.dispatch("upload/uploadMetadata", {
+        metadata_type: data.value.file_type,
+        metadata: data.value.metadata,
+        token: user.value?.access_token,
+    });
+});
 
 const handleFile = (file: File | null, index: number) => {
     if (!file) {
@@ -52,10 +69,20 @@ const handleFile = (file: File | null, index: number) => {
         emits("showToast", "File must be a .fastq.gz file");
         return;
     }
-    samples.value[index].fastq = file;
+    if (samples.value) {
+        samples.value[index].fastq = file;
+    }
 };
 
 const handleUpload = () => {
-    store.commit("upload/setStudySamples", samples.value);
+    const studyDetails = computed(() => store.getters["upload/getAllStudyData"]);
+    const data = {
+        ...studyDetails.value,
+        samples: samples.value,
+        token: user.value?.access_token,
+    }
+    store.dispatch("upload/uploadStudy", data).then((responseData) => {
+        router.push("/study/" + responseData.accession_id)
+    })
 };
 </script>
