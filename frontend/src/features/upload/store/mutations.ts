@@ -5,9 +5,12 @@ const setStudyDetails = (state: UploadStateType, payload: StudyDetails) => {
   state.studyDetails.content = payload;
 }
 
-const setStudySamples = (state: UploadStateType, payload: Samples[]) => {
-  state.samples.content = payload;
-  console.log(state);
+
+const setIsLoading = (state: UploadStateType, payload: boolean) => {
+  state.samples.loading = payload;
 }
 
-export default { setStudyDetails, setStudySamples };
+const setStudySamples = (state: UploadStateType, payload: Samples[]) => {
+  state.samples.content = payload;
+}
+export default { setStudyDetails, setIsLoading, setStudySamples };

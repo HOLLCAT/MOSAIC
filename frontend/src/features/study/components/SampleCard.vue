@@ -4,16 +4,16 @@
     <div class="text-black text-base font-medium ml-2">
       <h4 class="my-1">
         Sample count:
-        <span class="font-normal">{{ study.samplesCount }}</span>
+        <span class="font-normal">{{ study.samples.length }}</span>
       </h4>
-      <h4 class="my-1">
+      <!-- <h4 class="my-1">
         Experimental Designs:
         <span class="font-normal">{{ study.experimentalDesigns }}</span>
       </h4>
       <h4 class="my-1">
         Experimental Factors:
         <span class="font-normal">{{ study.experimentalFactors }}</span>
-      </h4>
+      </h4> -->
     </div>
   </div>
 </template>

@@ -35,4 +35,10 @@ export type UploadStateType = {
         loading: boolean;
         error: string;
     }
-} 
+}
+
+export type UploadMetadataType = {
+    metadata_type: string;
+    metadata: File;
+    token: string;
+}

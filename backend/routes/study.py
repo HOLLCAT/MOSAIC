@@ -28,29 +28,6 @@ async def get_studies():
             raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get(
-    "/my-studies", response_description="Studies retrieved for the authenticated user"
-)
-async def get_studies_by_authenticated_user(user: dict = Depends(get_current_user)):
-    if user is None:
-        raise HTTPException(status_code=401, detail="Authentication required")
-
-    user_id = user["id"]
-    try:
-        studies = await get_all_studies_by_user_id(user_id)
-        if not studies:
-            raise HTTPException(status_code=404, detail="No studies found for the user")
-
-        logging.info(f"{len(studies)} studies retrieved for the authenticated user")
-        return studies
-    except Exception as e:
-        logging.error(f"Error retrieving studies for the authenticated user: {e}")
-        if isinstance(e, HTTPException):
-            raise e
-        else:
-            raise HTTPException(status_code=500, detail=str(e))
-
-
 @router.get("/{accession_id}", response_description="Study retrieved")
 async def get_study(accession_id: str):
     try:

@@ -5,10 +5,14 @@ const getResults = (state: StateType) => {
 };
 
 const hasResults = (state: StateType) => {
-  return state.OriginalResults.length > 0;
+  return state.OriginalResults !== null;
 };
 
 const getFilters = (state: StateType) => {
   return state.filters;
 };
-export default { getResults, getFilters, hasResults };
+
+const isLoading = (state: StateType) => {
+  return state.loading
+}
+export default { getResults, getFilters, hasResults, isLoading };

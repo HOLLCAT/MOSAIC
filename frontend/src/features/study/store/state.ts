@@ -1,6 +1,6 @@
-import { type SearchItemType, type SampleType } from '@/utils/dummyDataNew'
+import type { StateType } from "../utils/type";
 
-export const state = () => ({
-    study: {} as SearchItemType | null,
-    samples: [] as SampleType[] | null,   
+export const state = (): StateType => ({
+    study: null,
+    samples: null,
 })

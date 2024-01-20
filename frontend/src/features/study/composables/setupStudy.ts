@@ -11,10 +11,10 @@ export const setupStudy = () => {
     const studyId = computed(() => route.params.id as string);
 
     onBeforeMount(() => {
-        store.dispatch('study/fetchStudy', studyId.value );
+        store.dispatch('study/fetchStudy', studyId.value);
     });
 
-    const study  = useStudy();
+    const study = useStudy();
 
     watch(study, () => {
         if (!study.value) {
@@ -22,7 +22,7 @@ export const setupStudy = () => {
         }
     })
     const getNames = (names: string[]) => {
-        if (names){
+        if (names) {
             return names.join(', ');
         }
     }
