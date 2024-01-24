@@ -2,13 +2,13 @@
     <div v-if="columns">
     <div class="flex justify-center items-center mt-8 ml-4">
         <button ref="buttonRef" @click="handleClick" 
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-2.5 me-2 mb-2 dark:bg-purple dark:hover:bg-slate-500 focus:outline-none">
+        class="text-white hover:bg-blue-800 focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-2.5 me-2 mb-2 bg-purple hover:bg-slate-500 focus:outline-none">
             {{ show ? 'Hide' : 'Show' }} Samples
         </button>
     </div>
     <div v-if="show" class="relative overflow-x-auto mt-10">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-200 uppercase bg-gray-50 dark:bg-purple dark:text-gray-300">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-400">
+            <thead class="text-xs uppercase bg-purple text-gray-300">
                 <tr>
                     <th v-for="col in columns" :key="col" scope="col" class="px-6 py-3">
                         {{ formatColumnName(col) }}
@@ -16,8 +16,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="row in rows" :key="row[0]" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <td v-for="value in row" :key="value" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <tr v-for="row in rows" :key="row[0]" class="border-b bg-gray-800 border-gray-700">
+                    <td v-for="value in row" :key="value" class="px-6 py-4 font-medium whitespace-nowrap text-white">
                         {{ value }}
                     </td>
                 </tr>

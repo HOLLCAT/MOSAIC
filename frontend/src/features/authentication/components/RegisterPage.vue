@@ -1,10 +1,10 @@
 <template>
   <div class="flex items-center justify-center bg-navy-800 flex-grow">
-    <div class="flex w-full max-w-md m-4 lg:mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-purple lg:max-w-5xl">
+    <div class="flex w-full max-w-md m-4 lg:mx-auto overflow-hidden rounded-lg shadow-lg bg-purple lg:max-w-5xl">
       <div class="hidden bg-cover bg-right lg:block lg:w-1/2" style="background-image: url('https://www.cancerresearchuk.org/sites/default/files/styles/cruk_no_style/public/large-18.-cruk-beatson-institute.jpg?itok=ksPme3eA');"></div>
       
       <div class="w-full px-6 py-8 md:px-8 lg:w-1/2">
-        <h2 class="text-2xl font-bold text-center text-gray-700 dark:text-white">Create an Account</h2>
+        <h2 class="text-2xl font-bold text-center text-white">Create an Account</h2>
         
         <form @submit.prevent="submitForm" novalidate>
 
