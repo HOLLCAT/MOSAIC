@@ -1,10 +1,11 @@
 from fastapi import FastAPI
-from contextlib import asynccontextmanager
-from config.config import initiate_database, shutdown_database
-from routes.study import router as StudyRouter
-from routes.user import router as UserRouter
-from routes.admin import router as AdminRouter
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
+
+from src.database import initiate_database, shutdown_database
+from src.study.router import router as StudyRouter
+from src.auth.router import router as AuthRouter
+from src.middleware import LogMiddleware
 
 
 @asynccontextmanager
@@ -24,6 +25,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.add_middleware(LogMiddleware)
+
 
 @app.get("/", tags=["Root"])
 async def read_root():
@@ -31,5 +34,4 @@ async def read_root():
 
 
 app.include_router(StudyRouter, tags=["Study"], prefix="/study")
-app.include_router(UserRouter, tags=["auth"], prefix="/auth")
-app.include_router(AdminRouter, tags=["Admin"], prefix="/admin")
+app.include_router(AuthRouter, tags=["auth"], prefix="/auth")
