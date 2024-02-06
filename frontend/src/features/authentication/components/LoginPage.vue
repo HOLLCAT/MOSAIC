@@ -37,6 +37,7 @@
 
           <div class="mt-3">
             <button
+              type="submit"
               class="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-purpleHover focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
               Sign In
             </button>
@@ -67,4 +68,5 @@ const {
     
 } = useLogin();
 
+defineExpose({submitForm})
 </script>

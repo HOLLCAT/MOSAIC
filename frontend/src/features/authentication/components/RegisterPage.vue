@@ -51,5 +51,6 @@ const {
   submitForm
   
 } = useRegister();
-  
+
+defineExpose({submitForm})  
 </script>

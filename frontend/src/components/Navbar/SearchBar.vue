@@ -36,7 +36,6 @@
       event?.preventDefault();
       return;
     }
-
     router.push(`/search/${search.value}`);
     search.value = "";
     searchInput.value?.blur();

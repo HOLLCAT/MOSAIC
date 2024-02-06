@@ -79,4 +79,6 @@ const handleFileUpload = (file: File | null) => {
         metadata.value = file;
     }
 };
+
+defineExpose({submitForm})
 </script>

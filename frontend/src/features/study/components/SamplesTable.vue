@@ -51,4 +51,5 @@ const handleClick= (event: MouseEvent) => {
     buttonRef.value?.blur()
     show.value = !show.value
 }
+defineExpose({formatColumnName})
 </script>

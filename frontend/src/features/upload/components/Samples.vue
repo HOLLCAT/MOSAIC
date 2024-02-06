@@ -28,7 +28,7 @@
             </table>
         </div>
         <div class="mt-4 flex justify-center mx-4">
-            <button @click="handleUpload"
+            <button @click="handleUpload" type="submit"
                 class="w-full bg-white hover:bg-purple-700 text-gray-950 font-bold py-2 px-4 rounded">Upload</button>
         </div>
     </TransitionRoot>
