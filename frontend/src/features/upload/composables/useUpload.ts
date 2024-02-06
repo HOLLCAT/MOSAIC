@@ -29,7 +29,6 @@ export const useUpload = () => {
   };
 
   const submitForm = (callback: Function) => {
-    console.log('submit form');
     studyTitleError.value = validateStudyTitle(studyTitle.value);
     studyDescError.value = validateStudyDesc(studyDesc.value);
     authorsError.value = validateAuthors(authors.value);

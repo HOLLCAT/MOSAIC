@@ -7,7 +7,7 @@ import Authentication from '@/features/authentication/index.vue';
 import StudyPage from '@/features/study/index.vue';
 import UploadPage from '@/features/upload/index.vue';
 
-const routes = [
+export const routes = [
   { path: '/', component: HomePage, name: 'home' },
   { path: '/about', component: AboutPage, name: 'about' },
   { path: '/help', component: HelpPage, name: 'help' },

@@ -70,4 +70,6 @@ const handleLogout = () => {
   store.dispatch("auth/logout");
   router.push('/');
 };
+
+defineExpose({ handleMenuOpen, handleMenuClose, handleLogout, activeClass, navBarComponents, isOpen });
 </script>

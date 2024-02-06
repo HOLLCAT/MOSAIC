@@ -1,0 +1,25 @@
+stages:
+  - test_frontend
+  # - test_backend
+
+test_frontend:
+  stage: test_frontend
+  image: node:18
+  script:
+    - cd frontend
+    - npm install
+    - npm run test
+  only:
+    changes:
+      - frontend/**/*
+
+# test_backend:
+#   stage: test_backend
+#   image: python:3.9-alpine
+#   script:
+#     - cd backend
+#     - pip install -r requirements.txt -q
+#     - chmod +x run_tests.sh && ./run_tests.sh || exit 1
+#   only:
+#     changes:
+#       - backend/**/*
