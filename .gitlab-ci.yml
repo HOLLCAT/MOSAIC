@@ -3,15 +3,15 @@ stages:
   - test_backend
 
 test_frontend:
-  stage: test_frontend
-  image: node:18
-  script:
-    - cd frontend
-    - npm install
-    - npm run test
-  only:
-    changes:
-      - frontend/**/*
+   stage: test_frontend
+   image: node:18
+   script:
+     - cd frontend
+     - npm install
+     - npm run test
+   rules:
+     - changes:
+         - frontend/**/*
 
 test_backend:
   stage: test_backend
@@ -20,7 +20,7 @@ test_backend:
     - cd backend
     - pip install -r requirements.txt -q
     - python -m pytest tests/ -p no:cacheprovider -v
-  only:
-    changes:
-      - backend/**/*
+  rules:
+    - changes:
+        - backend/**/*
 

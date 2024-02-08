@@ -15,7 +15,7 @@ from src.study.exceptions import (
     TitleMissing,
     InvalidSamples,
 )
-from src.exceptions import ServerError
+
 from src.study.schemas import CreateStudy, StudyResponse, StudyUpdate, Sample
 
 router = APIRouter()
@@ -28,12 +28,12 @@ router = APIRouter()
     status_code=status.HTTP_200_OK,
 )
 async def get_studies() -> List[StudyResponse]:
-    try:
-        studies = await service.get_studies()
-        return studies
 
-    except Exception as e:
-        raise ServerError(detail=str(e))
+    studies = await service.get_studies()
+    if not studies:
+        raise StudyNotFound()
+
+    return [StudyResponse(**study.model_dump()) for study in studies]
 
 
 @router.get(
@@ -47,7 +47,7 @@ async def get_study(accession_id: str) -> StudyResponse:
     if not study:
         raise StudyNotFound()
 
-    return StudyResponse(**study.dict())
+    return StudyResponse(**study.model_dump())
 
 
 @router.get(
@@ -56,15 +56,14 @@ async def get_study(accession_id: str) -> StudyResponse:
     response_model=List[StudyResponse],
 )
 async def search_studies(title: str = None) -> List[StudyResponse]:
-    if title is None:
+    if title is None or title.strip() == "":
         raise TitleMissing()
 
-    try:
-        studies = await service.get_search_studies(title)
-        return [StudyResponse(**study.dict()) for study in studies]
-
-    except Exception as e:
+    studies = await service.get_search_studies(title)
+    if not studies:
         raise StudyNotFound()
+
+    return [StudyResponse(**study.model_dump()) for study in studies]
 
 
 @router.post(
@@ -93,7 +92,7 @@ async def add_study_route(
 
     await new_study.save()
 
-    return StudyResponse(**new_study.dict())
+    return StudyResponse(**new_study.model_dump())
 
 
 @router.delete(
@@ -136,9 +135,9 @@ async def update_study(
 
     if original_study.owner_id != user.id:
         raise UserCannotUpdateStudy()
-    print("Passed")
+
     study = await service.update_study_by_id(original_study, updated_study)
-    return StudyResponse(**study.dict())
+    return StudyResponse(**study.model_dump())
 
 
 @router.post(

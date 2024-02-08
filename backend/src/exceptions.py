@@ -38,7 +38,8 @@ class ValidationError(DetailedHTTPException):
     DETAIL = "Validation Error"
 
     def __init__(self, detail: str) -> None:
-        super().__init__(detail=detail)
+        self.DETAIL = detail
+        super().__init__()
 
 
 class ServerError(DetailedHTTPException):
