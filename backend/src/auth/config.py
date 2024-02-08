@@ -1,10 +1,11 @@
+from typing import Optional
 from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    SECRET_KEY: str
-    ALGORITHM: str
-    ACCESS_TOKEN_EXPIRE_MINUTES: str
+    SECRET_KEY: Optional[str] = None
+    ALGORITHM: Optional[str] = None
+    ACCESS_TOKEN_EXPIRE_MINUTES: Optional[str] = None
 
     class Config:
         env_file = ".env.dev"

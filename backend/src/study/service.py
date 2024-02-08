@@ -45,7 +45,6 @@ async def delete_study_by_id(study: Study) -> Study:
 
 
 async def update_study_by_id(study: Study, updated_study: StudyUpdate) -> Study:
-    print("Got to update_study_by_id in service.py")
     for field, value in updated_study.model_dump(exclude_unset=True).items():
         setattr(study, field, value)
 
