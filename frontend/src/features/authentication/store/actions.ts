@@ -5,13 +5,10 @@ const login = async ({ commit }: any, user: LoginRequestType) => {
     try {
         const url = import.meta.env.VITE_LOGIN_URL;
         console.log(url);
-        const response = await axios.post<ApplicationUser>(url, user, {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        });
+        const response = await axios.post<ApplicationUser>(url, user);
         addUserTolocalStorage(response.data);
         commit("setUser", response.data);
+        return true;
     } catch (error) {
         console.log(error);
     }
@@ -22,6 +19,8 @@ const register = async ({ commit }: any, user: RegisterRequestType) => {
         const response = await axios.post<ApplicationUser>(url, user);
         addUserTolocalStorage(response.data);
         commit("setUser", response.data);
+
+        return true;
     } catch (error) {
         console.log(error);
     }

@@ -15,21 +15,13 @@
 import StudyDetails from './components/StudyDetails.vue';
 import DangerToast from '@/components/toasts/DangerToast.vue';
 import Samples from './components/Samples.vue';
-import { useCurrentUser } from '@/composables/useCurrentUser';
-import { ref, onBeforeMount } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 
 const errorMessage = ref("")
 const showToast = ref(false);
 const showDetails = ref(true);
 
-onBeforeMount(() => {
-    const {user} = useCurrentUser();
-    const router = useRouter();
-    if (!user.value) {
-        router.push('/');
-    }
-})
+
 const handleShowToast = (message: string) => {
     errorMessage.value = message;
     showToast.value = true;
