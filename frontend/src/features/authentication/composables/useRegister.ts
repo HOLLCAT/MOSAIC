@@ -16,6 +16,7 @@ export function useRegister() {
   const router = useRouter();
 
   const store = useStore();
+
   const submitForm = () => {
     fullNameError.value = validateFullName(fullName.value);
     emailError.value = validateEmail(email.value);
@@ -31,8 +32,8 @@ export function useRegister() {
         password: password.value,
         confirm_password: confirmPassword.value,
         role: 'user'
-      }).then(() => {
-        router.push('/');
+      }).then((res) => {
+        res && router.push('/');
       });
     };
   };
