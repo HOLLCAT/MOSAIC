@@ -2,12 +2,13 @@
   <div v-if="!loading">
     <h2> loading ..</h2>
   </div>
-  <div v-else >
+  <div v-else>
     <MobileFilter v-if="hasResults" @filter-close="handleFilterClose" :isOpen="mobileFiltersOpen" :filters="filters" />
     <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-6 md:pt-24">
         <h1 class="text-xl md:text-4xl font-bold tracking-tight text-gray-900 break-all">
           Search Results for <span class="text-purpleHover">"{{ search }}"</span>
+          <span class="text-gray-500 text-2xl ml-1">({{ searchResults.length }})</span>
         </h1>
         <div v-if="hasResults" class="flex items-center">
           <button type="button" class="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
@@ -19,7 +20,7 @@
       </div>
 
       <section aria-labelledby="products-heading" class="pb-24 pt-6">
-        <div v-if="searchResults.length > 0" class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+        <div v-if="hasResults" class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
           <SearchFilterTest :filters="filters" />
           <div class="lg:col-span-3 bg-[#FAF9F6] border rounded-xl p-3">
             <SearchResultsItem :searchResults="searchResults" />

@@ -75,6 +75,7 @@ class CreateStudy(BaseStudy):
 
 class StudyResponse(BaseStudy):
     accession_id: str
+    created_date: str
 
 
 class StudyUpdate(BaseStudy):

@@ -19,6 +19,7 @@ SAMPLE_STUDY = {
     "title": "Example Study",
     "description": "Example Description",
     "accession_id": "DV_1A",
+    "created_date": "11 February 2024",
     "authors": ["Author 1", "Author 2"],
     "samples": [
         {
