@@ -1,6 +1,6 @@
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-import { computed, onBeforeMount, watchEffect } from "vue";
+import { computed, onBeforeMount } from "vue";
 import type { FilterType, SearchResultType } from "../utils/types";
 
 
