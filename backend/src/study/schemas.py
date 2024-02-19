@@ -1,8 +1,10 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 from typing import Optional, List
+from src.files.schemas import File
+import re
 
 
-class Sample(BaseModel):
+class BaseSample(BaseModel):
     Sample: str
     Sample_ID: str
     SampleGroup: str
@@ -16,20 +18,33 @@ class Sample(BaseModel):
     Biomaterial_Provider: str
     Date_Sample_Prep: str
     Biological_Repeat: str
-
+    
     class Config:
         extra = "allow"
+
+
+class Sample(BaseSample):
+    file: Optional[File] = None
+
+    def sanitize_sample_id(sample_id: str) -> str:
+        """Sanitize the sample ID to ensure it only contains valid characters."""
+        return re.sub(r"[^\w\-_\.]", "_", sample_id)
+
+    @field_validator("Sample_ID")
+    def validate_and_sanitize_sample_id(cls, v):
+        """Pydantic validator to sanitize the Sample_ID field."""
+        return cls.sanitize_sample_id(v)
 
 
 class BaseStudy(BaseModel):
     title: str
     description: str
     authors: List[str]
-    samples: List[Sample]
 
 
 class CreateStudy(BaseStudy):
     owner_id: Optional[str] = None
+    samples: List[Sample]
 
     class Config:
         json_schema_extra = {
@@ -76,9 +91,11 @@ class CreateStudy(BaseStudy):
 class StudyResponse(BaseStudy):
     accession_id: str
     created_date: str
+    samples: List[BaseSample]
 
 
 class StudyUpdate(BaseStudy):
+    samples: List[Sample]
 
     class Config:
         json_schema_extra = {

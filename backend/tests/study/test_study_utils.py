@@ -1,7 +1,7 @@
 import pytest
 import io
 from src.study.utils import FileReader
-from src.study.schemas import Sample
+from src.study.schemas import BaseSample
 
 
 fields = [
@@ -28,7 +28,7 @@ def test_should_return_samples_from_csv():
     file = io.BytesIO(csv_content.encode())
     reader = FileReader(file, "csv")
     result = reader.process_file()
-    samples = [Sample(**sample) for sample in result]
+    samples = [BaseSample(**sample) for sample in result]
 
     assert all(field in result[0].keys() for field in fields)
 
@@ -45,7 +45,7 @@ def test_should_return_samples_from_json():
     reader = FileReader(file, "json")
     result = reader.process_file()
 
-    samples = [Sample(**sample) for sample in result]
+    samples = [BaseSample(**sample) for sample in result]
 
     assert all(field in result[0].keys() for field in fields)
 
@@ -65,7 +65,7 @@ def test_should_return_samples_from_tab_separated_txt():
     file = io.BytesIO(txt_content.encode())
     reader = FileReader(file, "txt")
     result = reader.process_file()
-    samples = [Sample(**sample) for sample in result]
+    samples = [BaseSample(**sample) for sample in result]
 
     assert all(field in result[0].keys() for field in fields)
 
@@ -83,7 +83,7 @@ def test_should_return_samples_from_pipe_separated_txt():
     file = io.BytesIO(txt_content.encode())
     reader = FileReader(file, "txt")
     result = reader.process_file()
-    samples = [Sample(**sample) for sample in result]
+    samples = [BaseSample(**sample) for sample in result]
 
     assert all(field in result[0].keys() for field in fields)
 
@@ -100,7 +100,7 @@ def test_should_return_samples_from_key_value_txt():
     file = io.BytesIO(txt_content.encode())
     reader = FileReader(file, "txt")
     result = reader.process_file()
-    samples = [Sample(**sample) for sample in result]
+    samples = [BaseSample(**sample) for sample in result]
 
     assert all(field in result[0].keys() for field in fields)
 
