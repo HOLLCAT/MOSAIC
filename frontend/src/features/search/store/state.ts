@@ -1,8 +1,9 @@
-import type { StateType } from "../utils/types";
+import type { StateType } from '../utils/types';
 
 const state = (): StateType => ({
-  fileredResults: null,
-  OriginalResults: null,
-  filters: null,
+    fileredResults: null,
+    OriginalResults: null,
+    filters: null,
+    filteredSamples: null,
 });
 export default state;

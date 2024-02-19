@@ -15,7 +15,7 @@ const props = defineProps(['label', 'inputId', 'type', 'placeholder', 'value', '
 const emit = defineEmits();
 
 const handleFileChange = (event: Event) => {
-    const fileInput = event.target;
+    const fileInput = event.target as HTMLInputElement;
     const file = fileInput.files?.[0];
     emit('update:value', file);
 };

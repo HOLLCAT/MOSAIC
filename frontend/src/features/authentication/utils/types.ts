@@ -16,5 +16,6 @@ export type RegisterRequestType = {
 }
 export type ApplicationUser = {
     name: string,
+    email: string,
     access_token: string,
 }

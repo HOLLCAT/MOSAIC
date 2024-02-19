@@ -27,7 +27,7 @@ describe('SearchBar.vue', () => {
         const push = vi.spyOn(router, 'push');
         await form.trigger('submit');
 
-        expect(push).toHaveBeenCalledWith('/search/test query');
+        expect(push).toHaveBeenCalledWith({ name: 'search', params: { query: 'test query' } });
         expect(input.element.value).toBe('');
     });
 });

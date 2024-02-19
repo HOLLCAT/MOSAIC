@@ -20,9 +20,8 @@
     </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
 defineProps<{ message: string; }>();
-const emits = defineEmits<{ "close-toast": void }>();
+const emits = defineEmits(["close-toast"]);
 
 const handleClose = () => {
     emits("close-toast");
