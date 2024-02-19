@@ -7,6 +7,8 @@ const fetchStudy = async ({ commit }: any, accession: string) => {
         const response = await axios.get<StudyType>(url);
         commit("setStudy", response.data);
         commit("setSamples", response.data.samples);
+
+        return true;
     } catch (error) {
         console.log(error);
     }

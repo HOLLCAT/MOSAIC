@@ -20,6 +20,7 @@ export type Samples = {
     Date_Sample_Prep: string;
     Biological_Repeat: string;
     Fastq: File | null;
+    File: any;
 
     //more fields to be added
     [key: string]: string | File | null;
