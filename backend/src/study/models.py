@@ -21,6 +21,7 @@ class Study(Document):
     description: str
     authors: List[str] = Field(default_factory=list)
     samples: List[Sample]
+    pending: bool = True
 
     class Config:
         json_schema_extra = {
@@ -43,6 +44,12 @@ class Study(Document):
                         "Biomaterial_Provider": "Provider A",
                         "Date_Sample_Prep": "2022-01-01",
                         "Biological_Repeat": "1",
+                        "file": {
+                            "fastq_upload_endpoint": "/study/upload/MOSAIC-0000",
+                            "fastq_download_endpoint": "/study/download/MOSAIC-0000/29382871393",
+                            "file_name": "fastq.gz",
+                            "file_uuid": "dwedwfsfw-fwfefsdw-sfwefw-fswf"
+                        },
                     },
                     {
                         "Sample": "DV_1A_2",
@@ -58,6 +65,12 @@ class Study(Document):
                         "Biomaterial_Provider": "Provider Z",
                         "Date_Sample_Prep": "2022-01-04",
                         "Biological_Repeat": "12",
+                    "file": {
+                            "fastq_upload_endpoint": "/study/upload/MOSAIC-0000",
+                            "fastq_download_endpoint": "/study/download/MOSAIC-0000/29382871393",
+                            "file_name": "fastq.gz",
+                            "file_uuid": "dwedwfsfw-fwfefsdw-sfwefw-fswf"
+                        },
                     },
                 ],
             }

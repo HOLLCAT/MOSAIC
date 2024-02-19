@@ -18,6 +18,8 @@ from src.study.exceptions import (
 
 from src.study.schemas import CreateStudy, StudyResponse, StudyUpdate, Sample
 
+from src.files.utils import delete_study_files
+
 router = APIRouter()
 
 
@@ -34,6 +36,20 @@ async def get_studies() -> List[StudyResponse]:
         raise StudyNotFound()
 
     return [StudyResponse(**study.model_dump()) for study in studies]
+
+@router.get(
+    "/pending",
+    response_description="Pending studies retrieved",
+    response_model=List[StudyResponse],
+    status_code=status.HTTP_200_OK,
+)
+async def get_pending(user: TokenData = Depends(parse_jwt)) -> List[StudyResponse]:
+        studies = await service.get_unpublished(str(user.id))
+        
+        if not studies:
+            raise StudyNotFound()
+        
+        return [StudyResponse(**study.model_dump()) for study in studies]
 
 
 @router.get(
@@ -113,6 +129,7 @@ async def delete_study(
     if study.owner_id != user.id:
         raise UserCannotDeleteStudy()
 
+    await delete_study_files(study)
     await service.delete_study_by_id(study)
     return StudyResponse(**study.dict())
 
