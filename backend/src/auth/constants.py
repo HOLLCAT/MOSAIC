@@ -4,3 +4,4 @@ class ErrorCode:
     INVALID_TOKEN = "Invalid token."
     INVALID_CREDENTIALS = "Invalid credentials."
     EMAIL_TAKEN = "Email is already taken."
+    USER_NOT_FOUND = "User not found."

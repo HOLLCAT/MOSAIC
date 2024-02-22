@@ -11,7 +11,7 @@ services:
       - "27017:27017"
 
   fastapi:
-    image: salehoh/mosaic-backend:1.0
+    build: .
     volumes:
       - data-volume:/var/www/data
     depends_on:

@@ -41,3 +41,4 @@ def parse_jwt(token: str = Depends(oauth2_bearer)) -> TokenData | None:
         raise InvalidToken()
 
     return TokenData(**payload)
+

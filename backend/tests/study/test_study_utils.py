@@ -36,7 +36,7 @@ def test_should_return_samples_from_csv():
     assert samples[1].Sample_ID == "V2"
     assert samples[1].Tissue == ""
 
-    assert samples[0].model_dump().get("New_Field") == "new_value1"
+    assert samples[0].model_dump().get("New_Field") == "NEW_VALUE1"
 
 
 def test_should_return_samples_from_json():
@@ -53,7 +53,7 @@ def test_should_return_samples_from_json():
     assert samples[1].Sample_ID == "V2"
     assert samples[1].Tissue == ""
 
-    assert samples[0].model_dump().get("New_Field") == "new_value1"
+    assert samples[0].model_dump().get("New_Field") == "NEW_VALUE1"
 
 
 def test_should_return_samples_from_tab_separated_txt():

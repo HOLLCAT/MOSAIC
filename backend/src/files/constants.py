@@ -4,3 +4,4 @@ class ErrorCode:
     SAMPLE_NOT_FOUND = "Sample not found in the study."
     FILE_EXISTS = "File already exists."
     FILE_ACCESS_DENIED = "Access denied to file."
+    STUDY_SAMPLES_ALREADY_UPLOADED = "All samples in the study already have files uploaded."

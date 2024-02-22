@@ -1,5 +1,9 @@
 from pathlib import Path
-from src.files.exceptions import *
+from src.files.exceptions import (
+    FileNotFound,
+    MaxBodySizeValidator,
+    MaxBodySizeException,
+)
 from streaming_form_data import StreamingFormDataParser
 from streaming_form_data.targets import FileTarget
 from streaming_form_data.validators import MaxSizeValidator
@@ -7,7 +11,7 @@ from starlette.requests import ClientDisconnect
 from src.exceptions import BadRequest
 from fastapi import Request
 import os
-from src.files.service import *
+from src.files import service
 import uuid
 from src.study.models import Study
 
@@ -49,7 +53,7 @@ async def save_file(request: Request, study: Study, sample_id: str):
     temp_file_path.rename(final_file_path)
 
     # Updates the file metadata
-    await store_file_metadata(
+    await service.store_file_metadata(
         study=study,
         file_name=file_target.multipart_filename,
         file_uuid=file_uuid,
@@ -59,7 +63,7 @@ async def save_file(request: Request, study: Study, sample_id: str):
 
 async def delete_file(study: Study, sample_id: str):
 
-    file = await get_file_metadata(study, sample_id)
+    file = await service.get_file_metadata(study, sample_id)
     file_uuid = file.file_uuid
     original_filename = file.file_name
 
@@ -73,7 +77,7 @@ async def delete_file(study: Study, sample_id: str):
 
     file_path.unlink()
 
-    await delete_file_metadata(study, sample_id)
+    await service.delete_file_metadata(study, sample_id)
 
     return {
         "message": f"Successfully deleted {original_filename} for sample {sample_id}"
@@ -81,7 +85,7 @@ async def delete_file(study: Study, sample_id: str):
 
 
 async def delete_study_files(study: Study):
-    all_file_metadata = await get_all_files_metadata(study)
+    all_file_metadata = await service.get_all_files_metadata(study)
 
     for file_metadata in all_file_metadata:
         file_uuid = file_metadata["file_uuid"]

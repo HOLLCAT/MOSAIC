@@ -10,3 +10,12 @@ async def get_user_by_email(email: str):
 
 async def create_user(user: User):
     await user.create()
+
+async def get_user_by_refresh_token(refresh_token: str):
+    user = await user_collection.find_one({"refresh_token": refresh_token})
+    return user
+
+async def set_user_refresh_token(user: User, refresh_token: str, expires: str):
+    user.refresh_token = refresh_token
+    user.refresh_token_expiry = expires
+    await user.save()

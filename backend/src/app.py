@@ -5,6 +5,8 @@ from src.database import initiate_database, shutdown_database
 from src.study.router import router as StudyRouter
 from src.auth.router import router as AuthRouter
 from src.files.router import router as FilesRouter
+
+
 from src.middleware import LogMiddleware
 
 
@@ -26,5 +28,5 @@ async def read_root():
 
 
 app.include_router(StudyRouter, tags=["Study"], prefix="/study")
-app.include_router(AuthRouter, tags=["auth"], prefix="/auth")
+app.include_router(AuthRouter, tags=["Auth"], prefix="/auth")
 app.include_router(FilesRouter, tags=["Files"], prefix="/study")

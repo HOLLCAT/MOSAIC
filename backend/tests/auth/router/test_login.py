@@ -13,6 +13,7 @@ def client():
     jwt_settings.SECRET_KEY = "test_secret_key"
     jwt_settings.ALGORITHM = "HS256"
     jwt_settings.ACCESS_TOKEN_EXPIRE_MINUTES = 60
+    jwt_settings.REFRESH_TOKEN_EXPIRE_DAYS = 7
     with TestClient(app) as c:
         yield c
 
@@ -28,7 +29,9 @@ async def test_login_return_200_when_login_success(client):
     user_mock.name = "User Name"
 
     with patch('src.auth.service.get_user_by_email', return_value=user_mock), \
-         patch('src.auth.utils.verify_password', return_value=True):
+         patch('src.auth.utils.verify_password', return_value=True), \
+         patch('src.auth.service.set_user_refresh_token', return_value="access_token"):
+        
         response = client.post("/login", json={"email": "user@example.com", "password": "correct_password"})
 
         assert response.status_code == 200
