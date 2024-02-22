@@ -20,18 +20,6 @@ async def get_studies() -> List[Study]:
     return studies
 
 
-async def get_studies_published() -> List[Study]:
-    studies = await study_collection.find({"pending": False}).to_list(length=100)
-    return studies
-
-
-async def get_unpublished(user_id: str) -> List[Study]:
-    studies = await study_collection.find(
-        {"pending": True, "owner_id": user_id}
-    ).to_list(length=100)
-    return studies
-
-
 async def get_study_by_id(accession_id: str) -> Study:
     study = await study_collection.find_one({"accession_id": accession_id})
     return study
@@ -46,7 +34,7 @@ async def create_study(db, study: CreateStudy) -> Study:
 
 
 async def get_search_studies(search_query: str) -> List[Study]:
-    query = {"title": {"$regex": search_query, "$options": "i"}}
+    query = {"title": {"$regex": search_query, "$options": "i"}, "pending": False}
     studies = await study_collection.find(query).to_list(length=100)
     return studies
 

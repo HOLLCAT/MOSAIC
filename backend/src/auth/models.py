@@ -9,3 +9,5 @@ class User(Document):
     hashed_password: str
     role: Optional[str] = None
     organization: Optional[str] = None
+    refresh_token: Optional[str] = None
+    refresh_token_expiry: Optional[str] = None

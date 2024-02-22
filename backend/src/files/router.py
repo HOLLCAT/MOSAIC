@@ -1,14 +1,21 @@
 from fastapi import APIRouter, Request, status, Depends
+from fastapi.responses import Response
+
 from src.auth.jwt import parse_jwt
 from src.auth.schemas import TokenData
 
 from src.study.service import get_study_by_id
-from src.files.exceptions import UserCannotUploadFile, SampleNotFound
 from src.study.exceptions import StudyNotFound
 
-from pathlib import Path
+from src.files import service
+from src.files.exceptions import (
+    StudySamplesAlreadyUploaded,
+    UserCannotUploadFile,
+    SampleNotFound,
+)
 from src.files.utils import *
-from fastapi.responses import Response
+
+from pathlib import Path
 
 router = APIRouter()
 
@@ -31,6 +38,9 @@ async def add_file_route(
     if study.owner_id != user.id:
         raise UserCannotUploadFile()
 
+    if study.pending == False:
+        raise StudySamplesAlreadyUploaded()
+
     valid_sample_id = False
     for sample in study.samples:
         if str(sample.Sample_ID) == sample_id:
@@ -41,6 +51,10 @@ async def add_file_route(
         raise SampleNotFound()
 
     await save_file(request, study, sample_id)
+    
+    is_all_files_uploaded = await service.is_all_files_uploaded(study)
+    if is_all_files_uploaded:
+        await service.update_study_pending_status(study)
 
     return status.HTTP_200_OK
 
@@ -55,7 +69,7 @@ async def download_file_route(accession_id: str, sample_id: str):
     if not study:
         raise StudyNotFound()
 
-    file = await get_file_metadata(study, sample_id)
+    file = await service.get_file_metadata(study, sample_id)
     accession_id = study.accession_id
 
     if file is None:
@@ -95,7 +109,7 @@ async def delete_file_route(
     if study.owner_id != user.id:
         raise UserCannotUploadFile()
 
-    file = await get_file_metadata(study, sample_id)
+    file = await service.get_file_metadata(study, sample_id)
 
     if file is None:
         raise FileNotFound()
@@ -110,7 +124,7 @@ async def delete_file_route(
 
     file_path.unlink()
 
-    await delete_file_metadata(study, sample_id)
+    await service.delete_file_metadata(study, sample_id)
 
     return status.HTTP_200_OK
 
@@ -133,7 +147,7 @@ async def update_file_route(
     if study.owner_id != user.id:
         raise UserCannotUploadFile()
 
-    file = await get_file_metadata(study, sample_id)
+    file = await service.get_file_metadata(study, sample_id)
 
     if file is None:
         raise FileNotFound()

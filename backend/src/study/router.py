@@ -16,7 +16,7 @@ from src.study.exceptions import (
     InvalidSamples,
 )
 
-from src.study.schemas import CreateStudy, StudyResponse, StudyUpdate, Sample
+from src.study.schemas import CreateStudy, StudyResponse, StudyUpdate, SampleResponse
 
 from src.files.utils import delete_study_files
 
@@ -37,58 +37,14 @@ async def get_studies() -> List[StudyResponse]:
 
     return [StudyResponse(**study.model_dump()) for study in studies]
 
-@router.get(
-    "/pending",
-    response_description="Pending studies retrieved",
-    response_model=List[StudyResponse],
-    status_code=status.HTTP_200_OK,
-)
-async def get_pending(user: TokenData = Depends(parse_jwt)) -> List[StudyResponse]:
-        studies = await service.get_unpublished(str(user.id))
-        
-        if not studies:
-            raise StudyNotFound()
-        
-        return [StudyResponse(**study.model_dump()) for study in studies]
-
-
-@router.get(
-    "/{accession_id}",
-    response_description="Study retrieved",
-    response_model=StudyResponse,
-    status_code=status.HTTP_200_OK,
-)
-async def get_study(accession_id: str) -> StudyResponse:
-    study = await service.get_study_by_id(accession_id)
-    if not study:
-        raise StudyNotFound()
-
-    return StudyResponse(**study.model_dump())
-
-
-@router.get(
-    "/search/{title}",
-    response_description="Search studies by title",
-    response_model=List[StudyResponse],
-)
-async def search_studies(title: str = None) -> List[StudyResponse]:
-    if title is None or title.strip() == "":
-        raise TitleMissing()
-
-    studies = await service.get_search_studies(title)
-    if not studies:
-        raise StudyNotFound()
-
-    return [StudyResponse(**study.model_dump()) for study in studies]
-
 
 @router.post(
     "/",
-    status_code=status.HTTP_201_CREATED,
     response_description="Study added to the database",
     response_model=StudyResponse,
+    status_code=status.HTTP_201_CREATED,
 )
-async def add_study_route(
+async def create_study(
     study: CreateStudy,
     app: FastAPI = Depends(get_app),
     user: TokenData = Depends(parse_jwt),
@@ -109,6 +65,37 @@ async def add_study_route(
     await new_study.save()
 
     return StudyResponse(**new_study.model_dump())
+
+
+@router.get(
+    "/search/{title}",
+    response_description="Search studies by title",
+    response_model=List[StudyResponse],
+    status_code=status.HTTP_200_OK,
+)
+async def search_studies(title: str = None) -> List[StudyResponse]:
+    if title is None or title.strip() == "":
+        raise TitleMissing()
+
+    studies = await service.get_search_studies(title)
+    if not studies:
+        raise StudyNotFound()
+
+    return [StudyResponse(**study.model_dump()) for study in studies]
+
+
+@router.get(
+    "/{accession_id}",
+    response_description="Study retrieved",
+    response_model=StudyResponse,
+    status_code=status.HTTP_200_OK,
+)
+async def get_study(accession_id: str) -> StudyResponse:
+    study = await service.get_study_by_id(accession_id)
+    if not study:
+        raise StudyNotFound()
+
+    return StudyResponse(**study.model_dump())
 
 
 @router.delete(
@@ -159,21 +146,21 @@ async def update_study(
 
 @router.post(
     "/upload-metadata",
-    status_code=status.HTTP_201_CREATED,
     response_description="Metadata file uploaded",
-    response_model=List[Sample],
+    response_model=List[SampleResponse],
+    status_code=status.HTTP_201_CREATED,
 )
 async def upload_metadata(
     metadata: UploadFile = File(...),
     metadata_file_type: str = Form(...),
     user: TokenData = Depends(parse_jwt),
-):
+) -> List[SampleResponse]:
 
     samples_list = utils.FileReader(metadata.file, metadata_file_type).process_file()
 
     try:
         samples = [
-            Sample(
+            SampleResponse(
                 **data,
                 Sample="",
                 Sample_Project="",

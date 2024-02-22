@@ -20,3 +20,7 @@ class InvalidCredentials(NotAuthenticated):
 
 class EmailTaken(BadRequest):
     DETAIL = ErrorCode.EMAIL_TAKEN
+    
+    
+class UserNotFound(BadRequest):
+    DETAIL = ErrorCode.USER_NOT_FOUND

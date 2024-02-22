@@ -1,4 +1,4 @@
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, field_validator, model_validator
 from typing import Optional, List
 from src.files.schemas import File
 import re
@@ -18,7 +18,15 @@ class BaseSample(BaseModel):
     Biomaterial_Provider: str
     Date_Sample_Prep: str
     Biological_Repeat: str
-    
+
+    @model_validator(mode="before")
+    def trim_and_capitalize(cls, values):
+        for field, value in values.items():
+            if isinstance(value, str):
+                values[field] = value.strip().upper()
+
+        return values
+
     class Config:
         extra = "allow"
 
@@ -34,6 +42,14 @@ class Sample(BaseSample):
     def validate_and_sanitize_sample_id(cls, v):
         """Pydantic validator to sanitize the Sample_ID field."""
         return cls.sanitize_sample_id(v)
+
+
+class SampleResponse(BaseSample):
+
+    @model_validator(mode="before")
+    def remove_file(cls, values):
+        values.pop("file", None)
+        return values
 
 
 class BaseStudy(BaseModel):
@@ -91,7 +107,7 @@ class CreateStudy(BaseStudy):
 class StudyResponse(BaseStudy):
     accession_id: str
     created_date: str
-    samples: List[BaseSample]
+    samples: List[SampleResponse]
 
 
 class StudyUpdate(BaseStudy):
