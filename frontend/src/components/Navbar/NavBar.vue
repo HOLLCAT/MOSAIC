@@ -43,21 +43,16 @@ import SearchBar from "./SearchBar.vue";
 import HamburgerMenu from "./HamburgerMenu.vue";
 import MobileSideMenu from "./MobileSideMenu.vue";
 import { useCurrentUser } from "@/composables/useCurrentUser";
-import { useSetUser } from "@/composables/useSetUser";
-import { ref, onBeforeMount } from "vue";
+import { ref } from "vue";
 
 const route = useRoute();
 const router = useRouter();
 const isOpen = ref(false);
-const { user } = useCurrentUser();
-const { setUser, store } = useSetUser();
+const { user, store } = useCurrentUser();
 
 const handleMenuOpen = () => (isOpen.value = true);
 const handleMenuClose = () => (isOpen.value = false);
 
-onBeforeMount(() => {
-  !user.value && setUser();
-});
 
 const navBarComponents = "text-white text-xl font-medium";
 const activeClass = (path: string) => {

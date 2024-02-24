@@ -1,10 +1,16 @@
 import { mount } from '@vue/test-utils';
 import MobileSideMenu from './MobileSideMenu.vue';
-import router from '@/router';
+import { routes } from '@/router';
 import { it, expect, beforeEach, afterEach, describe } from 'vitest';
 import { Dialog, DialogPanel, TransitionRoot } from '@headlessui/vue';
+import { createRouter, createWebHistory } from 'vue-router';
 
-// Helper function to mount component with router
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes: routes,
+});
+
 const mountMobileSideMenu = (props: { isOpen: boolean }) => {
     return mount(MobileSideMenu, {
         attachTo: document.body,

@@ -1,5 +1,6 @@
 export type AuthStateType = {
     user: ApplicationUser | null,
+    isRefreshingToken: boolean,
 }
 
 export type LoginRequestType = {

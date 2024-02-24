@@ -20,9 +20,6 @@
                         <td class="px-6 py-4" v-for="(value, key) in sample" :key="key">
                             <input type="text" v-model="sample[key]" class="bg-gray-800 rounded-lg" />
                         </td>
-                        <td class="px-6 py-4">
-                            <UploadButton @file-uploaded="file => handleFile(file, index)" />
-                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -35,11 +32,9 @@
 </template>
 
 <script setup lang="ts">
-import UploadButton from '@/components/Buttons/UploadButton.vue';
 import { computed, onBeforeMount } from 'vue';
 import { useStore } from 'vuex';
 import { TransitionRoot } from '@headlessui/vue';
-import { useCurrentUser } from '@/composables/useCurrentUser';
 import type { UploadStateType } from '../utils/types';
 import { useRouter } from 'vue-router';
 
@@ -49,37 +44,22 @@ const store = useStore();
 const router = useRouter();
 const result = computed<UploadStateType["samples"]>(() => store.getters["upload/getStudySamples"]);
 const samples = computed(() => result.value?.content);
-const { user } = useCurrentUser();
+
 
 onBeforeMount(() => {
-    const { user, store } = useCurrentUser();
     const data = computed(() => store.getters["upload/getStudyMetadata"]);
     store.dispatch("upload/uploadMetadata", {
         metadata_type: data.value.file_type,
         metadata: data.value.metadata,
-        token: user.value?.access_token,
     });
 });
 
-const handleFile = (file: File | null, index: number) => {
-    if (!file) {
-        return;
-    }
-    if (!file.name.endsWith(".fastq.gz")) {
-        emits("showToast", "File must be a .fastq.gz file");
-        return;
-    }
-    if (samples.value) {
-        samples.value[index].fastq = file;
-    }
-};
 
 const handleUpload = () => {
     const studyDetails = computed(() => store.getters["upload/getAllStudyData"]);
     const data = {
         ...studyDetails.value,
         samples: samples.value,
-        token: user.value?.access_token,
     }
     store.dispatch("upload/uploadStudy", data).then((responseData) => {
         router.push("/study/" + responseData.accession_id)

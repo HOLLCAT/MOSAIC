@@ -1,5 +1,7 @@
 import type { Samples, UploadMetadataType } from "../utils/types";
-import axios from "axios";
+import { post } from "@/utils/axiosWrapper";
+
+const isDev = import.meta.env.MODE === "development";
 
 const uploadMetadata = async ({ commit }: any, data: UploadMetadataType) => {
     try {
@@ -7,31 +9,26 @@ const uploadMetadata = async ({ commit }: any, data: UploadMetadataType) => {
         const form = new FormData();
         form.append("metadata", data.metadata);
         form.append("metadata_file_type", data.metadata_type);
-        const response = await axios.post<Samples[]>(url, form, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-                Authorization: `Bearer ${data.token}`
-            }
-        });
+        const response = await post<Samples[]>(url, form, true);
+        if (response.error) throw response.error;
+
         commit("setStudySamples", response.data)
         commit("setIsLoading", false);
     } catch (err) {
-        console.log(err);
+        if (isDev) console.log(err);
     }
 }
 
-const uploadStudy = async ({ commit }: any, data: { token: any; }) => {
+const uploadStudy = async ({}, data: any) => {
     try {
+        console.log(data);
         const url = import.meta.env.VITE_STUDY_URL;
-        const response = await axios.post(url, data, {
-            headers: {
-                Authorization: `Bearer ${data.token}`
-            }
-        });
-        console.log(response.data);
+        const response = await post(url, data);
+        if (response.error) throw response.error;
+
         return response.data;
     } catch (err) {
-        console.log(err);
+        if (isDev) console.log(err);
     }
 }
 export default { uploadMetadata, uploadStudy };
