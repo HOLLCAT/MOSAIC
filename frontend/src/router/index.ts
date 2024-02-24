@@ -14,8 +14,8 @@ export const routes = [
     { path: '/', component: HomePage, name: 'home' },
     { path: '/about', component: AboutPage, name: 'about' },
     { path: '/help', component: HelpPage, name: 'help' },
-    { 
-        path: '/search/:query', 
+    {
+        path: '/search/:query',
         component: ParentVue,
         children: [
             { path: '', component: SearchPage, name: 'search' },
@@ -34,14 +34,31 @@ const router = createRouter({
     linkExactActiveClass: 'active-link',
 });
 
-router.beforeEach((to, from, next) => {
-    const isLoggedIn = store.getters['auth/isLoggedIn'];
+router.beforeEach(async (to, from, next) => {
+    let isLoggedIn = store.getters['auth/isLoggedIn'];
+
+    if (store.getters['auth/isRefreshingToken']) {
+        // Wait for the refresh token request to complete
+        await new Promise(resolve => {
+            const unwatch = store.watch(
+                (state, getters) => getters['auth/isRefreshingToken'],
+                (isRefreshing) => {
+                    if (!isRefreshing) 
+                    {
+                        isLoggedIn = store.getters['auth/isLoggedIn'];
+                        unwatch();
+                        resolve(null);
+                    }
+                }
+            );
+        });
+    }
 
     if (to.matched.some((record) => record.meta.requiresAuth) && !isLoggedIn) {
         next({ name: 'auth', params: { mode: 'login' } });
     } else if (to.name === 'auth' && isLoggedIn) {
         next({ name: 'home' });
-    } else if (to.name === 'download-samples' && from.name !== 'search'){
+    } else if (to.name === 'download-samples' && from.name !== 'search') {
         next({ name: 'search', params: { query: from.params.query } });
     } else {
         next();
