@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const downloadFile = async (studyId: string, sampleId: string) => {
-    const url = import.meta.env.VITE_STUDY_URL + `download/${studyId}/${sampleId}`;
+    const url = import.meta.env.VITE_STUDY_DOWNLOAD_SAMPLE_URL + `/${studyId}/${sampleId}`;
     try {
         const response = await axios.get(url, { responseType: 'blob' });
 

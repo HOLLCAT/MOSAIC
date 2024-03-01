@@ -5,7 +5,7 @@ const isDev = import.meta.env.MODE === "development";
 
 const fetchStudy = async ({ commit }: any, accession: string) => {
     try {
-        const url = import.meta.env.VITE_STUDY_URL + accession;
+        const url = import.meta.env.VITE_STUDY_URL + `/${accession}`;
         const response = await get<StudyType>(url);
         if (response.error) throw response.error;
 

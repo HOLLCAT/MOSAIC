@@ -7,7 +7,8 @@
         leave-from="translate-x-0" leave-to="translate-x-full">
         <div class="relative overflow-x-auto mt-4">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead v-if="samples" class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <thead v-if="samples"
+                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3" v-for="(value, key) in samples[0]" :key="key">
                             {{ key }}
@@ -61,8 +62,8 @@ const handleUpload = () => {
         ...studyDetails.value,
         samples: samples.value,
     }
-    store.dispatch("upload/uploadStudy", data).then((responseData) => {
-        router.push("/study/" + responseData.accession_id)
+    store.dispatch("upload/uploadStudy", data).then(() => {
+        router.push({ name: "dashboard", query: { tab: "PendingStudies" } });
     })
 };
 </script>

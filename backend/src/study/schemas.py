@@ -1,6 +1,7 @@
 from pydantic import BaseModel, field_validator, model_validator
 from typing import Optional, List
-from src.files.schemas import File
+
+from src.files.schemas import FileType
 import re
 
 
@@ -32,7 +33,7 @@ class BaseSample(BaseModel):
 
 
 class Sample(BaseSample):
-    file: Optional[File] = None
+    File: Optional[FileType] = None
 
     def sanitize_sample_id(sample_id: str) -> str:
         """Sanitize the sample ID to ensure it only contains valid characters."""
@@ -48,7 +49,7 @@ class SampleResponse(BaseSample):
 
     @model_validator(mode="before")
     def remove_file(cls, values):
-        values.pop("file", None)
+        values.pop("File", None)
         return values
 
 
