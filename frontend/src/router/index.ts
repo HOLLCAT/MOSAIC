@@ -7,6 +7,7 @@ import SearchPage from '@/features/search/index.vue';
 import Authentication from '@/features/authentication/index.vue';
 import StudyPage from '@/features/study/index.vue';
 import UploadPage from '@/features/upload/index.vue';
+import UserDashboard from '@/features/dashboard/index.vue';
 
 import { store } from '@/store';
 
@@ -17,13 +18,13 @@ export const routes = [
     {
         path: '/search/:query',
         component: ParentVue,
-        children: [
-            { path: '', component: SearchPage, name: 'search' },
-        ],
+        children: [{ path: '', component: SearchPage, name: 'search' }],
     },
     { path: '/auth/:mode', component: Authentication, name: 'auth' },
     { path: '/study/:id', component: StudyPage, name: 'study' },
     { path: '/upload', component: UploadPage, name: 'upload', meta: { requiresAuth: true } },
+    { path: '/dashboard', component: UserDashboard, name: 'dashboard', meta: { requiresAuth: true } },
+
     { path: '/:pathMatch(.*)*', redirect: '/', name: 'default' },
 ];
 
@@ -43,8 +44,7 @@ router.beforeEach(async (to, from, next) => {
             const unwatch = store.watch(
                 (state, getters) => getters['auth/isRefreshingToken'],
                 (isRefreshing) => {
-                    if (!isRefreshing) 
-                    {
+                    if (!isRefreshing) {
                         isLoggedIn = store.getters['auth/isLoggedIn'];
                         unwatch();
                         resolve(null);

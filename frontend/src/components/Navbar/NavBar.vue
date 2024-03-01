@@ -28,6 +28,9 @@
         <router-link to="/upload" :class="activeClass('/upload')">
           <span :class="navBarComponents">Upload</span>
         </router-link>
+        <router-link to="/dashboard" :class="activeClass('/dashboard')">
+          <span :class="navBarComponents">Dashboard</span>
+        </router-link>
         <button @click="handleLogout" class="p-6 border-t-4 border-transparent hover:bg-slate-600 cursor-pointer">
           <span :class="navBarComponents">Logout</span>
         </button>

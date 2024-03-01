@@ -11,13 +11,14 @@
 <script setup lang="ts">
   import { computed, ref, onBeforeMount } from "vue";
   import { useRoute } from "vue-router";
-  import { useCurrentUser } from "@/composables/useCurrentUser";
+  import { useStore } from "vuex";
   import { injectStore } from "./utils/api";
   import NavBar from "@/components/Navbar/NavBar.vue";
   import SiteFooter from "./components/SiteFooter.vue";
   
   const loading = ref(true);
-  const { user, store } = useCurrentUser();
+  const store = useStore();
+  
   injectStore(store);
   
   onBeforeMount(() => {

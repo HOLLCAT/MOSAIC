@@ -32,7 +32,7 @@ export type SampleResponseType = {
     Sample_Project: string;
     Sex: string;
     Tissue: string;
-    File?: string;
+    File?: boolean;
 };
 
 export type SearchResultType = {
