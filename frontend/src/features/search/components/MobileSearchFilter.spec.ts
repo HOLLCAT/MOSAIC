@@ -1,10 +1,10 @@
 import { mount } from '@vue/test-utils';
 import MobileSearchFilter from './MobileSearchFilter.vue';
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import router from '@/router';
 import { Dialog, DialogPanel, TransitionRoot } from '@headlessui/vue';
 import type { FilterType } from '../utils/types';
-import { createStore } from 'vuex';
+import { createTestingPinia } from '@pinia/testing';
 
 const testFilters = [
     {
@@ -14,6 +14,7 @@ const testFilters = [
             { value: '2024', label: '2024', checked: false },
             { value: '2020', label: '2020', checked: false },
         ],
+        filterFunc: vi.fn(),
     },
     {
         id: '2',
@@ -22,15 +23,18 @@ const testFilters = [
             { value: 'HomoSapiens', label: 'Homo sapiens', checked: false },
             { value: 'MusMusculus', label: 'Mus musculus', checked: false },
         ],
+        filterFunc: vi.fn(),
     },
 ];
 
 const mountMobileSearchFilter = (props: { filters: FilterType[]; isOpen: boolean }) => {
+    const pinia = createTestingPinia({ createSpy: vi.fn() })
     return mount(MobileSearchFilter, {
         attachTo: document.body,
         props: props,
         global: {
-            plugins: [createStore({}), router],
+            plugins: [pinia, router],
+            provide: {isDev: true}
         },
     });
 };

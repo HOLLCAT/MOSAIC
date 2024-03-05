@@ -1,12 +1,14 @@
 import { mount } from '@vue/test-utils';
 import SiteFooter from './SiteFooter.vue';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import router from '@/router';
+import { createTestingPinia } from '@pinia/testing';
 
 const renderSiteFooter = () =>
     mount(SiteFooter, {
         global: {
-            plugins: [router],
+            plugins: [createTestingPinia({createSpy: vi.fn()}), router],
+            provide: {isDev: true},
         },
     });
 

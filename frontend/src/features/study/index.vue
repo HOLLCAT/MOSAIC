@@ -1,5 +1,5 @@
 <template>
-    <div v-if="study" class="mx-auto max-w-screen-2xl min-h-[81vh] p-3 ">
+    <div v-if="study" class="mx-auto md:w-[1000px] lg:w-[1500px]  min-h-[81vh] p-3 ">
         <h1 class="text-xl md:text-3xl text-slate-600 font-semibold text-left mt-4 mb-2">
             {{ study.title }}
         </h1>
@@ -8,7 +8,7 @@
         </h3>
         <div class="md:flex items-center justify-center font-semibold my-11 text-sm md:text-[17px]">
             <h3>Accession: <span class="text-gray-600">{{ study.accession_id }}</span></h3>
-            <h3 class="md:mx-8">Study type:  <span class="text-gray-600">{{ study.created_date }}</span></h3>
+            <h3 class="md:mx-8">Study type: <span class="text-gray-600">{{ study.created_date }}</span></h3>
         </div>
         <div class="my-6 md:ml-4">
             <h2 class="font-semibold text-lg md:text-3xl text-slate-600 mb-2">Description</h2>
@@ -30,4 +30,4 @@ import SamplesTable from './components/SamplesTable.vue';
 import { setupStudy } from './composables/setupStudy';
 
 const { study, getNames } = setupStudy();
-</script>./composables/useStudy
+</script>

@@ -4,7 +4,7 @@
     <div class="text-black text-base font-medium ml-2">
       <h4 class="my-1">
         Sample count:
-        <span class="font-normal">{{ study.samples.length }}</span>
+        <span class="font-normal">{{ study?.samples.length }}</span>
       </h4>
     </div>
   </div>

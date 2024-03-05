@@ -1,6 +1,4 @@
 import axios from "axios";
-import { Store } from 'vuex';
-
 import type { ApplicationUser } from "@/features/authentication/utils/types";
 const isDev = import.meta.env.MODE === "development";
 
@@ -11,13 +9,12 @@ const api = axios.create({
     },
 });
 
-
-let store: Store<any>;
-export const injectStore = (_store: Store<any>) => {
+let store: any;
+export const injectStore = (_store: any) => {
     store = _store;
 };
 const getUser = () => {
-    return store.state.auth.user;
+    return store.user;
 };
 
 api.interceptors.request.use(
@@ -37,13 +34,12 @@ api.interceptors.response.use(
         const originalRequest = error.config;
         const user = getUser();
 
-        if (error.response.status === 401 && !originalRequest._retry && !user) {
+        const isLoginOrRegister = [import.meta.env.VITE_LOGIN_URL, import.meta.env.VITE_REGISTER_URL].includes(originalRequest.url);
+        if (error.response.status === 401 && !originalRequest._retry && !user && !isLoginOrRegister) {
             try {
                 const response = await api.post<ApplicationUser>(import.meta.env.VITE_REFRESH_URL);
                 const user = response.data;
-                console.log(user);
-
-                store.commit('auth/setUser', user);
+                store.user = user;
 
                 originalRequest.headers.Authorization = `Bearer ${user.access_token}`;
 

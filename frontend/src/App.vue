@@ -8,28 +8,30 @@
     <p>Loading...</p>
   </div>
 </template>
-<script setup lang="ts">
-  import { computed, ref, onBeforeMount } from "vue";
-  import { useRoute } from "vue-router";
-  import { useStore } from "vuex";
-  import { injectStore } from "./utils/api";
-  import NavBar from "@/components/Navbar/NavBar.vue";
-  import SiteFooter from "./components/SiteFooter.vue";
-  
-  const loading = ref(true);
-  const store = useStore();
-  
-  injectStore(store);
-  
-  onBeforeMount(() => {
-    store.dispatch("auth/refreshToken").then(() => {
-      loading.value = false;
-    });
-  });
 
-  const route = useRoute();
-  const pagesWithoutFooter = ["auth", "upload"];
-  const shouldRenderFooter = computed(() => {
-    return !pagesWithoutFooter.includes((route.name as string) || "");
+<script setup lang="ts">
+import { computed, ref, onBeforeMount } from "vue";
+import { useRoute } from "vue-router";
+import { injectStore } from "./utils/api";
+import NavBar from "@/components/Navbar/NavBar.vue";
+import SiteFooter from "./components/SiteFooter.vue";
+import { useAuthStore } from "@/stores/authStore";
+
+const loading = ref(true);
+const authStore = useAuthStore();
+
+injectStore(authStore);
+
+onBeforeMount(() => {
+  authStore.refreshToken().then(() => {
+    loading.value = false;
   });
+});
+
+const route = useRoute();
+const pagesWithoutFooter = ["auth", "upload"];
+const shouldRenderFooter = computed(() => {
+  return !pagesWithoutFooter.includes((route.name as string) || "");
+});
 </script>
+./stores/authStore

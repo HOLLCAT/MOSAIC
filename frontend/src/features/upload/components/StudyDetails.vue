@@ -33,7 +33,7 @@
         <div class="flex justify-left my-4">
             <div class="flex flex-col justify-left">
                 <h4 class="text-white text-sm font-medium mb-2">Upload Metadata</h4>
-                <UploadButton v-on:file-uploaded="handleFileUpload" />
+                <UploadButton @file-uploaded="handleFileUpload" />
                 <span v-if="metadata?.name && !metadataError" class="text-xs text-gray-400 mt-1">{{ metadata.name }}</span>
                 <span v-if="metadataError" class="text-xs text-red-400 mt-1">{{ metadataError }}</span>
             </div>

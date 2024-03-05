@@ -9,7 +9,9 @@ import StudyPage from '@/features/study/index.vue';
 import UploadPage from '@/features/upload/index.vue';
 import UserDashboard from '@/features/dashboard/index.vue';
 
-import { store } from '@/store';
+import { useAuthStore } from '@/stores/authStore';
+import { watchEffect } from 'vue';
+import { storeToRefs } from 'pinia';
 
 export const routes = [
     { path: '/', component: HomePage, name: 'home' },
@@ -36,27 +38,23 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-    let isLoggedIn = store.getters['auth/isLoggedIn'];
+    const { user, isRefreshingToken } = storeToRefs(useAuthStore())
 
-    if (store.getters['auth/isRefreshingToken']) {
+    if (isRefreshingToken.value) {
         // Wait for the refresh token request to complete
         await new Promise(resolve => {
-            const unwatch = store.watch(
-                (state, getters) => getters['auth/isRefreshingToken'],
-                (isRefreshing) => {
-                    if (!isRefreshing) {
-                        isLoggedIn = store.getters['auth/isLoggedIn'];
-                        unwatch();
-                        resolve(null);
-                    }
+            const stopWatch = watchEffect(() => {
+                if (!isRefreshingToken.value) {
+                    stopWatch();
+                    resolve(null);
                 }
-            );
+            });
         });
     }
 
-    if (to.matched.some((record) => record.meta.requiresAuth) && !isLoggedIn) {
+    if (to.matched.some((record) => record.meta.requiresAuth) && !user.value) {
         next({ name: 'auth', params: { mode: 'login' } });
-    } else if (to.name === 'auth' && isLoggedIn) {
+    } else if (to.name === 'auth' && user.value) {
         next({ name: 'home' });
     } else if (to.name === 'download-samples' && from.name !== 'search') {
         next({ name: 'search', params: { query: from.params.query } });

@@ -1,8 +1,10 @@
-import { mount } from '@vue/test-utils';
 import SamplesTable from './SamplesTable.vue';
-import { describe, it, expect } from 'vitest';
-import { createStore } from 'vuex';
-import type { Samples } from '@/features/upload/utils/types';
+import { mount } from '@vue/test-utils';
+import { describe, it, expect, vi } from 'vitest';
+import { useStudyStore } from '@/stores/studyStore';
+import { createTestingPinia } from '@pinia/testing';
+import { nextTick } from 'vue';
+import router from '@/router'
 
 const data = {
     study: {
@@ -13,9 +15,10 @@ const data = {
         authors: ['Author 1', 'Author 2'],
         samples: [
             {
-                Sample: "VR_1",
+                Sample: 'VR_1',
                 Sample_ID: 'TxtSample_1',
                 SampleGroup: 'Group_1',
+                Sample_Project: 'Project_1',
                 Description: 'Human Sample',
                 Organism: 'Homo sapiens',
                 Tissue: 'Liver',
@@ -25,12 +28,12 @@ const data = {
                 Biomaterial_Provider: 'Provider A',
                 Date_Sample_Prep: '2024-01-10',
                 Biological_Repeat: '1',
-                file: 'fastq_1',
             },
             {
-                Sample: "VR_2",
+                Sample: 'VR_2',
                 Sample_ID: 'TxtSample_2',
                 SampleGroup: 'Group_2',
+                Sample_Project: 'Project_1',
                 Description: 'Human Sample',
                 Organism: 'Homo sapiens',
                 Tissue: 'Brain',
@@ -40,40 +43,21 @@ const data = {
                 Biomaterial_Provider: 'Provider B',
                 Date_Sample_Prep: '2020-04-16',
                 Biological_Repeat: '1',
-                file: 'fastq_2',
             },
         ],
     },
 };
 
-const mockStore = createStore({
-    modules: {
-        study: {
-            namespaced: true,
-            state() {
-                return {
-                    samples: data.study.samples
-                };
-            },
-            getters: {
-                getSamplesColumns: (state) => state.columns,
-                getSamples: (state) => {
-                    return state.samples.map((sample: Samples) => {
-                        const { file, ...rest } = sample;
-                        return rest;
-                    });
-                },
-            },
-        },
-    },
-});
+const renderSamplesTable = () => {
+    const pinia = createTestingPinia({ createSpy: vi.fn() });
 
-const renderSamplesTable = () =>
-    mount(SamplesTable, {
+    return mount(SamplesTable, {
         global: {
-            plugins: [mockStore],
+            plugins: [pinia, router],
+            provide: { isDev: true }
         },
     });
+};
 
 describe('SamplesTable.vue', () => {
     it('should render', () => {
@@ -81,10 +65,13 @@ describe('SamplesTable.vue', () => {
         expect(wrapper.exists()).toBe(true);
     });
 
-    it('should render sample data correctly', () => {
+    it('should render sample data correctly', async () => {
         const wrapper = renderSamplesTable();
+        const studyStore = useStudyStore();
+        studyStore.$state.study = data.study;
+        await nextTick();
 
-        const samples = mockStore.getters['study/getSamples'] as Samples[];
+        const samples = studyStore.getSamples!;
         const columns = Object.keys(samples[0]).concat(['Fastq.gz']);
 
         const tableRows = wrapper.findAll('tr');
@@ -95,14 +82,22 @@ describe('SamplesTable.vue', () => {
         expect(tableHeadersText).toEqual(columns);
 
         const tableData = wrapper.findAll('tr.border-b.bg-gray-800.border-gray-700');
-        const tableDataText = tableData.map((data) => Array.from(data.element.childNodes).map(child => child.textContent).filter(text => text !== '') );
-        
-        expect(tableDataText).toEqual(samples.map(sample => Object.values(sample)));
-        
+        const tableDataText = tableData.map((data) =>
+            Array.from(data.element.childNodes)
+                .map((child) => child.textContent)
+                .filter((text) => text !== '')
+        );
+
+        expect(tableDataText).toEqual(
+            samples.map((sample: { [s: string]: unknown } | ArrayLike<unknown>) => Object.values(sample))
+        );
     });
 
     it('should have the table button working correctly', async () => {
         const wrapper = renderSamplesTable();
+        const studyStore = useStudyStore();
+        studyStore.$state.study = data.study;
+        await nextTick();
 
         expect(wrapper.find('table').exists()).toBe(true);
         await wrapper.find('button').trigger('click');

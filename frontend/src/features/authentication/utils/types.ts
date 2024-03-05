@@ -13,7 +13,6 @@ export type RegisterRequestType = {
     email: string,
     password: string,
     confirmPassword: string,
-    role: string,
 }
 export type ApplicationUser = {
     name: string,

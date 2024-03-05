@@ -1,16 +1,16 @@
-import { useStore } from "vuex";
 import { ref, watch } from "vue";
 import type { FilterType } from "../utils/types";
+import { useSearchStore } from "@/stores/searchStore";
 
 export const useFilter = (props: { filters: FilterType[] }) => {
-  const store = useStore();
+  const searchStore = useSearchStore();
 
   const filters = ref(props.filters);
 
   watch(
     () => filters.value,
     () => {
-      store.commit("search/filterResults", filters.value);
+      searchStore.filters = filters.value;
     },
     { deep: true }
   );

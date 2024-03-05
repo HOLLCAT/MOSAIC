@@ -2,37 +2,29 @@ import { mount } from '@vue/test-utils';
 import RegisterPage from './RegisterPage.vue';
 import { routes } from '@/router';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { createRouter, createWebHistory, type Router } from 'vue-router';
-import { createStore } from 'vuex';
+import { createRouter, createWebHistory } from 'vue-router';
+import { createTestingPinia } from '@pinia/testing';
+import { useAuthStore } from '@/stores/authStore';
 
-const mockStore = createStore({
-    modules: {
-        auth: {
-            namespaced: true,
-            state() {
-                return {
-                    user: null,
-                };
-            },
-            getters: { getUser: (state) => state.user },
-            mutations: {
-                setUser(state) {
-                    state.user = { name: 'test' };
-                },
-            },
-            actions: { register: vi.fn() },
-        },
-    },
-});
+const renderRegisterPage = () => {
+    const pinia = createTestingPinia({ createSpy: vi.fn() });
+    const authStore = useAuthStore(pinia);
+    authStore.register = vi.fn();
 
-const renderRegisterPage = () =>
-    mount(RegisterPage, {
-        global: {
-            plugins: [router, mockStore],
-        },
+    const router = createRouter({
+        history: createWebHistory(),
+        routes: routes,
     });
 
-let router: Router;
+    return mount(RegisterPage, {
+        global: {
+            plugins: [pinia, router],
+            provide: { isDev: true },
+        },
+    });
+};
+
+let router;
 describe('RegisterPage.vue', () => {
     beforeEach(() => {
         router = createRouter({

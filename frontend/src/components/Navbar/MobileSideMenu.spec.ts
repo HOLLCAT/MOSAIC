@@ -5,7 +5,6 @@ import { it, expect, beforeEach, afterEach, describe } from 'vitest';
 import { Dialog, DialogPanel, TransitionRoot } from '@headlessui/vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
-
 const router = createRouter({
     history: createWebHistory(),
     routes: routes,

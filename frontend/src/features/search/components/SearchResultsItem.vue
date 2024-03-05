@@ -22,9 +22,10 @@
     </li>
   </ul>
 </template>
+
 <script setup lang="ts">
-import type { SearchResultType } from '../utils/types'
-defineProps<{ searchResults: SearchResultType[] }>();
+import type { StudyType } from '@/utils/types';
+defineProps<{ searchResults: StudyType[] }>();
 
 const formatDate = (date: string) => {
   const d = new Date(date);

@@ -1,11 +1,9 @@
-import { computed } from "vue";
-import { useStore } from "vuex";
-import type { StudyType } from "../utils/type";
+import { useStudyStore } from "@/stores/studyStore";
+import { storeToRefs } from "pinia";
 
 export const useStudy = () => {
-  const store = useStore();
-
-  const study = computed(() => store.getters["study/getStudy"] as StudyType);
+  const studyStore = useStudyStore();
+  const { study } = storeToRefs(studyStore);
 
   return study;
 };

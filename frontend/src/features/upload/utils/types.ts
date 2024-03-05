@@ -10,6 +10,7 @@ export type Samples = {
     Sample: string;
     Sample_ID: string;
     SampleGroup: string;
+    Sample_Project: string;
     Description: string;
     Organism: string;
     Tissue: string;
@@ -19,25 +20,34 @@ export type Samples = {
     Biomaterial_Provider: string;
     Date_Sample_Prep: string;
     Biological_Repeat: string;
-    Fastq: File | null;
-    File: any;
+    // File: any;
 
     //more fields to be added
-    [key: string]: string | File | null;
+    [key: string]: string | null;
 }
 
-export type UploadStateType = {
-    studyDetails: {
-        content: StudyDetails | null;
-        error: string;
-    }
-    samples: {
-        content: Samples[] | null;
-        loading: boolean;
-        error: string;
-    }
+// export type UploadStateType = {
+//     studyDetails: {
+//         content: StudyDetails | null;
+//         error: string;
+//     }
+//     samples: {
+//         content: Samples[] | null;
+//         loading: boolean;
+//         error: string;
+//     }
+// }
+
+export type StudyDetailsType = {
+    content: StudyDetails
+    error: string
 }
 
+export type SamplesDetailsType = {
+    content: Samples[]
+    loading: boolean
+    error: string
+}
 export type UploadMetadataType = {
     metadata_type: string;
     metadata: File;

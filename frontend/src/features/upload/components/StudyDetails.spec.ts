@@ -1,20 +1,21 @@
 import { mount } from '@vue/test-utils';
 import StudyDetails from './StudyDetails.vue';
 import { describe, it, expect, vi } from 'vitest';
-import { createStore } from 'vuex';
+import { createTestingPinia } from '@pinia/testing';
+import { useUploadStudyStore } from '@/stores/uploadStudyStore';
+import router from '@/router';
 
-const mockStore = createStore({
-    mutations: {
-        'upload/setStudyDetails'() {},
-    },
-});
-
-const renderStudyDetails = () =>
-    mount(StudyDetails, {
+const renderStudyDetails = () => {
+    const pinia = createTestingPinia({ createSpy: vi.fn() });
+    const uploadStore = useUploadStudyStore(pinia);
+    uploadStore.setStudyDetails = vi.fn();
+    return mount(StudyDetails, {
         global: {
-            plugins: [mockStore],
+            plugins: [pinia, router],
+            provide: { isDev: true },
         },
     });
+};
 
 describe('StudyDetails.vue', () => {
     it('should render StudyDetails', () => {
@@ -155,7 +156,6 @@ describe('StudyDetails.vue', () => {
             value: [fileMock],
             writable: false,
         });
-
         await inputFile.trigger('change');
 
         await form.trigger('submit');

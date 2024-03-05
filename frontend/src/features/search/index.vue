@@ -10,9 +10,9 @@
         class="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-6 md:pt-24">
         <h1 class="text-xl md:text-4xl font-bold tracking-tight text-gray-900 break-all">
           Search Results for <span class="text-purpleHover">"{{ search }}"</span>
-          <span class="text-gray-500 text-2xl ml-1">({{ searchResults.length }})</span>
+          <span v-if="filteredResults" class="text-gray-500 text-2xl ml-1">({{ filteredResults.length }})</span>
         </h1>
-        <DownloadButton v-if="searchResults.length > 0" class="ml-auto" @download-clicked="handleDownloadClicked" />
+        <DownloadButton v-if="filteredResults" class="ml-auto" @download-clicked="handleDownloadClicked" />
         <div v-if="hasResults" class="flex items-center">
           <button type="button" class="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
             @click="mobileFiltersOpen = true">
@@ -25,20 +25,20 @@
       <div v-else class="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-6 md:pt-24">
         <h1 class="text-xl md:text-4xl font-bold tracking-tight text-gray-900 break-all">
           Samples Available for Download: <span class="text-purpleHover">"{{ search }}"</span>
-          <span class="text-gray-500 text-2xl ml-1">({{ samplesAsStudies.length }})</span>
+          <span v-if="filteredSamples" class="text-gray-500 text-2xl ml-1">({{ filteredSamples.length }})</span>
+          <span v-else class="text-gray-500 text-2xl ml-1">(0)</span>
         </h1>
-        <BackToStudiesButton v-if="searchResults.length > 0" class="ml-20"
-          @back-to-studies-clicked="handleDownloadClicked" />
+        <BackToStudiesButton v-if="filteredResults" class="ml-20" @back-to-studies-clicked="handleDownloadClicked" />
       </div>
 
       <section aria-labelledby="reuslt-heading" class="pb-24 pt-6 w-full">
         <div v-if="hasResults" class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4 w-full">
           <SearchFilter :filters="filters" />
-          <div v-if="!downloadPageOpen" class="lg:col-span-3 bg-[#FAF9F6] border rounded-xl p-3">
-            <SearchResultsItem :searchResults="searchResults" />
+          <div v-if="!downloadPageOpen && filteredResults" class="lg:col-span-3 bg-[#FAF9F6] border rounded-xl p-3">
+            <SearchResultsItem :searchResults="filteredResults" />
           </div>
           <div v-else class="py-10 flex justify-center lg:col-span-3 w-full">
-            <SampleDownloadTable v-if="samplesAsStudies.length > 0" :samplesAsStudies="samplesAsStudies" />
+            <SampleDownloadTable v-if="filteredSamples" :samplesAsStudies="filteredSamples" />
             <ResultNotFound v-else />
           </div>
         </div>
@@ -60,7 +60,7 @@ import DownloadButton from "./components/DownloadButton.vue";
 import BackToStudiesButton from "./components/BackToStudiesButton.vue";
 import SampleDownloadTable from "./components/SampleDownloadTable.vue";
 
-const { search, searchResults, hasResults, filters, loading, samplesAsStudies } = useSearchResults();
+const { search, filteredResults, hasResults, filters, loading, filteredSamples } = useSearchResults();
 const mobileFiltersOpen = ref(false);
 const handleFilterClose = () => mobileFiltersOpen.value = false;
 

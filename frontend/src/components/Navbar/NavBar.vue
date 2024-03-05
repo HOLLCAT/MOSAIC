@@ -41,17 +41,19 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute, useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import SearchBar from "./SearchBar.vue";
 import HamburgerMenu from "./HamburgerMenu.vue";
 import MobileSideMenu from "./MobileSideMenu.vue";
-import { useCurrentUser } from "@/composables/useCurrentUser";
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useAuthStore } from "@/stores/authStore";
 
+const authStore = useAuthStore();
 const route = useRoute();
 const router = useRouter();
 const isOpen = ref(false);
-const { user, store } = useCurrentUser();
+
+const user = computed(() => authStore.user);
 
 const handleMenuOpen = () => (isOpen.value = true);
 const handleMenuClose = () => (isOpen.value = false);
@@ -64,8 +66,9 @@ const activeClass = (path: string) => {
     : "p-6 border-t-4 border-transparent hover:bg-slate-600 cursor-pointer";
 };
 
+
 const handleLogout = () => {
-  store.dispatch("auth/logout");
+  authStore.logout();
   router.push('/');
 };
 

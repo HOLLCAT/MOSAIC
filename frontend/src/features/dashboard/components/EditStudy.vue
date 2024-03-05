@@ -36,10 +36,10 @@
 import { defineEmits } from 'vue';
 import UploadButton from '@/components/Buttons/UploadButton.vue';
 import type { SearchResultType } from '../utils/types';
-import { useStore } from 'vuex';
 import { CheckCircleIcon } from "@heroicons/vue/24/outline";
+import { useDashboardStore } from '@/stores/dashboardStore';
 
-const store = useStore();
+const dashboardStore = useDashboardStore();
 const emit = defineEmits(['upload-done', 'showToast']);
 
 defineProps<{
@@ -62,7 +62,7 @@ const handleFile = (file: File | null, index: number, samples: any) => {
         sample_id: samples[index].Sample_ID,
         file: file,
     }
-    store.dispatch("dashboard/uploadFile", data);
+    dashboardStore.uploadFile(data);
 };
 
 </script>

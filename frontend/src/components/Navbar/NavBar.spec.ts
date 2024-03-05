@@ -1,40 +1,20 @@
 import { mount } from '@vue/test-utils';
 import NavBar from './NavBar.vue';
 import { nextTick } from 'vue';
-import { createStore } from 'vuex';
 import { it, expect, describe, vi } from 'vitest';
 import router from '@/router';
+import { createTestingPinia } from '@pinia/testing'
+import { useAuthStore } from '@/stores/authStore';
 
-const actions = {
-    logout: vi.fn(),
-    setUser: vi.fn(),
-};
-const mockStore = createStore({
-    modules: {
-        auth: {
-            namespaced: true,
-            state() {
-                return {
-                    user: null,
-                };
-            },
-            getters: { getUser: (state) => state.user },
-            mutations: {
-                setUser(state) {
-                    state.user = { name: 'test' };
-                },
-            },
-            actions: actions,
-        },
-    },
-});
-
-const renderNavBar = () =>
-    mount(NavBar, {
+const renderNavBar = () => {
+    const pinia = createTestingPinia({ createSpy: vi.fn() });
+    return mount(NavBar, {
         global: {
-            plugins: [router, mockStore],
+            plugins: [router, pinia],
+            provide: { isDev: true },
         },
     });
+};
 
 describe('NavBar.vue', () => {
     it('should render NavBar correctly', async () => {
@@ -62,8 +42,11 @@ describe('NavBar.vue', () => {
 
     it('should have handleLogout working correctly', async () => {
         const wrapper = renderNavBar();
-        wrapper.vm.handleLogout();
-        expect(actions.logout).toHaveBeenCalled();
+        const authStore = useAuthStore();
+        const logoutSpy = vi.spyOn(authStore, 'logout');
+        expect(logoutSpy).not.toHaveBeenCalled();
+        await wrapper.vm.handleLogout();
+        expect(logoutSpy).toHaveBeenCalled();
     });
 
     it('should render correct links when user is null', () => {
@@ -75,8 +58,10 @@ describe('NavBar.vue', () => {
     });
 
     it('should render correct links when user is not null', async () => {
-        mockStore.commit('auth/setUser', { name: 'test' });
         const wrapper = renderNavBar();
+        const authStore = useAuthStore();
+        authStore.$state.user = { name: 'test', email: 'test@gmail.com', access_token: ' ' };
+        await nextTick();
 
         expect(wrapper.find('a[href="/auth/login"]').exists()).toBe(false);
         expect(wrapper.find('a[href="/auth/register"]').exists()).toBe(false);
