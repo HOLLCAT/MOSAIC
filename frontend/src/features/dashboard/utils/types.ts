@@ -1,10 +1,11 @@
-import type { SampleResponseType } from '@/features/search/utils/types';
+import type { Samples } from '@/utils/types';
 
 export type StateType = {
     studies: SearchResultType[] | null;
     pendingStudies: SearchResultType[] | null;
 };
 
+type extendedSamples = Samples & { File: boolean };
 export type SearchResultType = {
     accession_id: string;
     created_date: string;
@@ -12,6 +13,12 @@ export type SearchResultType = {
     title: string;
     description: string;
     authors: string[];
-    samples: SampleResponseType[];
+    samples: extendedSamples[];
     pending: boolean;
+};
+
+export type UploadSampleType = {
+    accession_id: string;
+    sample_id: string;
+    file: File;
 };

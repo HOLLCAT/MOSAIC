@@ -25,17 +25,19 @@
             {{ study.samples[0].Tissue }}
           </td>
           <td class="px-6 py-4 font-medium whitespace-nowrap text-black flex justify-center w-full">
-            <DownloadButton mood="light" @download="downloadFile(study.samples[0].Sample_Project, study.samples[0].Sample_ID)" />
+            <DownloadButton mood="light"
+              @download="downloadFile(study.samples[0].Sample_Project, study.samples[0].Sample_ID)" />
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
+
 <script setup lang="ts">
 import DownloadButton from '@/components/Buttons/DownloadButton.vue';
 import { downloadFile } from '../utils/downloadFile';
-import type { SearchResultType } from '../utils/types';
-defineProps<{ samplesAsStudies: SearchResultType[] }>();
+import type { Samples } from '@/utils/types';
+defineProps<{ samplesAsStudies: { samples: Samples[] }[] }>();
 
 </script>

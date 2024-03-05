@@ -18,12 +18,13 @@
                 </thead>
                 <tbody>
                     <tr v-for="sample in samples" :key="sample.Sample_ID" class="border-b bg-gray-800 border-gray-700">
-                        <td v-for="(value, _) in sample" :key="value"
+                        <td v-for="(value, key) in sample" :key="key"
                             class="px-6 py-4 font-medium text-center whitespace-nowrap text-white">
                             {{ value }}
                         </td>
                         <td class="px-6 py-4 font-medium text-center whitespace-nowrap text-white">
-                            <DownloadButton mood="dark" @download="downloadFile(sample.Sample_Project, sample.Sample_ID)" />
+                            <DownloadButton mood="dark"
+                                @download="downloadFile(sample.Sample_Project, sample.Sample_ID)" />
                         </td>
                     </tr>
                 </tbody>
@@ -31,19 +32,19 @@
         </div>
     </div>
 </template>
+
 <script setup lang="ts">
-import { useStore } from 'vuex';
-import { computed } from '@vue/reactivity';
 import DownloadButton from '@/components/Buttons/DownloadButton.vue';
 import { downloadFile } from "@/features/search/utils/downloadFile";
 import { ref } from 'vue';
-import type { SampleResponseType } from '@/features/search/utils/types';
+import { useStudyStore } from '@/stores/studyStore';
+import { storeToRefs } from 'pinia';
 
-const store = useStore()
+const studyStore = useStudyStore()
 const show = ref<boolean>(true)
 const buttonRef = ref<HTMLElement | null>(null)
 
-const samples = computed<SampleResponseType[]>(() => store.getters['study/getSamples']);
+const { getSamples: samples } = storeToRefs(studyStore)
 
 
 const formatColumnName = (column: string) =>

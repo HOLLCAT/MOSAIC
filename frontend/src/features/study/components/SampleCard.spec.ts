@@ -1,37 +1,29 @@
 import { mount } from '@vue/test-utils';
 import SampleCard from './SampleCard.vue';
 import { describe, it, expect } from 'vitest';
-import { createStore } from 'vuex';
+import { createPinia } from 'pinia';
+import { useStudyStore } from '@/stores/studyStore';
 
-const mockStore = createStore({
-    modules: {
+const renderSampleCard = () => {
+    const pinia = createPinia();
+    const studyStore = useStudyStore(pinia);
+    studyStore.$state = {
         study: {
-            namespaced: true,
-            state() {
-                return {
-                    study: {
-                        accession_id: 'MOSAIC-0003',
-                        created_date: '18 January 2024',
-                        title: 'Sample Study',
-                        description: 'Description of the sample study',
-                        authors: ['Author 1', 'Author 2'],
-                        samples: [],
-                    },
-                };
-            },
-            getters: {
-                getStudy: (state) => state.study,
-            },
+            accession_id: 'MOSAIC-0003',
+            created_date: '18 January 2024',
+            title: 'Sample Study',
+            description: 'Description of the sample study',
+            authors: ['Author 1', 'Author 2'],
+            samples: [],
         },
-    },
-});
+    };
 
-const renderSampleCard = () =>
-    mount(SampleCard, {
+    return mount(SampleCard, {
         global: {
-            plugins: [mockStore],
+            plugins: [pinia],
         },
     });
+};
 
 describe('SampleCard.vue', () => {
     it('should render', () => {

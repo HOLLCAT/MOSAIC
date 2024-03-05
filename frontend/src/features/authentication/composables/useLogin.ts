@@ -1,7 +1,6 @@
 import { validateEmail, validatePassword } from '../utils/Validation';
 import { ref } from 'vue';
-import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/authStore';
 
 export const useLogin = () => {
 
@@ -9,8 +8,7 @@ export const useLogin = () => {
   const password = ref<string>('');
   const emailError = ref<string>('');
   const passwordError = ref<string>('');
-  const router = useRouter();
-  const store = useStore();
+  const authStore = useAuthStore();
 
   const submitForm = () => {
     emailError.value = validateEmail(email.value);
@@ -24,10 +22,7 @@ export const useLogin = () => {
       password: password.value
     };
 
-    store.dispatch('auth/login', form).then((res) => {
-      if (res)
-        router.push('/');
-    });
+    authStore.login(form);
   };
 
   return {

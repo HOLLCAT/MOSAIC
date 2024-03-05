@@ -1,9 +1,7 @@
-import { computed } from "vue";
-import { useStore } from 'vuex';
-import type { ApplicationUser } from "@/features/authentication/utils/types";
+import { storeToRefs } from "pinia";
+import { useAuthStore } from "@/stores/authStore";
 
 export const useCurrentUser = () => {
-    const store = useStore();
-    const user = computed<ApplicationUser | null>(() => store.getters['auth/getUser']);
-    return { user, store };
+    const { user } = storeToRefs(useAuthStore());
+    return { user };
 };

@@ -1,11 +1,12 @@
 import { mount } from '@vue/test-utils';
 import SearchFilter from './SearchFilter.vue';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { DisclosureButton, DisclosurePanel } from '@headlessui/vue';
-import { createStore } from 'vuex';
+import { createTestingPinia } from '@pinia/testing';
 
-const renderSearchFilter = () =>
-    mount(SearchFilter, {
+const renderSearchFilter = () => {
+    const pinia = createTestingPinia({ createSpy: vi.fn() });
+    return mount(SearchFilter, {
         props: {
             filters: [
                 {
@@ -15,6 +16,7 @@ const renderSearchFilter = () =>
                         { value: 'option1', label: 'Option 1', checked: false },
                         { value: 'option2', label: 'Option 2', checked: false },
                     ],
+                    filterFunc: vi.fn(),
                 },
                 {
                     id: '2',
@@ -23,14 +25,17 @@ const renderSearchFilter = () =>
                         { value: 1, label: 'Choice 1', checked: false },
                         { value: 2, label: 'Choice 2', checked: false },
                     ],
+                    filterFunc: vi.fn(),
                 },
             ],
             isOpen: true,
         },
         global: {
-            plugins: [createStore({})],
+            plugins: [pinia],
+            provide: { isDev: true },
         },
     });
+}
 
 describe('SearchFilter.vue', () => {
     it('should render', () => {

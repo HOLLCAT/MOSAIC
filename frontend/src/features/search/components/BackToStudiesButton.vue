@@ -7,7 +7,6 @@
 </template>
 <script setup lang="ts">
 import { MagnifyingGlassIcon } from "@heroicons/vue/24/outline";
-import { defineEmits } from 'vue';
 
 const emit = defineEmits(['back-to-studies-clicked']);
 

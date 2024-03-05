@@ -14,6 +14,7 @@ const renderSearchResultsItem = () =>
                     title: 'Sample Title',
                     description: 'Sample description',
                     authors: ['Author 1', 'Author 2'],
+                    samples: [],
                 },
                 {
                     accession_id: '124',
@@ -22,6 +23,7 @@ const renderSearchResultsItem = () =>
                     description:
                         'VeryLongDescVeryLongDescVeryLongDescVeryLongDescVeryLongDescVeryLongDescVeryLongDescVeryLongDescVeryLongDescVeryLongDescVeryLongDescVeryLongDesc',
                     authors: ['Author 3', 'Author 4'],
+                    samples: [],
                 },
             ],
         },

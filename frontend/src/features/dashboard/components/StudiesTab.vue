@@ -9,7 +9,7 @@
         </div>
 
         <div v-if="studies" class="bg-white rounded-lg p-4 mt-3">
-            <div v-if="studies.length > 0">
+            <div v-if="studies.length > 0 && filteredStudies">
                 <Studies :searchResults="filteredStudies" />
             </div>
             <div v-else class="lg:col-span-3 bg-[#FAF9F6] text-center border rounded-xl p-3 h-[46.6vh]">
@@ -23,16 +23,14 @@
 import Studies from './Studies.vue';
 import SearchBar from './SearchBar.vue';
 import { computed, ref, onBeforeMount } from 'vue';
-import { useCurrentUser } from '@/composables/useCurrentUser';
-import { useStore } from 'vuex';
-import type { SearchResultType } from '../utils/types';
+import { useDashboardStore } from '@/stores/dashboardStore';
 
-const store = useStore();
-const studies = computed<SearchResultType[]>(() => store.getters['dashboard/getStudies']);
+const dashboardStore = useDashboardStore();
+const studies = computed(() => dashboardStore.studies);
 
 onBeforeMount(() => {
-    const { user } = useCurrentUser();
-    store.dispatch('dashboard/getStudies', user.value?.access_token);
+
+    dashboardStore.getStudies();
 });
 
 
@@ -47,7 +45,7 @@ const filteredStudies = computed(() => {
         return studies.value;
     }
     const regex = new RegExp(searchValue.value, 'i');
-    return studies.value.filter(study => regex.test(study.title));
+    return studies.value?.filter(study => regex.test(study.title));
 });
 
-</script>
+</script>@/stores/dashboardStore

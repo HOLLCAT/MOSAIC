@@ -1,24 +1,21 @@
 import { useRoute } from 'vue-router';
-import { useStore } from 'vuex';
 import { computed, onBeforeMount } from 'vue';
-import type { FilterType, SearchResultType } from '../utils/types';
+import { useSearchStore } from '@/stores/searchStore';
+import { storeToRefs } from 'pinia';
+
 
 export const useSearchResults = () => {
     const route = useRoute();
-    const search = route.params.query as string;
-    const store = useStore();
+    const search = computed(() => route.params.query as string);
+    const searchStore = useSearchStore();
+    const { filteredResults, hasResults, filters, filteredSamples } = storeToRefs(searchStore)
 
     onBeforeMount(() => {
-        store.dispatch('search/getSearchResults', search);
+        searchStore.fetchSearchedStudies(search.value);
     });
+    const loading = computed(() => filteredResults !== null);
 
-    const searchResults = computed<SearchResultType[]>(() => store.getters['search/getResults']);
-    const hasResults = computed(() => store.getters['search/hasResults']);
-    const filters = computed(() => store.getters['search/getFilters'] as FilterType[]);
-    const samplesAsStudies = computed<SearchResultType[]>(() => store.getters['search/getSamples']);
-    const loading = computed(() => searchResults.value !== null);
-
-    return { searchResults, search, hasResults, filters, loading, samplesAsStudies };
+    return { filteredResults, search, hasResults, filters, loading, filteredSamples };
 };
 
 export default useSearchResults;

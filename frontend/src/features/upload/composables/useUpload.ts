@@ -1,10 +1,10 @@
 import { ref } from 'vue';
 import { validateStudyTitle, validateStudyDesc, validateAuthors, validateStudyMetadata } from '../utils/Validation';
-import { useUploadStore } from './useUploadStore';
-import { useCurrentUser } from '@/composables/useCurrentUser';
+import { useUploadStudyStore } from '@/stores/uploadStudyStore';
+
 
 export const useUpload = () => {
-  const store = useUploadStore();
+  const uploadStore = useUploadStudyStore()
 
   const studyTitle = ref('');
   const studyDesc = ref('');
@@ -35,12 +35,13 @@ export const useUpload = () => {
     metadataError.value = validateStudyMetadata(metadata.value);
 
     if (!studyTitleError.value && !studyDescError.value && authorsError.value.filter((author) => author !== '').length === 0) {
-      store.commit('upload/setStudyDetails', {
+
+      uploadStore.setStudyDetails({
         title: studyTitle.value,
         description: studyDesc.value,
         authors: authors.value,
-        metadata_type: metadata.value?.name.split('.').pop(),
-        metadata: metadata.value
+        metadata_type: metadata.value?.name.split('.').pop() as string,
+        metadata: metadata.value as File
       });
       callback();
     }

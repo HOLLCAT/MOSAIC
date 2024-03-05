@@ -1,17 +1,17 @@
 import { useStudy } from './useStudy';
 import { useRoute, useRouter } from 'vue-router';
 import { computed, watch, onBeforeMount } from 'vue';
-import { useStore } from 'vuex';
+import { useStudyStore } from '@/stores/studyStore';
 
 export const setupStudy = () => {
-    const store = useStore();
+    const studyStore = useStudyStore();
     const route = useRoute();
     const router = useRouter();
 
     const studyId = computed(() => route.params.id as string);
 
     onBeforeMount(() => {
-        store.dispatch('study/fetchStudy', studyId.value);
+        studyStore.fetchStudy(studyId.value);
     });
 
     const study = useStudy();

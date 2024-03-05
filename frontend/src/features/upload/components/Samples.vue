@@ -1,5 +1,5 @@
 <template>
-    <div v-if="result.loading || !result.content">
+    <div v-if="result?.loading || !result?.content">
         loading ...
     </div>
     <TransitionRoot v-else :show="true" appear enter="transition ease-in-out duration-200 transform"
@@ -34,36 +34,26 @@
 
 <script setup lang="ts">
 import { computed, onBeforeMount } from 'vue';
-import { useStore } from 'vuex';
 import { TransitionRoot } from '@headlessui/vue';
-import type { UploadStateType } from '../utils/types';
-import { useRouter } from 'vue-router';
+import { useUploadStudyStore } from '@/stores/uploadStudyStore';
+import { storeToRefs } from 'pinia';
 
 
 const emits = defineEmits<{ showToast: [payload: string] }>()
-const store = useStore();
-const router = useRouter();
-const result = computed<UploadStateType["samples"]>(() => store.getters["upload/getStudySamples"]);
+
+const uploadStore = useUploadStudyStore();
+const { samples: result } = storeToRefs(uploadStore);
 const samples = computed(() => result.value?.content);
 
 
 onBeforeMount(() => {
-    const data = computed(() => store.getters["upload/getStudyMetadata"]);
-    store.dispatch("upload/uploadMetadata", {
-        metadata_type: data.value.file_type,
-        metadata: data.value.metadata,
-    });
+    uploadStore.uploadMetadata();
 });
 
 
 const handleUpload = () => {
-    const studyDetails = computed(() => store.getters["upload/getAllStudyData"]);
-    const data = {
-        ...studyDetails.value,
-        samples: samples.value,
-    }
-    store.dispatch("upload/uploadStudy", data).then(() => {
-        router.push({ name: "dashboard", query: { tab: "PendingStudies" } });
-    })
+    if (samples.value)
+        uploadStore.uploadStudy(samples.value)
 };
 </script>
+@/stores/uploadStudyStore
