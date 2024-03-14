@@ -19,7 +19,11 @@
                             <p class="font-medium"> {{ sample[key] }}</p>
                         </div>
                     </td>
-                    <td v-if="!searchResult.samples[index].File" class="px-6 py-4 flex justify-center items-center">
+                    <td v-if="loadingIndices.find(item => item.index == index)" class="flex justify-center items-center px-6 py-4">
+                        <UploadProgressButton :fileSizeMB="250" />
+                    </td>
+                    <td v-else-if="!searchResult.samples[index].File"
+                        class="px-6 py-4 flex justify-center items-center">
                         <UploadButton @file-uploaded="file => handleFile(file, index, searchResult.samples)" />
                     </td>
                     <td v-else class="flex justify-center items-center px-6 py-4">
@@ -33,11 +37,12 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits } from 'vue';
+import { defineEmits, ref } from 'vue';
 import UploadButton from '@/components/Buttons/UploadButton.vue';
-import type { SearchResultType } from '../utils/types';
+import type { SearchResultType, loadingUploadType } from '../utils/types';
 import { CheckCircleIcon } from "@heroicons/vue/24/outline";
 import { useDashboardStore } from '@/stores/dashboardStore';
+import UploadProgressButton from './UploadProgressButton.vue';
 
 const dashboardStore = useDashboardStore();
 const emit = defineEmits(['upload-done', 'showToast']);
@@ -47,8 +52,9 @@ defineProps<{
 }>();
 
 const nonDisplayFields = ['File']
+const loadingIndices = ref<loadingUploadType[]>([]);
 
-const handleFile = (file: File | null, index: number, samples: any) => {
+const handleFile = async (file: File | null, index: number, samples: any) => {
     if (!file) {
         return;
     }
@@ -56,13 +62,22 @@ const handleFile = (file: File | null, index: number, samples: any) => {
         emit("showToast", "File must be a .fastq.gz file");
         return;
     }
-    samples[index].File = true;
+    const loadingFile: loadingUploadType = {
+        index: index,
+        fileSize: file.size / 1024 / 1024,
+    }
+    loadingIndices.value.push(loadingFile);
     const data = {
         accession_id: samples[index].Sample_Project,
         sample_id: samples[index].Sample_ID,
         file: file,
     }
-    dashboardStore.uploadFile(data);
+    const response = await dashboardStore.uploadFile(data);
+    if (response === 200) {
+        samples[index].File = true;
+    }
+    else { emit("showToast", "Error in upload"); }
+    loadingIndices.value = loadingIndices.value.filter(item => item.index !== index);
 };
 
 </script>

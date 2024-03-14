@@ -1,5 +1,6 @@
 <template>
-    <div class="flex mt-4 items-center w-full max-w-xs p-4 mb-4 rounded-lg shadow text-gray-400 bg-gray-800" role="alert">
+    <div class=" absolute top-14 flex mt-4 items-center w-full max-w-xs p-4 mb-4 rounded-lg shadow text-gray-400 bg-gray-800"
+        role="alert">
         <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg bg-red-800 text-red-200">
             <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                 viewBox="0 0 20 20">
@@ -19,6 +20,7 @@
         </button>
     </div>
 </template>
+
 <script setup lang="ts">
 defineProps<{ message: string; }>();
 const emits = defineEmits(["close-toast"]);
