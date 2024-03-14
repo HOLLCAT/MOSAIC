@@ -2,7 +2,7 @@
     <div class="text-purple container mx-auto mt-4 mb-10 p-4 shadow-lg bg-white rounded-xl">
         <div class="flex border-b p-2">
             <h1 class="font-bold text-lg mt-2">Published Studies<span class="text-gray-500 text-1xl ml-1">({{
-                filteredStudies?.length }})</span></h1>
+                filteredStudies ? filteredStudies.length : 0 }})</span></h1>
             <div class="flex-grow flex justify-center">
                 <SearchBar @search-value="handleSearchValue" />
             </div>

@@ -13,7 +13,6 @@
                         <th scope="col" class="px-6 py-3" v-for="(value, key) in samples[0]" :key="key">
                             {{ key }}
                         </th>
-                        <th scope="col" class="px-6 py-3">fastq</th>
                     </tr>
                 </thead>
                 <tbody>

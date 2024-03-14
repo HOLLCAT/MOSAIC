@@ -22,3 +22,8 @@ export type UploadSampleType = {
     sample_id: string;
     file: File;
 };
+
+export type loadingUploadType = {
+    index: number;
+    fileSize: number;
+}
