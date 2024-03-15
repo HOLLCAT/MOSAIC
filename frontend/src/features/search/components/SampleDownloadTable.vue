@@ -1,5 +1,8 @@
 <template>
   <div class="rounded-lg overflow-hidden flex flex-col w-full">
+    <DownloadAllButton @downloadClicked="handleClick" class=" w-fit ml-auto mb-1">
+      <span>Download All</span>
+    </DownloadAllButton>
     <table class="text-sm text-gray-400">
       <thead class="text-xs uppercase bg-purple text-gray-300">
         <tr>
@@ -36,8 +39,19 @@
 
 <script setup lang="ts">
 import DownloadButton from '@/components/Buttons/DownloadButton.vue';
+import DownloadAllButton from '../components/DownloadButton.vue'
 import { downloadFile } from '../utils/downloadFile';
 import type { Samples } from '@/utils/types';
-defineProps<{ samplesAsStudies: { samples: Samples[] }[] }>();
+const props = defineProps<{ samplesAsStudies: { samples: Samples[] }[] }>();
+
+const handleClick = async () => {
+  for (const study of props.samplesAsStudies) {
+    // Download the file
+    downloadFile(study.samples[0].Sample_Project, study.samples[0].Sample_ID);
+
+    // Wait for a certain period before continuing to the next download
+    await new Promise(resolve => setTimeout(resolve, 1000)); // 2000 ms = 2 seconds
+  }
+};
 
 </script>
