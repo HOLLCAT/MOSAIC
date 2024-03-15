@@ -8,7 +8,8 @@ import router from '@/router';
 const renderStudyDetails = () => {
     const pinia = createTestingPinia({ createSpy: vi.fn() });
     const uploadStore = useUploadStudyStore(pinia);
-    uploadStore.setStudyDetails = vi.fn();
+    uploadStore.setStudyDetails = vi.fn()
+    uploadStore.uploadMetadata = vi.fn().mockResolvedValue(true);
     return mount(StudyDetails, {
         global: {
             plugins: [pinia, router],

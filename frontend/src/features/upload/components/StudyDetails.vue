@@ -21,7 +21,7 @@
 
             <div v-for="(author, index) in authors" :key="index" class="flex items-center mt-1">
                 <Inputfield :label="'Author ' + (index + 1)" :inputId="'authors_' + index" type="text" :value="author"
-                    @update:value="(newValue) => updateAuthor(index, newValue)" :error="authorsError[index]" />
+                    @update:value="(newValue: any) => updateAuthor(index, newValue)" :error="authorsError[index]" />
                 <button v-if="authors.length > 1 && index !== 0"
                     class="flex items-center text-red-600 hover:text-red-400 w-6 h-6 ml-2 mt-7"
                     @click.prevent="removeAuthorField(index)">
@@ -46,6 +46,7 @@
         </button>
     </form>
 </template>
+
 <script setup lang="ts">
 import Inputfield from "@/components/InputFields/Inputfield.vue";
 import LargeInputField from "@/components/InputFields/LargeInputField.vue";

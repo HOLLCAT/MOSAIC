@@ -130,7 +130,3 @@ dmypy.json
 .idea/
 
 .vercel
-
-# docker
-.dockerignore
-docker-compose.yml

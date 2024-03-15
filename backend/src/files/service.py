@@ -32,11 +32,11 @@ async def delete_file_metadata(study: Study, sample_id: str) -> None:
 async def get_all_files_metadata(study: Study):
     file_metadata = []
     for sample in study.samples:
-        if sample.file != None:
+        if sample.File != None:
             file_metadata.append(
                 {
-                    "file_name": sample.file.file_name,
-                    "file_uuid": sample.file.file_uuid,
+                    "file_name": sample.File.file_name,
+                    "file_uuid": sample.File.file_uuid,
                 }
             )
 

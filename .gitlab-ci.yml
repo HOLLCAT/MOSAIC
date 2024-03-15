@@ -18,7 +18,7 @@ test_backend:
   image: python:3.10-alpine
   script:
     - cd backend
-    - pip install -r requirements.txt -q
+    - pip install -r requirements.dev.txt -q
     - python -m pytest tests/ -p no:cacheprovider -v
   rules:
     - changes:

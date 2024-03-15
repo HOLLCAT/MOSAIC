@@ -5,7 +5,7 @@ import UploadButton from '@/components/Buttons/UploadButton.vue';
 
 vi.mock('@/stores/dashboardStore', () => ({
     useDashboardStore: vi.fn(() => ({
-        uploadFile: vi.fn(),
+        uploadFile: vi.fn().mockResolvedValue(true),
     })),
 }));
 

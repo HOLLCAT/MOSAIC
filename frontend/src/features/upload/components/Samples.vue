@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount } from 'vue';
+import { computed } from 'vue';
 import { TransitionRoot } from '@headlessui/vue';
 import { useUploadStudyStore } from '@/stores/uploadStudyStore';
 import { storeToRefs } from 'pinia';
@@ -40,19 +40,20 @@ import { storeToRefs } from 'pinia';
 
 const emits = defineEmits<{ showToast: [payload: string] }>()
 
+
 const uploadStore = useUploadStudyStore();
 const { samples: result } = storeToRefs(uploadStore);
 const samples = computed(() => result.value?.content);
 
 
-onBeforeMount(() => {
-    uploadStore.uploadMetadata();
-});
-
 
 const handleUpload = () => {
     if (samples.value)
-        uploadStore.uploadStudy(samples.value)
+        uploadStore.uploadStudy(samples.value).then((res) => {
+            if (res === false) {
+                emits('showToast', "Sample and Sample ID are required")
+            }
+        });
 };
 </script>
 @/stores/uploadStudyStore

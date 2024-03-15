@@ -42,8 +42,12 @@ export const useUpload = () => {
         authors: authors.value,
         metadata_type: metadata.value?.name.split('.').pop() as string,
         metadata: metadata.value as File
-      });
-      callback();
+      })
+      uploadStore.uploadMetadata().then((res) => {
+        if (res) {
+          callback();
+        }
+      })
     }
   }
 

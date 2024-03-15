@@ -5,7 +5,7 @@
             <div class="w-full px-6 py-8 md:px-8">
                 <h2 class="text-2xl font-bold text-center text-white">Upload Study</h2>
                 <StudyDetails v-if="showDetails" @details-submitted="handleDetailsSubmitted" />
-                <Samples @show-toast="handleShowToast" v-if="!showDetails" />
+                <Samples @showToast="handleShowToast" v-if="!showDetails" />
             </div>
         </div>
     </div>
@@ -15,17 +15,24 @@
 import StudyDetails from './components/StudyDetails.vue';
 import DangerToast from '@/components/toasts/DangerToast.vue';
 import Samples from './components/Samples.vue';
+import { useUploadStudyStore } from '@/stores/uploadStudyStore';
 import { ref } from 'vue';
 
 const errorMessage = ref("")
 const showToast = ref(false);
 const showDetails = ref(true);
-
+const uploadStore = useUploadStudyStore();
 
 const handleShowToast = (message: string) => {
     errorMessage.value = message;
     showToast.value = true;
 };
 const handleClose = () => showToast.value = false;
-const handleDetailsSubmitted = () => showDetails.value = false;
+const handleDetailsSubmitted = () => {
+    if (uploadStore.samples?.content.length && uploadStore.samples?.content.length > 0) {
+        showDetails.value = false;
+    } else {
+        handleShowToast("Please upload samples");
+    }
+}
 </script>

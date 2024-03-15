@@ -23,9 +23,9 @@ describe('DangerToast.vue', () => {
     it('should emit when close button pressed', async () => {
         const wrapper = wrapperFunction();
 
-        expect(wrapper.emitted()).not.toHaveProperty('close-toast');
+        expect(wrapper.emitted()).not.toHaveProperty('closeToast');
 
         await wrapper.find('button').trigger('click');
-        expect(wrapper.emitted()).toHaveProperty('close-toast');
+        expect(wrapper.emitted()).toHaveProperty('closeToast');
     });
 });

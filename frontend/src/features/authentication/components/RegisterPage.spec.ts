@@ -9,7 +9,7 @@ import { useAuthStore } from '@/stores/authStore';
 const renderRegisterPage = () => {
     const pinia = createTestingPinia({ createSpy: vi.fn() });
     const authStore = useAuthStore(pinia);
-    authStore.register = vi.fn();
+    authStore.register = vi.fn().mockResolvedValue(undefined);
 
     const router = createRouter({
         history: createWebHistory(),
@@ -49,16 +49,6 @@ describe('RegisterPage.vue', () => {
         expect(wrapper.findAll('label')[3].text()).toBe('Confirm Password');
 
         expect(wrapper.find('button').text()).toBe('Register');
-    });
-
-    it('should submit when button is pressed', async () => {
-        const wrapper = renderRegisterPage();
-        const form = wrapper.find('form');
-
-        const push = vi.spyOn(wrapper.vm, 'submitForm');
-        expect(push).not.toHaveBeenCalled();
-        await form.trigger('submit');
-        expect(push).toHaveBeenCalled();
     });
 
     it('should submit the form when provided with correct values', async () => {

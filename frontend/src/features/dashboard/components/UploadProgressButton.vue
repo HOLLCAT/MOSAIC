@@ -29,7 +29,7 @@ const circleOffset = computed(() => {
 
 
 function simulateUpload(fileSizeMB: number) {
-    const uploadSpeed = 20;
+    const uploadSpeed = 10;
     const totalTimeSeconds = fileSizeMB / uploadSpeed;
     const updateInterval = 200;
     const increment = (updateInterval / 1000) / totalTimeSeconds * 100;

@@ -70,7 +70,6 @@ async def download_file_route(accession_id: str, sample_id: str):
         raise StudyNotFound()
 
     file = await service.get_file_metadata(study, sample_id)
-    accession_id = study.accession_id
 
     if file is None:
         raise FileNotFound()
