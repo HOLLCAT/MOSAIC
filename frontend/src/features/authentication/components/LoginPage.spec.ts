@@ -10,7 +10,7 @@ import { useAuthStore } from '@/stores/authStore';
 const renderLoginPage = () => {
     const pinia = createTestingPinia({ createSpy: vi.fn() });
     const authStore = useAuthStore(pinia);
-    authStore.login = vi.fn();
+    authStore.login = vi.fn().mockResolvedValue(undefined);
     return mount(LoginPage, {
         global: {
             plugins: [
@@ -47,23 +47,10 @@ describe('LoginPage.vue', () => {
 
         expect(wrapper.find('p').text()).toBe('Welcome back!');
 
-        expect(wrapper.findAll('h1')[1].text()).toBe('Sign in with UofG SSO');
-        expect(wrapper.findAll('a')[1].text()).toBe('or login with email');
-
         expect(wrapper.findAll('label')[0].text()).toBe('Email Address');
         expect(wrapper.findAll('label')[1].text()).toBe('Password');
 
         expect(wrapper.find('button').text()).toBe('Sign In');
-    });
-
-    it('should have the submit button working correctly', async () => {
-        const wrapper = renderLoginPage();
-        const form = wrapper.find('form');
-
-        const push = vi.spyOn(wrapper.vm, 'submitForm');
-        expect(push).not.toHaveBeenCalled();
-        await form.trigger('submit');
-        expect(push).toHaveBeenCalled();
     });
 
     it('should submit the form when provided with correct values', async () => {

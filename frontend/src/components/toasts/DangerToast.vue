@@ -23,9 +23,11 @@
 
 <script setup lang="ts">
 defineProps<{ message: string; }>();
-const emits = defineEmits(["close-toast"]);
+const emits = defineEmits<{
+    closeToast: [void]
+}>()
 
 const handleClose = () => {
-    emits("close-toast");
+    emits("closeToast");
 };
 </script>

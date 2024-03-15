@@ -8,3 +8,8 @@ bcrypt==4.0.1
 passlib[bcrypt]
 email-validator
 streaming-form-data
+
+#test
+httpx
+pytest
+pytest-asyncio

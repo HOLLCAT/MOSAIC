@@ -4,6 +4,7 @@ import { defineStore } from "pinia";
 import { inject, ref } from "vue";
 import type { ApplicationUser, LoginRequestType, RegisterRequestType } from "@/features/authentication/utils/types";
 import { useRouter } from "vue-router";
+import { isAxiosError } from "axios";
 
 export const useAuthStore = defineStore("auth", () => {
     const isDev = inject<boolean>("isDev")!;
@@ -25,7 +26,10 @@ export const useAuthStore = defineStore("auth", () => {
 
             router.push("/");
         } catch (error) {
-            if (isDev) console.log(error);
+            if (isAxiosError(error)) {
+                if (isDev) console.log(error.response?.data);
+                return error.response?.data.detail;
+            }
         }
     }
     async function register(request: RegisterRequestType) {
@@ -38,7 +42,10 @@ export const useAuthStore = defineStore("auth", () => {
 
             router.push("/");
         } catch (error) {
-            if (isDev) console.log(error);
+            if (isAxiosError(error)) {
+                if (isDev) console.log(error.response?.data);
+                return error.response?.data.detail;
+            }
         }
     }
     async function logout() {

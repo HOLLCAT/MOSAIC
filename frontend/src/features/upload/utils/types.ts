@@ -20,24 +20,10 @@ export type Samples = {
     Biomaterial_Provider: string;
     Date_Sample_Prep: string;
     Biological_Repeat: string;
-    // File: any;
 
     //more fields to be added
     [key: string]: string | null;
 }
-
-// export type UploadStateType = {
-//     studyDetails: {
-//         content: StudyDetails | null;
-//         error: string;
-//     }
-//     samples: {
-//         content: Samples[] | null;
-//         loading: boolean;
-//         error: string;
-//     }
-// }
-
 export type StudyDetailsType = {
     content: StudyDetails
     error: string

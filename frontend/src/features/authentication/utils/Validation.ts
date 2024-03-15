@@ -31,3 +31,5 @@ export const validateFullName = (fullName: string) => {
   }
   return '';
 };
+
+export default { validateConfirmPassword, validateEmail, validateFullName, validatePassword}

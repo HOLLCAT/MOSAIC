@@ -58,15 +58,17 @@ async def test_delete_file_metadata(mock_study):
 async def test_get_all_files_metadata():
     # Create simulation sample
     sample1 = MagicMock(Sample_ID="1")
-    sample1.file = MagicMock(file_name="file1.txt", file_uuid="uuid1")  # Sample with file
+    sample1.File = MagicMock(
+        file_name="file1.txt", file_uuid="uuid1"
+    )  # Sample with file
 
     sample2 = MagicMock(Sample_ID="2")
-    sample2.file = None  # Explicitly specify samples without files
+    sample2.File = None  # Explicitly specify samples without files
 
     sample3 = MagicMock(Sample_ID="3")
-    sample3.file = MagicMock(file_name="file2.txt", file_uuid="uuid456") 
+    sample3.File = MagicMock(file_name="file2.txt", file_uuid="uuid456")
 
-    #Create a simulation Study object and set the samples attribute
+    # Create a simulation Study object and set the samples attribute
     mock_study = MagicMock()
     mock_study.samples = [sample1, sample2, sample3]
 

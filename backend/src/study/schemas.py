@@ -43,6 +43,20 @@ class Sample(BaseSample):
     def validate_and_sanitize_sample_id(cls, v):
         """Pydantic validator to sanitize the Sample_ID field."""
         return cls.sanitize_sample_id(v)
+    
+    @field_validator("Sample_ID")
+    def validate_sample_id_value(cls, v):
+        """Pydantic validator to check the Sample_ID field is not empty."""
+        if not v or v == "":
+            raise ValueError("Sample_ID cannot be empty")
+        return v
+    
+    @field_validator("Sample")
+    def validate_sample_id_value(cls, v):
+        """Pydantic validator to check the Sample_ID field is not empty."""
+        if not v or v == "":
+            raise ValueError("Sample_ID cannot be empty")
+        return v
 
 
 class SampleResponse(BaseSample):
