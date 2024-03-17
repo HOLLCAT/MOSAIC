@@ -4,18 +4,19 @@ from fastapi.responses import Response
 from src.auth.jwt import parse_jwt
 from src.auth.schemas import TokenData
 
+from src.dashboard.constants import ActionMessage
+from src.dashboard.schemas import CreateAuditMessage
+
 from src.study.service import get_study_by_id
 from src.study.exceptions import StudyNotFound
 
-from src.files import service
-from src.files.exceptions import (
+from src.upload import service
+from src.upload.exceptions import (
     StudySamplesAlreadyUploaded,
     UserCannotUploadFile,
     SampleNotFound,
 )
-from src.files.utils import *
-
-from pathlib import Path
+from src.upload.utils import *
 
 router = APIRouter()
 
@@ -35,7 +36,7 @@ async def add_file_route(
     if not study:
         raise StudyNotFound()
 
-    if study.owner_id != user.id:
+    if study.owner_id != user.id and user.id not in [collaborator.id for collaborator in study.collaborators]:
         raise UserCannotUploadFile()
 
     if study.pending == False:
@@ -51,7 +52,7 @@ async def add_file_route(
         raise SampleNotFound()
 
     await save_file(request, study, sample_id)
-    
+
     is_all_files_uploaded = await service.is_all_files_uploaded(study)
     if is_all_files_uploaded:
         await service.update_study_pending_status(study)
@@ -70,6 +71,7 @@ async def download_file_route(accession_id: str, sample_id: str):
         raise StudyNotFound()
 
     file = await service.get_file_metadata(study, sample_id)
+    accession_id = study.accession_id
 
     if file is None:
         raise FileNotFound()
@@ -86,7 +88,7 @@ async def download_file_route(accession_id: str, sample_id: str):
     response = Response()
     response.headers["X-Accel-Redirect"] = f"/protected/{file}"
     response.headers["Content-Disposition"] = (
-        f"attachment; filename={accession_id}_{sample_id}{Path(original_filename).suffix}"
+        f"attachment; filename={accession_id}_{sample_id}.fastq.gz"
     )
     return response
 
@@ -105,7 +107,7 @@ async def delete_file_route(
     if not study:
         raise StudyNotFound()
 
-    if study.owner_id != user.id:
+    if study.owner_id != user.id and user.id not in [collaborator.id for collaborator in study.collaborators]:
         raise UserCannotUploadFile()
 
     file = await service.get_file_metadata(study, sample_id)
@@ -143,7 +145,7 @@ async def update_file_route(
     if not study:
         raise StudyNotFound()
 
-    if study.owner_id != user.id:
+    if study.owner_id != user.id and user.id not in [collaborator.id for collaborator in study.collaborators]:
         raise UserCannotUploadFile()
 
     file = await service.get_file_metadata(study, sample_id)
@@ -156,5 +158,14 @@ async def update_file_route(
 
     # Processes the new file upload
     await save_file(request, study, sample_id)
+
+    await service.create_audit(
+        CreateAuditMessage(
+            description=f"Updated file for sample {sample_id} in study {accession_id}"
+        ),
+        study,
+        user.email,
+        ActionMessage.UPDATED_FILE,
+    )
 
     return status.HTTP_200_OK

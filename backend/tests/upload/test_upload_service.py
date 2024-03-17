@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import AsyncMock, MagicMock
-from src.files.schemas import FileType
-from src.files.service import (
+from src.upload.schemas import FileType
+from src.upload.service import (
     store_file_metadata,
     get_file_metadata,
     delete_file_metadata,

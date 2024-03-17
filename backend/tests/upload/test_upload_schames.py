@@ -1,7 +1,7 @@
 import pytest
-from src.files.schemas import FileType
+from src.upload.schemas import FileType
 
-def test_file_type_model_with_valid_data():
+def test_upload_type_model_with_valid_data():
     # Use a valid UUID string
     file_data = {
         "file_name": "example.txt",

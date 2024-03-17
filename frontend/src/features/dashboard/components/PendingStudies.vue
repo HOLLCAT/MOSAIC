@@ -12,7 +12,6 @@
         <button v-if="currentEditing !== index" @click="editStudy(index)"
           class="font-bold bg-purple text-white rounded-xl px-4 py-2 hover:bg-blue-500 active:bg-red">Edit</button>
       </div>
-
       <EditStudy @show-toast="handleShowToast" v-if="currentEditing === index" :searchResult=item
         @upload-done="resetEditing" />
     </li>

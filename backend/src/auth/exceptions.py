@@ -17,10 +17,12 @@ class InvalidToken(NotAuthenticated):
 class InvalidCredentials(NotAuthenticated):
     DETAIL = ErrorCode.INVALID_CREDENTIALS
 
-
 class EmailTaken(BadRequest):
     DETAIL = ErrorCode.EMAIL_TAKEN
     
-    
 class UserNotFound(BadRequest):
     DETAIL = ErrorCode.USER_NOT_FOUND
+    
+class UserCannotGetAuditMessages(PermissionDenied):
+    DETAIL = ErrorCode.USER_CANNOT_GET_AUDIT_MESSAGES
+    

@@ -19,3 +19,4 @@ nginx/
 tests/
 main.py
 pytest.ini
+requirements.dev.txt

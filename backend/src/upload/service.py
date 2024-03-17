@@ -1,5 +1,5 @@
 from src.study.models import Study
-from src.files.schemas import FileType
+from src.upload.schemas import FileType
 
 
 async def store_file_metadata(
