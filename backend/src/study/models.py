@@ -5,6 +5,8 @@ from typing import Optional, List
 
 from src.study.schemas import Sample
 
+from src.dashboard.schemas import Collaborator, Audit
+
 
 class Counter(Document):
     _id: int
@@ -22,6 +24,10 @@ class Study(Document):
     authors: List[str] = Field(default_factory=list)
     samples: List[Sample]
     pending: bool = True
+    
+    collaborators: Optional[List[Collaborator]] = None
+    audit_messages: List[Audit] = Field(default_factory=list) 
+
 
     class Config:
         json_schema_extra = {

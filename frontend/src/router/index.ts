@@ -28,6 +28,8 @@ export const routes = [
     { path: '/dashboard', component: UserDashboard, name: 'dashboard', meta: { requiresAuth: true } },
 
     { path: '/:pathMatch(.*)*', redirect: '/', name: 'default' },
+    ,
+    { path: '/dashboard', component: UserDashboard, name: 'dashboard', meta: { requiresAuth: true } },
 ];
 
 const router = createRouter({

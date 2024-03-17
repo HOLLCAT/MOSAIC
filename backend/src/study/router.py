@@ -1,24 +1,27 @@
 from typing import List
 from fastapi import APIRouter, Depends, FastAPI, UploadFile, File, Form, status
 
-from src.auth.jwt import parse_jwt
-from src.auth.schemas import TokenData
-
 from src.database import get_database
 from src.dependencies import get_app
+
+from src.auth.jwt import parse_jwt
+from src.auth.schemas import TokenData
+from src.auth.exceptions import UserCannotGetAuditMessages
 
 from src.study import service, utils
 from src.study.exceptions import (
     StudyNotFound,
     UserCannotDeleteStudy,
-    UserCannotUpdateStudy,
     TitleMissing,
     InvalidSamples,
 )
-
 from src.study.schemas import CreateStudy, StudyResponse, StudyUpdate, SampleResponse
 
-from src.files.utils import delete_study_files
+from src.upload.utils import delete_study_files
+
+from src.dashboard.schemas import CreateAuditMessage
+from src.dashboard.constants import ActionMessage
+from src.dashboard.service import create_audit
 
 router = APIRouter()
 
@@ -63,6 +66,9 @@ async def create_study(
         new_study.samples[index] = new_sample
 
     await new_study.save()
+
+    audit = CreateAuditMessage(description="Study created")
+    await create_audit(audit, new_study, user.email, ActionMessage.CREATED_STUDY)
 
     return StudyResponse(**new_study.model_dump())
 
@@ -130,6 +136,7 @@ async def delete_study(
 async def update_study(
     accession_id: str,
     updated_study: StudyUpdate,
+    audit: CreateAuditMessage,
     user: TokenData = Depends(parse_jwt),
 ) -> StudyResponse:
 
@@ -137,10 +144,21 @@ async def update_study(
     if not original_study:
         raise StudyNotFound()
 
-    if original_study.owner_id != user.id:
-        raise UserCannotUpdateStudy()
+    # allow only the owner and collaborators to update the study
+    if (
+        original_study.owner_id != user.id
+        and original_study.collaborators is None
+        and not any(
+            collaborator.email == user.email
+            for collaborator in original_study.collaborators
+        )
+    ):
+        raise UserCannotGetAuditMessages()
 
     study = await service.update_study_by_id(original_study, updated_study)
+
+    await create_audit(audit, study, user.email, ActionMessage.UPDATED_STUDY)
+
     return StudyResponse(**study.model_dump())
 
 

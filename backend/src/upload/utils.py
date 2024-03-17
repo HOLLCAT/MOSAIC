@@ -1,5 +1,5 @@
 from pathlib import Path
-from src.files.exceptions import (
+from src.upload.exceptions import (
     FileNotFound,
     MaxBodySizeValidator,
     MaxBodySizeException,
@@ -11,7 +11,7 @@ from starlette.requests import ClientDisconnect
 from src.exceptions import BadRequest
 from fastapi import Request
 import os
-from src.files import service
+from src.upload import service
 import uuid
 from src.study.models import Study
 
@@ -24,14 +24,13 @@ async def save_file(request: Request, study: Study, sample_id: str):
     file_uuid = str(uuid.uuid4())
     save_path = Path(UPLOAD_DIR)
     save_path.mkdir(parents=True, exist_ok=True)
-    print(save_path, "save_path")
-    # Uses a unique  uuid to avoid temp processing issues
+   
     temp_file_path = save_path / f"{file_uuid}.temp"
-    print(temp_file_path, "temp_file_path")
+    
     body_validator = MaxBodySizeValidator(MAX_REQUEST_BODY_SIZE)
-    print(body_validator, "body_validator")
+   
     parser = StreamingFormDataParser(headers=request.headers)
-    print("parser")
+   
     file_target = FileTarget(
         str(temp_file_path), validator=MaxSizeValidator(MAX_FILE_SIZE)
     )
@@ -39,7 +38,6 @@ async def save_file(request: Request, study: Study, sample_id: str):
 
     try:
         async for chunk in request.stream():
-            print("chunk being processed...")
             body_validator(chunk)
             parser.data_received(chunk)
     except (ClientDisconnect, MaxBodySizeException) as e:
@@ -51,7 +49,7 @@ async def save_file(request: Request, study: Study, sample_id: str):
     final_file_path = (
         save_path / f"{file_uuid}{Path(file_target.multipart_filename).suffix}"
     )
-    print(final_file_path, "final_file_path")
+
     # Renames the temporary file to its final name
     temp_file_path.rename(final_file_path)
 

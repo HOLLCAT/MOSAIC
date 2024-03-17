@@ -1,11 +1,11 @@
 import pytest
 from unittest.mock import patch, MagicMock, AsyncMock
-from src.files.utils import save_file, delete_file, delete_study_files
-from src.files.exceptions import FileNotFound
+from src.upload.utils import save_file, delete_file, delete_study_files
+from src.upload.exceptions import FileNotFound
 from src.study.models import Study
 from src.study.schemas import Sample 
 from datetime import datetime
-from src.files.exceptions import FileNotFound
+from src.upload.exceptions import FileNotFound
 
 
 @pytest.fixture
@@ -39,7 +39,7 @@ def mock_study():
     return study
 
 @pytest.mark.asyncio
-@patch("src.files.utils.service.store_file_metadata", AsyncMock())
+@patch("src.upload.utils.service.store_file_metadata", AsyncMock())
 async def test_save_file_success(mock_study, tmp_path):
     boundary = 'boundary'
     content_type = f'multipart/form-data; boundary={boundary}'
@@ -64,21 +64,24 @@ async def test_save_file_success(mock_study, tmp_path):
     mock_request.stream = mock_stream
     mock_request.headers = headers
 
-    with patch('src.files.utils.UPLOAD_DIR', str(tmp_path)):
+    with patch("src.upload.utils.UPLOAD_DIR", str(tmp_path)):
         await save_file(mock_request, mock_study, 'sample_id')
     # Check if the file is saved
     assert any(tmp_path.iterdir()), "File should be saved"
 
 
 @pytest.mark.asyncio
-@patch("src.files.utils.service.get_file_metadata", AsyncMock(return_value=MagicMock(file_uuid='uuid', file_name='file.txt')))
-@patch("src.files.utils.service.delete_file_metadata", AsyncMock())
+@patch(
+    "src.upload.utils.service.get_file_metadata",
+    AsyncMock(return_value=MagicMock(file_uuid="uuid", file_name="file.txt")),
+)
+@patch("src.upload.utils.service.delete_file_metadata", AsyncMock())
 async def test_delete_file_success(mock_study, tmp_path):
     # Use tmp_path to simulate the path of file storage and create a simulation file
     file_path = tmp_path / 'uuid.txt'
     file_path.touch()
 
-    with patch('src.files.utils.UPLOAD_DIR', str(tmp_path)):
+    with patch("src.upload.utils.UPLOAD_DIR", str(tmp_path)):
         await delete_file(mock_study, 'sample_id')
 
     # Check if the file has been deleted
@@ -86,17 +89,19 @@ async def test_delete_file_success(mock_study, tmp_path):
 
 
 @pytest.mark.asyncio
-@patch("src.files.utils.service.get_file_metadata", AsyncMock(side_effect=FileNotFound))
-@patch("src.files.utils.service.get_file_metadata", AsyncMock(return_value=None))
+@patch(
+    "src.upload.utils.service.get_file_metadata", AsyncMock(side_effect=FileNotFound)
+)
+@patch("src.upload.utils.service.get_file_metadata", AsyncMock(return_value=None))
 async def test_delete_file_not_found(mock_study):
     # Test deletion of non-existent files
     with pytest.raises(FileNotFound):
         await delete_file(mock_study, 'sample_id')
 
+
 @pytest.mark.asyncio
-@patch("src.files.utils.service.get_all_files_metadata", AsyncMock(return_value=[]))
+@patch("src.upload.utils.service.get_all_files_metadata", AsyncMock(return_value=[]))
 async def test_delete_study_files():
     mock_study = MagicMock(samples=[])
 
     await delete_study_files(mock_study)
-

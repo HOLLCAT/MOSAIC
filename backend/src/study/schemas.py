@@ -1,7 +1,6 @@
 from pydantic import BaseModel, field_validator, model_validator
 from typing import Optional, List
-
-from src.files.schemas import FileType
+from src.upload.schemas import FileType
 import re
 
 
@@ -57,6 +56,14 @@ class Sample(BaseSample):
         if not v or v == "":
             raise ValueError("Sample_ID cannot be empty")
         return v
+
+
+class SampleResponse(BaseSample):
+
+    @model_validator(mode="before")
+    def remove_file(cls, values):
+        values.pop("File", None)
+        return values
 
 
 class SampleResponse(BaseSample):

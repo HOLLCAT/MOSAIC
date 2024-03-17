@@ -1,4 +1,4 @@
-from src.files.constants import ErrorCode
+from src.upload.constants import ErrorCode
 from src.exceptions import NotFound, ValidationError, BadRequest, PermissionDenied
 
 

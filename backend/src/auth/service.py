@@ -11,6 +11,16 @@ async def get_user_by_email(email: str):
 async def create_user(user: User):
     await user.create()
 
+
+async def get_user_name(email: str):
+    user = await user_collection.find_one({"email": email})
+
+    if user is None:
+        return None
+
+    return user.name
+
+
 async def get_user_by_refresh_token(refresh_token: str):
     user = await user_collection.find_one({"refresh_token": refresh_token})
     return user
