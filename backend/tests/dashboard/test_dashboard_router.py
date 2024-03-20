@@ -1,10 +1,23 @@
+from typing import List
+from pydantic import BaseModel
 import pytest
 from unittest.mock import patch, AsyncMock
 from fastapi import FastAPI
-from src.study.schemas import StudyResponse
 from fastapi.testclient import TestClient
 from src.dashboard.router import router as DashboardRouter
 from src.auth.jwt import generate_jwt
+
+
+class mockResponse(BaseModel):
+    owner_id: str
+    title: str
+    description: str
+    authors: List[str]
+    accession_id: str
+    created_date: str
+    samples: List[str]
+    isPublished: bool
+
 
 SAMPLE_STUDY = {
     "title": "Example Study",
@@ -13,8 +26,9 @@ SAMPLE_STUDY = {
     "created_date": "11 February 2024",
     "authors": [],
     "samples": [],
-    "owner_id": "owner1",
+    "owner_id": "sdkkld",
     "pending": "False",
+    "isPublished": "False",
 }
 
 TEST_USER = {
@@ -39,7 +53,7 @@ async def test_get_study_dash(client):
     jwt_token = generate_jwt(
         TEST_USER["email"], TEST_USER["user_id"], TEST_USER["role"]
     )
-    expected_study = StudyResponse(**SAMPLE_STUDY)
+    expected_study = mockResponse(**SAMPLE_STUDY)
     with patch(
         "src.dashboard.router.service.get_user_studies",
         new_callable=AsyncMock,
@@ -49,7 +63,7 @@ async def test_get_study_dash(client):
     ) as mock_get_collaborator_studies:
 
         mock_get_user_studies.return_value = [expected_study]
-        mock_get_collaborator_studies.return_value = []
+        mock_get_collaborator_studies.return_value = [expected_study]
         headers = {"Authorization": f"Bearer {jwt_token}"}
         response = client.get(f"/dashboard/studies", headers=headers)
         assert response.status_code == 200

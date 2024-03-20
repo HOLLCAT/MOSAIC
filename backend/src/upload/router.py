@@ -6,8 +6,8 @@ from src.auth.schemas import TokenData
 
 from src.dashboard.constants import ActionMessage
 from src.dashboard.schemas import CreateAuditMessage
+from src.dashboard.service import get_study_by_id
 
-from src.study.service import get_study_by_id
 from src.study.exceptions import StudyNotFound
 
 from src.upload import service

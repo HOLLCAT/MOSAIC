@@ -131,7 +131,7 @@ describe('PendingStudies.vue', () => {
     it('should not display EditStudy component upon clicking edit button', async () => {
         const wrapper = renderPendingStudies();
         expect(wrapper.findComponent(EditStudy).exists()).toBe(false);
-        await wrapper.findAll('button')[0].trigger('click');
+        await wrapper.findAll('button')[1].trigger('click');
         expect(wrapper.findComponent(EditStudy).exists()).toBe(true);
     });
 });

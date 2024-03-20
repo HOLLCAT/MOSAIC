@@ -74,8 +74,8 @@ describe('PendingStudiesTab.vue', () => {
         const wrapper = renderPendingStudiesTab();
 
         const buttons = wrapper.findAll('button');
-        expect(buttons.length).toBe(3);
-        expect(buttons[1].text()).toContain('Edit');
+        expect(buttons.length).toBe(5);
         expect(buttons[2].text()).toContain('Edit');
+        expect(buttons[4].text()).toContain('Edit');
     });
 });

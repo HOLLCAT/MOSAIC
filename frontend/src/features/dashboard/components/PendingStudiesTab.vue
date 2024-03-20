@@ -23,7 +23,7 @@ import { computed, onBeforeMount, ref } from 'vue';
 import SearchBar from './SearchBar.vue';
 import PendingStudies from './PendingStudies.vue';
 import { useDashboardStore } from '@/stores/dashboardStore';
-import type { SearchResultType } from '../utils/types';
+import type { DashboardStudyType } from '../utils/types';
 
 const dashboardStore = useDashboardStore();
 const pendingStudies = computed(() => dashboardStore.pendingStudies);
@@ -42,7 +42,7 @@ const filteredStudies = computed(() => {
     return pendingStudies.value;
   }
   const regex = new RegExp(searchValue.value, 'i');
-  return pendingStudies.value?.filter(study => regex.test(study.title)) as SearchResultType[];
+  return pendingStudies.value?.filter(study => regex.test(study.title)) as DashboardStudyType[];
 });
 
 </script>@/stores/dashboardStore

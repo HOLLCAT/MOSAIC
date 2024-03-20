@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils';
 import EditStudy from './EditStudy.vue';
 import { expect, describe, it, vi } from 'vitest';
 import UploadButton from '@/components/Buttons/UploadButton.vue';
+import { createPinia } from 'pinia';
 
 vi.mock('@/stores/dashboardStore', () => ({
     useDashboardStore: vi.fn(() => ({
@@ -12,7 +13,7 @@ vi.mock('@/stores/dashboardStore', () => ({
 const renderEditStudy = () => {
     return mount(EditStudy, {
         props: {
-            searchResult: {
+            study: {
                 accession_id: 'MOSAIC-0003',
                 created_date: '18 January 2024',
                 title: 'Sample Study',
@@ -55,7 +56,15 @@ const renderEditStudy = () => {
                     },
                 ],
                 pending: true,
+                isPublished: false,
+                isOwner: true,
+                audit: null,
             },
+            editable: true,
+        },
+        global: {
+            plugins: [createPinia()],
+            provide: { isDev: true },
         },
     });
 };

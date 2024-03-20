@@ -32,3 +32,9 @@ class MessageDoesNotExist(NotFound):
 
 class MessageCannotBeDeleted(PermissionDenied):
     code = ErrorCode.MESSAGE_CANNOT_BE_DELETED
+
+class UserCannotPublishStudy(PermissionDenied):
+    code = ErrorCode.USER_CANNOT_PUBLISH_STUDY
+
+class PendingStudyCannotBePublished(BadRequest):
+    code = ErrorCode.PENDING_STUDY_CANNOT_BE_PUBLISHED

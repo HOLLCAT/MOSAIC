@@ -46,7 +46,7 @@ const { samples: result } = storeToRefs(uploadStore);
 const samples = computed(() => result.value?.content);
 
 
-
+const requiredFields = ["Sample", "Sample_ID", "SampleGroup"];
 const handleUpload = () => {
     if (samples.value)
         uploadStore.uploadStudy(samples.value).then((res) => {

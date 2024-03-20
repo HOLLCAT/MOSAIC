@@ -43,7 +43,9 @@ def test_study_response_creation():
         "samples": [
             sample_required_fields.copy(),
             sample_required_fields.copy()
-        ]
+        ],
+        "isOwner": True,
+        "isPublished": False
     }
     study_data["samples"][1]["File"] = None  # The second sample has no files
     study = StudyResponse(**study_data)

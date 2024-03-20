@@ -24,6 +24,7 @@ class Study(Document):
     authors: List[str] = Field(default_factory=list)
     samples: List[Sample]
     pending: bool = True
+    isPublished: bool = False
     
     collaborators: Optional[List[Collaborator]] = None
     audit_messages: List[Audit] = Field(default_factory=list) 

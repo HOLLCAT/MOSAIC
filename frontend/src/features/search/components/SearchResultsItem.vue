@@ -4,10 +4,10 @@
       <div class="flex-col min-w-0 gap-x-4">
         <div class="flex">
           <span class="text-xsm md:text-sm text-gray-500">{{ item.accession_id }}</span>
-          <span class="md:hidden text-xsm md:text-sm text-gray-500 ml-2">{{ formatDate(item.created_date) }}</span>
-
-          <!-- <span v-if="item." class="text-xsm md:text-sm text-gray-500 ml-2">{{ item.releaseFiles }}</span>
-          <span v-if="item.releaseViews" class="text-xsm md:text-sm text-gray-500 ml-2">{{ item.releaseViews }}</span> -->
+          <span class="text-xsm md:text-sm text-gray-500 ml-2">|</span>
+          <span class="text-xsm md:text-sm text-gray-500 ml-2">{{ item.created_date }}</span>
+          <span class="text-xsm md:text-sm text-gray-500 ml-2">|</span>
+          <span class="text-xsm md:text-sm text-gray-500 ml-2">Samples: {{ item.samples.length }}</span>
         </div>
         <div class="flex-col">
           <RouterLink :to="`/study/${item.accession_id}`"

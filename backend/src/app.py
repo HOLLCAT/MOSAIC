@@ -2,6 +2,10 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
 from src.database import initiate_database, shutdown_database
+
+from src.study.schemas import HomePageData
+from src.study.service import get_study_and_samples_count
+
 from src.study.router import router as StudyRouter
 from src.auth.router import router as AuthRouter
 from src.upload.router import router as FilesRouter
@@ -23,8 +27,8 @@ app.add_middleware(LogMiddleware)
 
 
 @app.get("/", tags=["Root"])
-async def read_root():
-    return {"message": "Welcome to this fantastic app."}
+async def read_root() -> HomePageData:
+    return await get_study_and_samples_count()
 
 
 app.include_router(AuthRouter, tags=["auth"], prefix="/auth")

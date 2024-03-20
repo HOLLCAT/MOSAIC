@@ -1,14 +1,14 @@
-import { post } from "@/utils/axiosWrapper";
-import { defineStore } from "pinia";
-import { computed, inject, ref } from "vue";
+import { post, put } from '@/utils/axiosWrapper';
+import { defineStore } from 'pinia';
+import { computed, inject, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import type { StudyDetailsType, SamplesDetailsType } from "@/features/upload/utils/types";
-import type { Samples } from "@/utils/types";
-import { isAxiosError } from "axios";
+import type { StudyDetailsType, SamplesDetailsType } from '@/features/upload/utils/types';
+import type { Samples } from '@/utils/types';
+import { isAxiosError } from 'axios';
+import type { UpdateStudyType } from '@/features/dashboard/utils/types';
 
-
-export const useUploadStudyStore = defineStore("upload-study", () => {
-    const isDev = inject<boolean>("isDev")!;
+export const useUploadStudyStore = defineStore('upload-study', () => {
+    const isDev = inject<boolean>('isDev')!;
     const router = useRouter();
 
     // State
@@ -33,8 +33,8 @@ export const useUploadStudyStore = defineStore("upload-study", () => {
     });
 
     // Actions
-    function setStudyDetails(data: StudyDetailsType["content"]) {
-        if (!studyDetails.value) studyDetails.value = { content: data, error: "" };
+    function setStudyDetails(data: StudyDetailsType['content']) {
+        if (!studyDetails.value) studyDetails.value = { content: data, error: '' };
         else studyDetails.value.content = data;
     }
     async function uploadMetadata() {
@@ -42,8 +42,8 @@ export const useUploadStudyStore = defineStore("upload-study", () => {
             const url = import.meta.env.VITE_UPLOAD_METADATA_URL;
             const form = new FormData();
 
-            form.append("metadata", getStudyMetadata.value!.metadata);
-            form.append("metadata_file_type", getStudyMetadata.value!.file_type);
+            form.append('metadata', getStudyMetadata.value!.metadata);
+            form.append('metadata_file_type', getStudyMetadata.value!.file_type);
 
             const response = await post<Samples[]>(url, form, true);
 
@@ -53,18 +53,18 @@ export const useUploadStudyStore = defineStore("upload-study", () => {
             samples.value = {
                 content: response.data,
                 loading: false,
-                error: "",
+                error: '',
             };
 
-            return true
+            return true;
         } catch (err) {
             if (isAxiosError(err)) {
                 isDev && console.log(err.response);
                 samples.value = {
                     content: [],
                     loading: false,
-                    error: err.response?.data.message || "An error occurred while uploading metadata",
-                }
+                    error: err.response?.data.message || 'An error occurred while uploading metadata',
+                };
             }
             if (isDev) console.log(err);
 
@@ -81,10 +81,23 @@ export const useUploadStudyStore = defineStore("upload-study", () => {
             const response = await post(url, data);
             if (response.error) throw response.error;
 
-            router.push({ name: "dashboard", query: { tab: "PendingStudies" } });
+            router.push({ name: 'dashboard', query: { tab: 'PendingStudies' } });
         } catch (err) {
             if (isDev) console.log(err);
-            return false
+            return false;
+        }
+    }
+    async function updateStudy(study: UpdateStudyType, id: String) {
+        try {
+            const url = import.meta.env.VITE_STUDY_URL + `/${id}/`;
+
+            const response = await put(url, study);
+            if (response.error) throw response.error;
+
+            return true;
+        } catch (err) {
+            if (isDev) console.log(err);
+            return false;
         }
     }
 
@@ -92,6 +105,7 @@ export const useUploadStudyStore = defineStore("upload-study", () => {
         studyDetails,
         setStudyDetails,
         samples,
+        updateStudy,
         uploadMetadata,
         uploadStudy,
     };
