@@ -1,6 +1,5 @@
 class ErrorCode:
     PENDING_STUDIES_NOT_FOUND = "Pending studies not found."
-
     COLLABORATOR_ALREADY_EXISTS = "Collaborator already exists."
     USER_CANNOT_ADD_COLLABORATOR = "User cannot add collaborator."
     COLLABORATOR_NOT_FOUND = "Collaborator not found."
@@ -11,6 +10,9 @@ class ErrorCode:
     MESSAGE_DOES_NOT_EXIST = "Message does not exist."
     MESSAGE_CANNOT_BE_DELETED = "You do not have permission to delete this message."
     MESSAGE_NOT_FOUND = "Message not found."
+    USER_CANNOT_PUBLISH_STUDY = "User does not have permission to publish this study."
+    PENDING_STUDY_CANNOT_BE_PUBLISHED = "Pending study cannot be published."
+
 
 class ActionMessage:
     UPDATED_STUDY = "updated study"

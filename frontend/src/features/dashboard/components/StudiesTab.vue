@@ -10,7 +10,7 @@
 
         <div v-if="studies" class="bg-white rounded-lg p-4 mt-3">
             <div v-if="studies.length > 0 && filteredStudies">
-                <Studies :searchResults="filteredStudies" />
+                <Studies :studies="filteredStudies" />
             </div>
             <div v-else class="lg:col-span-3 bg-[#FAF9F6] text-center border rounded-xl p-3 h-[46.6vh]">
                 <h2 class="text-2xl font-bold text-gray-900">No Studies found</h2>

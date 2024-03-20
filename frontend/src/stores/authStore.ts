@@ -55,6 +55,8 @@ export const useAuthStore = defineStore("auth", () => {
             if (response.error) throw response.error;
 
             user.value = null;
+            router.push("/");
+            location.reload();
         } catch (error) {
             if (isDev) console.log(error);
         }

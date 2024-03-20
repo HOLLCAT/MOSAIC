@@ -15,6 +15,7 @@ interface ImportMetaEnv {
     readonly VITE_STUDY_DOWNLOAD_SAMPLE_URL: string;
 
     // Dashboard
+    readonly VITE_DASHBOARD_URL: string;
     readonly VITE_DASHBOARD_STUDIES_URL: string;
     readonly VITE_DASHBOARD_PENDING_STUDIES_URL: string;
 }

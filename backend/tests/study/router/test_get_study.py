@@ -63,7 +63,7 @@ async def test_get_study_should_return_study_when_study_exists(client):
     expected_study = StudyResponse(**SAMPLE_STUDY)
 
     with patch(
-        "src.study.router.service.get_study_by_id", new_callable=AsyncMock
+        "src.study.router.service.get_avaliable_study_by_id", new_callable=AsyncMock
     ) as mock_get_study:
         mock_get_study.return_value = expected_study
 
@@ -77,7 +77,7 @@ async def test_get_study_should_return_404_when_study_not_found(client):
     accession_id = "non_existing_id"
 
     with patch(
-        "src.study.router.service.get_study_by_id", new_callable=AsyncMock
+        "src.study.router.service.get_avaliable_study_by_id", new_callable=AsyncMock
     ) as mock_get_study:
         mock_get_study.return_value = None
 

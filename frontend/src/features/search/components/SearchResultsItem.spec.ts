@@ -57,13 +57,13 @@ describe('SearchResultsItem.vue', () => {
 
         const listItems = wrapper.findAll('li');
         expect(listItems[0].text()).toContain('123');
-        expect(listItems[0].text()).toContain('21-4-2022');
+        expect(listItems[0].text()).toContain('123|2022-04-21|Samples: 0Sample Title');
         expect(listItems[0].text()).toContain('Sample Title');
         expect(listItems[0].text()).toContain('Sample description');
         expect(listItems[0].text()).not.toContain('...');
 
         expect(listItems[1].text()).toContain('124');
-        expect(listItems[1].text()).toContain('5-11-2021');
+        expect(listItems[1].text()).toContain('124|2021-11-05|Samples: 0Sample Title');
         expect(listItems[1].text()).toContain('Sample Title 2');
         expect(listItems[1].text()).toContain('VeryLong...');
         expect(wrapper.findAll('h4')[1].text().length).toBe(143);

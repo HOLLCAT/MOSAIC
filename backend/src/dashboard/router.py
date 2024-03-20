@@ -1,5 +1,5 @@
 from typing import List, Optional
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Body, Depends, status
 
 from src.auth.jwt import parse_jwt
 from src.auth.schemas import TokenData
@@ -8,7 +8,6 @@ from src.auth.service import get_user_name, get_user_by_email
 from src.auth.exceptions import UserNotFound, UserCannotGetAuditMessages
 
 from src.study.exceptions import StudyNotFound
-from src.study.service import get_study_by_id
 
 from src.dashboard import service
 from src.dashboard.schemas import (
@@ -24,6 +23,8 @@ from src.dashboard.exceptions import (
     CollaboratorNotFound,
     UserCannotRemoveCollaborator,
     UserCannotGetCollaborators,
+    UserCannotPublishStudy,
+    PendingStudyCannotBePublished,
 )
 
 router = APIRouter()
@@ -54,7 +55,13 @@ async def user_studies(
     if not studies:
         raise StudyNotFound()
 
-    return [StudyResponse(**study.model_dump()) for study in studies]
+    return [
+        StudyResponse(
+            **study.model_dump(),
+            isOwner=study.owner_id == user.id,
+        )
+        for study in studies
+    ]
 
 
 @router.post(
@@ -68,7 +75,7 @@ async def add_study_collaborator(
     collaborator_data: CreateCollaborator,
     user: TokenData = Depends(parse_jwt),
 ) -> CollaboratorResponse:
-    study = await get_study_by_id(accession_id)
+    study = await service.get_study_by_id(accession_id)
 
     if not study:
         raise StudyNotFound()
@@ -91,21 +98,21 @@ async def add_study_collaborator(
 
     return CollaboratorResponse(
         **new_collaborator.model_dump(),
-        user_name=await get_user_name(new_collaborator.email),
+        name=await get_user_name(new_collaborator.email),
     )
 
 
 @router.delete(
-    "/{accession_id}/remove-collaborator/{collaborator_email}",
+    "/{accession_id}/remove-collaborator",
     status_code=status.HTTP_204_NO_CONTENT,
     response_description="Team member deleted from the study",
 )
 async def remove_study_collaborator(
     accession_id: str,
-    collaborator_email: str,
+    collaborator_email: str = Body(...),
     user: TokenData = Depends(parse_jwt),
 ):
-    study = await get_study_by_id(accession_id)
+    study = await service.get_study_by_id(accession_id)
 
     if not study:
         raise StudyNotFound()
@@ -134,7 +141,7 @@ async def remove_study_collaborator(
 async def get_study_collaborators(
     accession_id: str, user: TokenData = Depends(parse_jwt)
 ) -> List[CollaboratorResponse]:
-    study = await get_study_by_id(accession_id)
+    study = await service.get_study_by_id(accession_id)
 
     if not study:
         raise StudyNotFound()
@@ -153,8 +160,8 @@ async def get_study_collaborators(
 
     return [
         CollaboratorResponse(
-            position=collaborator.position,
-            user_name=await get_user_name(collaborator.email),
+            **collaborator.model_dump(),
+            name=await get_user_name(collaborator.email),
         )
         for collaborator in study.collaborators
     ]
@@ -168,7 +175,7 @@ async def get_study_collaborators(
 async def get_study_audit_messages(
     accession_id: str, user: TokenData = Depends(parse_jwt)
 ) -> List[AuditMessageResponse]:
-    study = await get_study_by_id(accession_id)
+    study = await service.get_study_by_id(accession_id)
 
     if not study:
         raise StudyNotFound()
@@ -188,6 +195,34 @@ async def get_study_audit_messages(
 
     for msg in audit_messages:
         user_name = await get_user_name(msg.user_email)
-        response.append(AuditMessageResponse(**msg.model_dump(), user_name=user_name))
+        response.append(AuditMessageResponse(**msg.model_dump(), name=user_name))
 
     return response
+
+
+@router.post(
+    "/publish/{accession_id}",
+    response_description="Publish your study",
+    status_code=status.HTTP_201_CREATED,
+)
+async def publish_study(accession_id: str, user: TokenData = Depends(parse_jwt)):
+    study = await service.get_study_by_id(accession_id)
+
+    if not study:
+        raise StudyNotFound()
+
+    if (
+        study.owner_id != user.id
+        and study.collaborators is None
+        and not any(
+            collaborator.email == user.email for collaborator in study.collaborators
+        )
+    ):
+        raise UserCannotPublishStudy()
+
+    if study.pending:
+        raise PendingStudyCannotBePublished()
+
+    await service.publish_study(study)
+
+    return status.HTTP_201_CREATED

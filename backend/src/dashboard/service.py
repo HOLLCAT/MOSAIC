@@ -1,7 +1,6 @@
 from typing import List
 
 from src.study.models import Study
-from src.study.service import get_study_by_id
 
 from src.dashboard.schemas import Collaborator, CreateCollaborator
 from src.dashboard.schemas import CreateAuditMessage, Audit
@@ -9,6 +8,10 @@ from src.dashboard.constants import ActionMessage
 
 study_collection = Study
 
+
+async def get_study_by_id(accession_id: str) -> Study | None:
+    study = await study_collection.find_one({"accession_id": accession_id})
+    return study
 
 async def get_user_studies(owner_id: str) -> List[Study]:
     user_studies = (
@@ -112,3 +115,8 @@ async def get_audit_messages(accession_id: str) -> List[Audit]:
     study = await get_study_by_id(accession_id)
 
     return study.audit_messages
+
+
+async def publish_study(study: Study) -> None:
+    study.isPublished = True
+    await study.save()

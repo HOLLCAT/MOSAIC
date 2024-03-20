@@ -9,18 +9,18 @@ class Audit(BaseModel):
     )
     user_email: str
     action: Optional[str] = None
-    description: Optional[str] = None
+    description: str
 
 
 class CreateAuditMessage(BaseModel):
-    description: Optional[str] = None
+    description: str
 
     class Config:
         json_schema_extra = {"example": {"description": "Example description"}}
 
 
 class AuditMessageResponse(BaseModel):
-    user_name: str
+    name: str
     created_date: str
     action: str
     description: str
@@ -65,12 +65,13 @@ class SampleResponse(BaseModel):
 
 
 class CreateCollaborator(BaseModel):
-    email: Optional[EmailStr]
-    position: Optional[str]
+    email: EmailStr
+    position: Optional[str] = None
 
 
 class CollaboratorResponse(BaseModel):
-    user_name: str
+    name: str
+    email: EmailStr
     position: str
 
 
@@ -81,3 +82,5 @@ class StudyResponse(BaseModel):
     accession_id: str
     created_date: str
     samples: List[SampleResponse]
+    isOwner: bool
+    isPublished: bool

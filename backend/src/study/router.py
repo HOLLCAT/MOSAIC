@@ -97,7 +97,7 @@ async def search_studies(title: str = None) -> List[StudyResponse]:
     status_code=status.HTTP_200_OK,
 )
 async def get_study(accession_id: str) -> StudyResponse:
-    study = await service.get_study_by_id(accession_id)
+    study = await service.get_avaliable_study_by_id(accession_id)
     if not study:
         raise StudyNotFound()
 
